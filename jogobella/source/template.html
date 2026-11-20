@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jogobella — Real fruit yogurts</title>
+<meta name="description" content="Jogobella drinking yogurts with real fruit pieces. Cherry, Strawberry, Raspberry lime, Peach maracuja, Apricot and Watermelon.">
+<style>
+@font-face{font-family:Poppins;font-style:normal;font-weight:500;font-display:swap;src:url(@@P500@@) format('woff2')}
+@font-face{font-family:Poppins;font-style:normal;font-weight:600;font-display:swap;src:url(@@P600@@) format('woff2')}
+@font-face{font-family:Poppins;font-style:normal;font-weight:700;font-display:swap;src:url(@@P700@@) format('woff2')}
+@font-face{font-family:'Baloo 2';font-style:normal;font-weight:800;font-display:swap;src:url(@@B800@@) format('woff2')}
+
+:root{
+  --u:1px;
+  --n:clamp(0.5px, min(calc(100vw / 1440), calc(100vh / 900)), 1.3px);
+  --fy:0px;
+  --ease:cubic-bezier(0.22, 0.8, 0.3, 1);
+  --ui-shadow:0 1px 6px rgba(90,70,40,0.18);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;overflow:hidden}
+body{
+  background:@@BG0@@;
+  touch-action:pan-y;
+  font-family:Poppins, system-ui, sans-serif;
+  color:#FFFFFF;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* ---------- stage + slides ---------- */
+.stage{position:fixed;inset:0;overflow:hidden;user-select:none;-webkit-user-select:none}
+.slide{position:absolute;inset:0;overflow:hidden;visibility:hidden;z-index:0}
+.slide.is-current{visibility:visible;z-index:2}
+.frame{
+  position:absolute;
+  width:calc(1440 * var(--u));height:calc(900 * var(--u));
+  left:calc(50% - 720 * var(--u));
+  top:calc(50% - 450 * var(--u) + var(--fy));
+}
+.layer{position:absolute;inset:0;will-change:transform}
+.word{
+  position:absolute;left:0;width:100%;
+  text-align:center;font-weight:700;line-height:1;white-space:nowrap;color:#FFFFFF;
+  font-kerning:normal;
+}
+.shadow{
+  position:absolute;border-radius:50%;
+  background:radial-gradient(closest-side, rgba(60,40,80,0.22), transparent);
+  filter:blur(calc(4 * var(--u)));
+}
+.crop{background-repeat:no-repeat}
+.cup{position:absolute}
+.cup .crop{width:100%;height:100%}
+.pc{position:absolute}
+.pc.mirror{transform:scaleX(-1)}
+.corner .pc{filter:blur(calc(9 * var(--u)))}
+.pi{
+  width:100%;height:100%;
+  transform:rotate(var(--r));
+  animation:bob var(--d) ease-in-out var(--dl) infinite alternate;
+  will-change:transform;
+}
+@keyframes bob{
+  from{transform:translateY(calc(-7 * var(--u))) rotate(calc(var(--r) - 3deg))}
+  to{transform:translateY(calc(7 * var(--u))) rotate(calc(var(--r) + 3deg))}
+}
+
+/* ---------- fixed UI ---------- */
+.ui{position:fixed;inset:0;z-index:10;pointer-events:none}
+.ui a,.ui button{
+  pointer-events:auto;background:none;border:0;color:#FFFFFF;font:inherit;
+  text-decoration:none;cursor:pointer;padding:0;margin:0;
+  -webkit-tap-highlight-color:transparent;
+}
+.ui a:focus-visible,.ui button:focus-visible{outline:2px solid #FFFFFF;outline-offset:4px;border-radius:4px}
+.hdr{
+  position:absolute;left:calc(50 * var(--n));right:calc(50 * var(--n));
+  top:calc(26 * var(--n));height:calc(50 * var(--n));
+  display:flex;align-items:center;
+}
+.ui .logo{
+  font-family:'Baloo 2', Poppins, system-ui, sans-serif;font-weight:800;
+  font-size:calc(51 * var(--n));letter-spacing:-0.02em;line-height:1;
+  text-shadow:var(--ui-shadow);
+}
+.tabs{
+  position:absolute;left:50%;transform:translateX(-50%);
+  display:flex;gap:calc(44 * var(--n));
+  font-weight:500;font-size:calc(21 * var(--n));
+}
+.tabs button{padding:calc(6 * var(--n)) 0;text-shadow:var(--ui-shadow);white-space:nowrap;line-height:1.5}
+.ul{
+  position:absolute;left:0;top:0;height:2px;border-radius:2px;background:#FFFFFF;width:0;
+  box-shadow:var(--ui-shadow);
+  transition:transform 0.6s cubic-bezier(0.65, 0, 0.35, 1), width 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+  pointer-events:none;
+}
+.acct{
+  margin-left:auto;display:flex;align-items:center;gap:calc(22 * var(--n));
+  font-weight:500;font-size:calc(21 * var(--n));
+}
+.acct a,.acct span{text-shadow:var(--ui-shadow)}
+.acct .sep{opacity:0.9}
+.ui .shop{
+  position:absolute;left:50%;transform:translateX(-50%);
+  bottom:calc(36 * var(--n));
+  font-weight:600;font-size:calc(21 * var(--n));letter-spacing:0.2em;
+  padding:calc(10 * var(--n)) calc(16 * var(--n));
+  text-shadow:var(--ui-shadow);white-space:nowrap;line-height:1.5;
+}
+.arrow{
+  position:absolute;bottom:calc(30 * var(--n));
+  width:calc(52 * var(--n));height:calc(52 * var(--n));
+  display:flex;align-items:center;justify-content:center;
+}
+.arrow.prev{left:calc(36 * var(--n))}
+.arrow.next{right:calc(36 * var(--n))}
+.arrow svg{width:calc(28 * var(--n));height:calc(28 * var(--n));overflow:visible;filter:drop-shadow(0 1px 4px rgba(90,70,40,0.18))}
+.arrow path{fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* hidden state before the opening sequence */
+.is-pre .rise{opacity:0;translate:0 14px}
+.is-pre .slide.is-current .frame{opacity:0}
+
+/* ---------- tablet + phone ---------- */
+@media (max-width:820px), (orientation:portrait){
+  :root{--n:1px}
+  .hdr{left:20px;right:20px;top:16px;height:40px}
+  .ui .logo{font-size:34px}
+  .acct{font-size:15px;gap:10px}
+  .tabs{
+    top:36px;gap:6px 22px;font-size:15px;
+    flex-wrap:wrap;justify-content:center;width:max-content;max-width:min(320px, calc(100vw - 40px));
+  }
+  .tabs button{padding:6px 0}
+  .ui .shop{font-size:15px;bottom:22px}
+  .arrow{width:48px;height:48px;bottom:12px}
+  .arrow.prev{left:8px}
+  .arrow.next{right:8px}
+  .arrow svg{width:24px;height:24px}
+}
+</style>
+</head>
+<body class="is-pre">
+<main class="stage" id="stage" aria-roledescription="carousel" aria-label="Jogobella flavours"></main>
+
+<div class="ui">
+  <header class="hdr">
+    <a class="logo rise" href="#" data-rise="250">Jogobella</a>
+    <nav class="tabs rise" id="tabs" aria-label="Flavours" data-rise="330"><span class="ul" id="ul"></span></nav>
+    <div class="acct rise" data-rise="410">
+      <a href="#">Cart</a><span class="sep" aria-hidden="true">|</span><a href="#">Register</a>
+    </div>
+  </header>
+  <button class="arrow prev rise" id="prev" type="button" aria-label="Previous flavour" data-rise="490">
+    <svg viewBox="0 0 28 28" aria-hidden="true"><path d="M24 14H4 M12 6l-8 8 8 8"/></svg>
+  </button>
+  <a class="shop rise" href="#" data-rise="570">SHOP NOW</a>
+  <button class="arrow next rise" id="next" type="button" aria-label="Next flavour" data-rise="650">
+    <svg viewBox="0 0 28 28" aria-hidden="true"><path d="M4 14h20 M16 6l8 8-8 8"/></svg>
+  </button>
+</div>
+
+<script>
+(() => {
+'use strict';
+
+/* ---------------- data ---------------- */
+// Each flavour: one 2048 x 2048 transparent cut-out sheet. Item 0 is the bottle,
+// items 1-3 are fruit pieces. Boxes are [x, y, w, h] in sheet pixels.
+const FLAVOURS = /*DATA*/;
+const SHEET = 2048;
+const FACTORS = [0.40, 0.30, 0.15, 0.55, 0.75]; // word, shadow, cup, fruit, corner
+const SHADOWS = [[345, 650, 170, 24], [720, 712, 250, 30], [1318, 638, 160, 22], [1045, 760, 150, 22]];
+const DUR = 970;
+const COVER = [
+  [0, 0], [0.031, 0.006], [0.134, 0.012], [0.206, 0.023], [0.278, 0.047], [0.34, 0.07],
+  [0.412, 0.105], [0.485, 0.158], [0.546, 0.246], [0.583, 0.55], [0.62, 0.825], [0.69, 0.9],
+  [0.79, 0.94], [0.85, 0.956], [0.93, 0.975], [1, 1]
+];
+
+const q = new URLSearchParams(location.search);
+// Reduced motion is honoured only when asked for with ?reduced=1, so the demo always shows its motion.
+const REDUCED = q.has('reduced') || (q.has('respect-motion') && matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+const root = document.documentElement;
+const stage = document.getElementById('stage');
+const tabsEl = document.getElementById('tabs');
+const ul = document.getElementById('ul');
+
+/* ---------------- helpers ---------------- */
+const U = v => `calc(${+v.toFixed(3)} * var(--u))`;
+const clamp01 = v => v < 0 ? 0 : v > 1 ? 1 : v;
+const smooth = k => 3 * k * k - 2 * k * k * k;
+const easeOutQuad = k => 1 - (1 - k) * (1 - k);
+function cover(t) {
+  if (t <= 0) return 0;
+  if (t >= 1) return 1;
+  for (let i = 1; i < COVER.length; i++) {
+    const [t1, c1] = COVER[i];
+    if (t <= t1) {
+      const [t0, c0] = COVER[i - 1];
+      return c0 + (c1 - c0) * smooth((t - t0) / (t1 - t0));
+    }
+  }
+  return 1;
+}
+function rnd(a, b) { return a + Math.random() * (b - a); }
+
+// Crop one sheet item at target width W (design px).
+function crop(el, url, box, W) {
+  const [bx, by, bw, bh] = box;
+  const s = W / bw;
+  el.style.backgroundImage = `url("${url}")`;
+  el.style.backgroundSize = `${U(SHEET * s)} ${U(SHEET * s)}`;
+  el.style.backgroundPosition = `${U(-bx * s)} ${U(-by * s)}`;
+  return bh * s;
+}
+
+/* ---------------- build ---------------- */
+const slides = FLAVOURS.map((f, i) => {
+  const sec = document.createElement('section');
+  sec.className = 'slide' + (i === 0 ? ' is-current' : '');
+  sec.style.background = f.color;
+  sec.setAttribute('aria-roledescription', 'slide');
+  sec.setAttribute('aria-label', `${f.word} flavour`);
+  if (i !== 0) sec.setAttribute('aria-hidden', 'true');
+  const frame = document.createElement('div'); frame.className = 'frame';
+  const mk = cls => { const d = document.createElement('div'); d.className = 'layer ' + cls; frame.appendChild(d); return d; };
+  const L = { word: mk('word-layer'), shadow: mk('shadow-layer'), cup: mk('cup-layer'), fruit: mk('fruit'), corner: mk('corner') };
+
+  const w = document.createElement('div'); w.className = 'word'; w.textContent = f.word; w.setAttribute('aria-hidden', 'true');
+  L.word.appendChild(w);
+
+  SHADOWS.forEach(([cx, cy, sw, sh]) => {
+    const d = document.createElement('div'); d.className = 'shadow';
+    Object.assign(d.style, { left: U(cx - sw / 2), top: U(cy - sh / 2), width: U(sw), height: U(sh) });
+    L.shadow.appendChild(d);
+  });
+
+  const cup = document.createElement('div'); cup.className = 'cup';
+  const cupImg = document.createElement('div'); cupImg.className = 'crop';
+  cupImg.setAttribute('role', 'img'); cupImg.setAttribute('aria-label', `Jogobella ${f.word} drinking yogurt bottle`);
+  const ch = crop(cupImg, f.sheet, f.boxes[0], f.cup.w);
+  Object.assign(cup.style, { left: U(f.cup.x), top: U(f.cup.y), width: U(f.cup.w), height: U(ch) });
+  cup.appendChild(cupImg); L.cup.appendChild(cup);
+
+  f.pieces.forEach(([item, x, y, pw, rot, mirror, layer]) => {
+    const o = document.createElement('div'); o.className = 'pc' + (mirror ? ' mirror' : '');
+    const inner = document.createElement('div'); inner.className = 'pi crop';
+    const ph = crop(inner, f.sheet, f.boxes[item], pw);
+    Object.assign(o.style, { left: U(x), top: U(y), width: U(pw), height: U(ph) });
+    inner.style.setProperty('--r', rot + 'deg');
+    inner.style.setProperty('--d', rnd(3.2, 5.0).toFixed(2) + 's');
+    inner.style.setProperty('--dl', (-rnd(0, 4)).toFixed(2) + 's');
+    if (REDUCED) inner.style.animation = 'none';
+    o.appendChild(inner); L[layer].appendChild(o);
+  });
+
+  sec.appendChild(frame); stage.appendChild(sec);
+
+  const b = document.createElement('button');
+  b.type = 'button'; b.textContent = f.tab || f.word;
+  b.addEventListener('click', () => { touch(); if (i !== cur) go(i, i > cur ? 1 : -1); });
+  tabsEl.insertBefore(b, ul);
+
+  return { el: sec, frame, word: w, layers: [L.word, L.shadow, L.cup, L.fruit, L.corner], tab: b, f };
+});
+
+/* ---------------- layout ---------------- */
+let u = 1, mobile = false;
+const meas = document.createElement('canvas').getContext('2d');
+function inkWidth100(text) {
+  meas.font = '700 100px Poppins';
+  const m = meas.measureText(text);
+  return (m.actualBoundingBoxLeft || 0) + (m.actualBoundingBoxRight || m.width);
+}
+function layoutWords() {
+  const visible = mobile ? Math.min(1440, innerWidth / u) * 0.92 : 1400;
+  const limit = mobile ? visible : 1330;
+  slides.forEach(s => {
+    const text = s.f.word, n = Math.max(1, text.length - 1);
+    const ink = inkWidth100(text) / 100; // ink per px of font size
+    let F = 445, ls = 0.005;
+    if ((ink + n * ls) * F > limit) {
+      ls = -0.035;
+      F = Math.min(445, visible / (ink + n * ls));
+    }
+    const baseline = 403.5 + 0.698 * F / 2;
+    const top = baseline - 0.85 * F;
+    s.word.style.fontSize = U(F);
+    s.word.style.letterSpacing = ls + 'em';
+    s.word.style.top = U(top);
+    s.F = F;
+  });
+}
+function layout() {
+  const W = innerWidth, H = innerHeight;
+  mobile = W <= 820 || H > W;
+  u = mobile ? Math.min(W / 640, (H - 200) / 620) : Math.min(W / 1440, H / 900);
+  root.style.setProperty('--u', u + 'px');
+  root.style.setProperty('--fy', (mobile ? 8 : 0) + 'px');
+  layoutWords();
+  placeUnderline(true);
+}
+function placeUnderline(instant) {
+  const t = slides[target].tab;
+  if (instant || REDUCED) ul.style.transition = 'none';
+  ul.style.width = t.offsetWidth + 'px';
+  ul.style.transform = `translate(${t.offsetLeft}px, ${t.offsetTop + t.offsetHeight + 2}px)`;
+  if (instant || REDUCED) { void ul.offsetWidth; ul.style.transition = ''; }
+}
+function setTab(i) {
+  target = i;
+  slides.forEach((s, k) => s.tab.setAttribute('aria-current', k === i ? 'true' : 'false'));
+  placeUnderline(false);
+}
+
+/* ---------------- transitions ---------------- */
+let cur = 0, target = 0, busy = false;
+function setX(layers, xs) { layers.forEach((l, i) => { l.style.transform = xs[i] ? `translate3d(${xs[i]}px,0,0)` : ''; }); }
+function finish(to) {
+  slides.forEach((s, k) => {
+    s.el.style.clipPath = ''; s.el.style.zIndex = ''; s.el.style.visibility = '';
+    setX(s.layers, [0, 0, 0, 0, 0]);
+    s.el.classList.toggle('is-current', k === to);
+    if (k === to) s.el.removeAttribute('aria-hidden'); else s.el.setAttribute('aria-hidden', 'true');
+  });
+  document.body.style.background = slides[to].f.color;
+  cur = to; busy = false;
+}
+function go(to, dir) {
+  if (busy || to === cur) return;
+  busy = true;
+  setTab(to);
+  if (REDUCED) { finish(to); return; }
+  const A = slides[cur], B = slides[to];
+  B.el.style.visibility = 'visible'; B.el.style.zIndex = '1';
+  A.el.style.zIndex = '2';
+  const fw = 1440 * u;
+  setX(B.layers, FACTORS.map(f => dir * f * fw));
+  const t0 = performance.now();
+  const step = now => {
+    const t = (now - t0) / DUR;
+    const c = cover(Math.min(t, 1));
+    A.el.style.clipPath = dir > 0 ? `inset(0 ${c * 100}% 0 0)` : `inset(0 0 0 ${c * 100}%)`;
+    setX(A.layers, FACTORS.map(() => -dir * c * 0.14 * fw));
+    const k = easeOutQuad(clamp01((t - 0.5) / 0.42));
+    setX(B.layers, FACTORS.map(f => dir * (1 - k) * f * fw));
+    if (t >= 1 && k >= 1) finish(to); else requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+const next = () => go((cur + 1) % slides.length, 1);
+const prev = () => go((cur - 1 + slides.length) % slides.length, -1);
+
+/* ---------------- controls ---------------- */
+let lastTouch = -Infinity;
+function touch() { lastTouch = performance.now(); }
+document.getElementById('next').addEventListener('click', () => { touch(); next(); });
+document.getElementById('prev').addEventListener('click', () => { touch(); prev(); });
+addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') { touch(); next(); }
+  else if (e.key === 'ArrowLeft') { touch(); prev(); }
+});
+let sx = null, sy = 0;
+stage.addEventListener('pointerdown', e => { sx = e.clientX; sy = e.clientY; });
+addEventListener('pointerup', e => {
+  if (sx === null) return;
+  const dx = e.clientX - sx, dy = e.clientY - sy; sx = null;
+  if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) { touch(); dx < 0 ? next() : prev(); }
+});
+addEventListener('pointercancel', () => { sx = null; });
+setInterval(() => {
+  if (document.visibilityState === 'visible' && performance.now() - lastTouch > 6000 && !busy) next();
+}, 2600);
+addEventListener('resize', layout);
+
+/* ---------------- opening sequence ---------------- */
+setTab(0);
+layout();
+let revealed = false;
+function reveal() {
+  if (revealed) return; revealed = true;
+  layout();
+  document.body.classList.remove('is-pre');
+  if (REDUCED || !Element.prototype.animate) return;
+  const fw = 1440 * u;
+  const opts = { duration: 900, easing: 'cubic-bezier(0.22, 0.8, 0.3, 1)' };
+  slides[0].layers.forEach((l, i) => l.animate([{ transform: `translate3d(${FACTORS[i] * fw}px,0,0)` }, { transform: 'translate3d(0,0,0)' }], opts));
+  slides[0].frame.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, easing: 'linear' });
+  document.querySelectorAll('.rise').forEach(el => {
+    el.animate([{ opacity: 0, translate: '0 14px' }, { opacity: 1, translate: '0 0' }],
+      { duration: 1000, delay: +el.dataset.rise, easing: 'cubic-bezier(0.22, 0.8, 0.3, 1)', fill: 'backwards' });
+  });
+}
+(document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(reveal);
+setTimeout(reveal, 3000); // failsafe
+})();
+</script>
+</body>
+</html>
