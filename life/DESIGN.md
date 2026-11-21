@@ -6,9 +6,20 @@
    - **Prompt libraries:** motionsites.ai (free prompts for motion/2D/3D sections) and similar.
      Check each site's terms: use prompts as allowed, never pass off someone's paid prompt as ours.
    - **Galleries:** Awwwards, Godly, Land-book, Lapa Ninja, Dribbble (web), SiteInspire.
-   - **Same-niche winners:** the best-looking sites of that trade in big cities.
+   - **Same-niche winners:** use Chrome to open the most successful businesses in that trade
+     (top Google results, most reviews, big-city leaders). Note what they all have: sections, offers,
+     calls to action, booking flows, trust signals. That's what a client in that niche needs too.
+   - **Any successful site** worth learning from: fast-growing brands, top SaaS, award winners.
+     Look at structure, copy, motion and conversion tricks, not just looks.
 3. Note 2–3 patterns to borrow (layout, motion, typography, hero idea). Borrow patterns, never copy
    a site, its text or its images.
+
+## Research beyond design
+Chrome is the team's research tool for everything: how successful studios price and pitch,
+what templates sell on Gumroad, which bounties get paid, what competitors charge in each market.
+Study what already works, then do it better. Save findings in `life/design-notes.md` or `LESSONS.md`.
+Guard rules still apply while browsing: don't sign in to random sites, download unknown files,
+or enter details anywhere without Thierry's OK.
 
 ## 2D and 3D
 - **2D motion** (scroll reveals, animated SVG, Lottie, subtle parallax): good for most clients. Cheap to build, feels premium.
