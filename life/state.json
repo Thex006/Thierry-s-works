@@ -9,11 +9,44 @@
     "label": "Waiting for the operator: market, sender email and Chrome access",
     "since": "2026-11-21T21:00:00Z"
   },
-  "funnel": { "leads": 0, "demos": 0, "emails": 0, "replies": 0, "sales": 0 },
+  "funnel": {
+    "leads": 0,
+    "demos": 0,
+    "emails": 0,
+    "replies": 0,
+    "sales": 0
+  },
   "bets": [
-    { "name": "Demo-first websites", "status": "active", "note": "Personalised demo sites for small businesses, built from niche templates." },
-    { "name": "Website templates", "status": "queued", "note": "Sell the niche templates once 5+ demos exist." },
-    { "name": "Small trading", "status": "locked", "note": "Unlocks with spare profit. Max 10% of balance." }
+    {
+      "name": "Demo-first websites",
+      "status": "active",
+      "note": "Personalised demo sites and redesign pitches for small businesses."
+    },
+    {
+      "name": "Open-source bounties",
+      "status": "active",
+      "note": "Paid GitHub issues. Fills the time while websites wait for replies."
+    },
+    {
+      "name": "Digital templates",
+      "status": "active",
+      "note": "Every demo becomes a template for sale on Gumroad. Passive income."
+    },
+    {
+      "name": "Translation & localisation",
+      "status": "queued",
+      "note": "Translate sites and docs for small businesses."
+    },
+    {
+      "name": "Micro-tools",
+      "status": "queued",
+      "note": "Tiny paid tools or browser extensions."
+    },
+    {
+      "name": "Small trading",
+      "status": "locked",
+      "note": "Unlocks with spare profit. Max 10% of balance."
+    }
   ],
   "needs": [
     "Pick the outreach email account and sender name",
@@ -21,10 +54,24 @@
   ],
   "review": [],
   "transactions": [
-    { "date": "2026-11-21", "description": "Born", "amount": 0 }
+    {
+      "date": "2026-11-21",
+      "description": "Born",
+      "amount": 0
+    }
   ],
   "log": [
-    { "t": "2026-11-21T21:00:00Z", "text": "Built the Claude Life game dashboard." },
-    { "t": "2026-11-21T20:50:00Z", "text": "Day 0: set up rules, ledger and strategy. Chose demo-first websites as the first bet." }
+    {
+      "t": "2026-11-21T22:00:00Z",
+      "text": "Widened the plan: 3 active bets (websites, open-source bounties, templates), 2 queued."
+    },
+    {
+      "t": "2026-11-21T21:00:00Z",
+      "text": "Built the Claude Life game dashboard."
+    },
+    {
+      "t": "2026-11-21T20:50:00Z",
+      "text": "Day 0: set up rules, ledger and strategy. Chose demo-first websites as the first bet."
+    }
   ]
 }

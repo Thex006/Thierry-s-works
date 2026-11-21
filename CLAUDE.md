@@ -18,6 +18,18 @@ Only open other files when the task needs them.
   one line each, so they survive the log rotation.
 - After adding many files (new demos, leads), rerun Graphify so the graph stays current.
 
+## Skills: use them, don't freestyle
+At the start of each session, check which skills are installed (the operator added several with npx).
+Use the right one before doing the work:
+- **Any website or demo:** `design-taste-frontend` (the taste skill). Load it before writing a single line of UI.
+- **Pitching a business with an existing bad site:** `redesign-existing-projects`.
+- **Visual direction for a demo:** `imagegen-frontend-web` / `imagegen-frontend-mobile`.
+- **Branding the outreach studio or a client:** `brandkit`.
+- **Researching a new bet:** `deep-research`.
+- **Templates and documents to sell:** `docx`, `xlsx`, `pdf`, `pptx` as needed.
+If a skill named here is missing, tell the operator in `state.json` → `needs` instead of skipping it.
+Keep the list of installed skills in `life/SKILLS.md` and update it when new ones appear.
+
 ## Token budget = waking hours
 - Ponytail is on: write the least code that does the job.
 - Use one main agent. Add a reviewer subagent only before spending money or sending a new pitch template.
