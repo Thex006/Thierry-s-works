@@ -32,19 +32,23 @@ Review every bet each session against its kill rule. Kill fast, double down on w
   cities (Tampa, Charlotte, Columbus…). One new customer is worth $500–$5,000 to them, so a site pays
   for itself fast, and they get less agency spam than NYC/LA.
 - **Next (after 100 emails):** UK and Canada, then Germany/Netherlands written in their language.
-- **Prices: research-based, not one-size.** Not everyone can pay $750. Before quoting, Scout and Ledger
-  check the client's size (team, reviews, ticket size), their market's going rates, and competitors.
-  Then Closer picks a tier:
-  | Tier | What | Typical US price |
-  |---|---|---|
-  | Starter | 1-page site, mobile, contact form, their domain | $250–400 |
-  | Standard | Up to 5 pages, booking/contact, Google listing linked | $600–900 |
-  | Growth | Standard + online booking, SEO basics, extra language | $1,200–2,500 |
-  | Care plan | Hosting, edits, monthly check | $29–79/month |
-  - Offer a **payment plan** (2–3 parts) when price is the blocker. A yes at $350 beats a no at $750.
-  - Floor: never below $200 for a site; Ledger must confirm the time spent is worth it.
-  - Adjust for other markets by their local rates (lower-income markets get lower prices, not worse work).
-  - Every price change is a team decision (see TEAM.md) and logged in LESSONS.md with the result.
+- **Prices: per page, scaled to the client, in their currency.** (Thierry's model)
+  - **Base: ~$100 per page.** A landing page = everything on one page (1 page). More pages = more money.
+  - **Scale by the company's size**, which Scout researches before every quote (team size, reviews,
+    locations, typical job value, visible revenue signals):
+    | Client | Multiplier | 1-page | 5-page |
+    |---|---|---|---|
+    | Solo / micro business | ×0.7–1 | $70–100 | $350–500 |
+    | Small established business | ×1–1.5 | $100–150 | $500–750 |
+    | Larger / multi-location / high ticket | ×1.5–3 | $150–300 | $750–1,500 |
+  - **Add-ons** (also scaled): online booking, extra language (our edge), 2D motion/3D hero, SEO basics,
+    care plan $19–79/month.
+  - **Local currency:** quote and invoice in the client's currency where Stripe supports it
+    (USD, GBP, EUR, CAD, AUD, NGN, …). Ledger converts with that day's exchange rate, rounds to a
+    clean local number (£395, not £391.37) and sanity-checks it against local going rates.
+  - Always send an **estimate first** (pages × rate × multiplier + add-ons, in their currency), and
+    offer a **payment plan** (2–3 parts) when price is the blocker.
+  - Ledger's floor: the time spent must be worth it. Price changes are team decisions, logged in LESSONS.md.
 - Payment: always via agreement + Stripe invoice. See PAYMENTS.md.
 - Templates: $29–49 each. Bounties: whatever the issue pays ($50–$500+).
 
