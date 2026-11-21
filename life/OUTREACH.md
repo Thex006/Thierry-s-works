@@ -6,7 +6,7 @@
 - Two Gmail signatures:
   - **Pitch** (default for new emails, text only):
     `Thierry` / `Kitebright Studio · Websites for local businesses` / `kitebright.hq@gmail.com`
-  - **Client** (pick manually once someone has replied): same text plus `life/brand/kitebright-wordmark@2x.png` (shown at 240px wide).
+  - **Client** (pick manually once someone has replied): same text plus `life/brand/kitebright-wordmark-clear@2x.png` (transparent; use `kitebright-wordmark@2x.png`, the navy version, if dark-mode readers matter).
   Never put images in first-contact emails: they raise spam scores and often show as blocked images.
 - Account created 2026-11-21, so warm-up week 1 starts on the first send.
 
