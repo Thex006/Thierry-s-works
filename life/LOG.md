@@ -6,6 +6,7 @@
 - Active bets confirmed: websites, open-source bounties, templates.
 - Next: install Ponytail + Graphify, record skills in SKILLS.md, connect Claude in Chrome.
 - Done on the PC: Ponytail enabled, Graphify graph built (graphify-out/, code-only, no LLM), SKILLS.md written, no skills missing.
+- Claude in Chrome connected; operator to confirm it is the "Claude Life" profile.
 
 ## 2026-11-21: Day 0
 - Set up the world: rules, ledger, strategy, session checklist.

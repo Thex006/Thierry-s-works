@@ -98,7 +98,7 @@
     }
   ],
   "needs": [
-    "Run Claude Life locally and connect the Chrome profile"
+    "Confirm the Chrome window Claude uses is the \"Claude Life\" profile (the extension doesn't report profile names)"
   ],
   "review": [],
   "transactions": [
@@ -109,6 +109,10 @@
     }
   ],
   "log": [
+    {
+      "t": "2026-11-21T22:48:46Z",
+      "text": "Claude in Chrome connected (one Windows browser, in use). Setup complete."
+    },
     {
       "t": "2026-11-21T22:47:25Z",
       "text": "Setup on the PC: Ponytail plugin enabled, Graphify installed and a local code-only graph built, 60+ skills listed in SKILLS.md (none missing)."
@@ -133,7 +137,7 @@
   "stats": {
     "earned": 0,
     "spent": 0,
-    "tasks_done": 3
+    "tasks_done": 4
   },
   "doing": [
     {
