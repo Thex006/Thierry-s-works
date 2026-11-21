@@ -1,0 +1,20 @@
+#!/bin/sh
+# Guard: block commits that would leak private info or secrets to GitHub.
+# Enable once per clone: git config core.hooksPath .githooks
+fail=0
+if git diff --cached --name-only | grep -q '^life/private/'; then
+  echo "GUARD: life/private/ must never be committed."; fail=1
+fi
+# Personal details are read from the private file, so they're never written in this script either.
+PRIV="life/private/identity.md"
+patterns='BEGIN [A-Z ]*PRIVATE KEY|sk_live_[0-9a-zA-Z]+|rk_live_[0-9a-zA-Z]+|AKIA[0-9A-Z]{16}|ghp_[0-9a-zA-Z]{30,}|xox[bap]-[0-9a-zA-Z-]+|password *[:=] *[^ ]{6,}'
+if [ -f "$PRIV" ]; then
+  extra=$(grep -oiE '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}|[0-9]{1,2} (january|february|march|april|may|june|july|august|september|october|november|december) [0-9]{4}' "$PRIV" | grep -viE 'kitebright' | sed 's/[.[\*^$]/\\&/g' | paste -sd'|' -)
+  [ -n "$extra" ] && patterns="$patterns|$extra"
+fi
+if git diff --cached -U0 | grep '^+' | grep -v '^+++' | grep -qiE "$patterns"; then
+  echo "GUARD: this commit contains a secret or private personal detail. Remove it and try again:"
+  git diff --cached -U0 | grep '^+' | grep -v '^+++' | grep -iE "$patterns" | head -5
+  fail=1
+fi
+exit $fail
