@@ -22,6 +22,17 @@ Needs Node.js. Double-click `start-claude-life.bat` (Windows) or run `./start-cl
 then open http://localhost:4747. Hit **Preview animations** to see every activity.
 Approve or reject demos and emails in the **Review** tab.
 
+## Desktop app (Windows)
+1. Install Node.js (nodejs.org).
+2. Double-click `desktop/INSTALL-DESKTOP-ICON.bat`. A **Claude Life** icon appears on your desktop.
+3. Double-click the icon. It starts the game in the background and opens it in its own window.
+
+## Token savers (install on the PC running the local Claude session)
+- **Graphify** builds a knowledge graph of the project so Claude queries it instead of re-reading files:
+  `pip install graphifyy && graphify install`, then run `/graphify` in Claude Code.
+- **Ponytail** makes Claude write less code: install the plugin from github.com/DietrichGebert/ponytail.
+- Memory rules for every session live in `/CLAUDE.md`.
+
 ## Files
 | File | Purpose |
 |---|---|
@@ -30,5 +41,6 @@ Approve or reject demos and emails in the **Review** tab.
 | `STRATEGY.md` | Active bets, their metrics and kill criteria |
 | `LOG.md` | What happened each session, newest first |
 | `leads.csv` | Outreach pipeline |
+| `LESSONS.md` | Durable lessons that survive log rotation |
 | `state.json` | Live game state the dashboard reads (activity, stats, review queue) |
 | `app/` | The game dashboard (local server + pixel room) |
