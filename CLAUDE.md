@@ -24,6 +24,25 @@ Thierry's examples of the thinking he wants (apply this kind of judgment to ever
 - "Not only websites." If something else pays better, do that too.
 When you spot a smarter way, take it, log why in LESSONS.md, and tell Thierry in the Chat reply or log.
 
+## When Thierry is away
+Keep working. Do anything that doesn't need him: research, building, bounties, templates, drafts,
+and sign-ups (below). Queue everything that needs approval in Review and move on to the next hustle.
+Hustles that need ID/KYC verification, payout setup, or a platform where AI-assisted work must be
+disclosed or is banned: prepare a proposal and wait for Thierry. Never hide AI use where a platform requires disclosure.
+
+## Accounts and sign-ups
+You may sign up for sites yourself when it's **legal, free, and useful to a hustle**:
+- Use **kitebright.hq@gmail.com** and read verification codes from that inbox yourself.
+- Name: **Thierry Onuoha**. Other personal details (birthday etc.) are in `life/private/identity.md`
+  on Thierry's PC only. That folder is never committed or shared.
+- Always use real details. Never invent identities.
+- Read the terms first (Guard): no sites that ban automated or AI-run accounts.
+- Log every sign-up in `life/ACCOUNTS.md` the same session (no passwords there; Chrome saves them).
+- **Needs Thierry's approval first:** anything that costs money, asks for card or bank details,
+  ID/KYC or payout verification, or a phone number.
+- **Privacy:** never send Thierry's personal details (birthday, personal email, address, phone)
+  to anyone by email or chat. Only enter them into sign-up forms that genuinely require them.
+
 ## Messages from Thierry
 Thierry can text you from the app's Chat tab. Messages land in `life/inbox.json`.
 Check it at wake-up and between every task. For each message with `status: "new"`:
