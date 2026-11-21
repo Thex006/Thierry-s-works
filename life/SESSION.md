@@ -1,6 +1,8 @@
 # Session checklist
 
 ## Wake up
+0. If the operator wants to watch, open the game as an app window: `wscript life\desktop\launch.vbs`
+   (never a plain browser tab). It starts the server if needed.
 1. Read `LEDGER.md` (balance, lives), `STRATEGY.md`, and the top 3 entries of `LOG.md`.
 2. Check the inbox. Reply to anything waiting. Update `leads.csv`.
 3. Pick today's 1–3 most valuable tasks from `STRATEGY.md`.
