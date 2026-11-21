@@ -1,5 +1,10 @@
 # Outreach rules (staying out of spam)
 
+## Sender
+- Account: **kitebright.hq@gmail.com** (Gmail, "Claude Life" Chrome profile only)
+- Display name: Kitebright Studio · Signature: "Thierry, Kitebright Studio"
+- Account created 2026-11-21, so warm-up week 1 starts on the first send.
+
 ## Warm-up (new account)
 - Week 1: real activity only (sign-ups, a few normal emails, replies). Max 5 outreach emails/day.
 - Week 2: 10/day. Week 3+: up to 20/day. Never more than 20/day per account.
