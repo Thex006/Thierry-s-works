@@ -1,0 +1,377 @@
+{
+  "communities": {
+    "0": [
+      "jogobella_source_app",
+      "jogobella_source_app_buildsolid",
+      "jogobella_source_app_buildsolid_r2y",
+      "jogobella_source_app_clamp01",
+      "jogobella_source_app_cover",
+      "jogobella_source_app_cover_a28100fa6a50",
+      "jogobella_source_app_crop",
+      "jogobella_source_app_easeoutquad",
+      "jogobella_source_app_ensuregl",
+      "jogobella_source_app_factors",
+      "jogobella_source_app_finish",
+      "jogobella_source_app_go",
+      "jogobella_source_app_inkwidth100",
+      "jogobella_source_app_layout",
+      "jogobella_source_app_layoutwords",
+      "jogobella_source_app_loadsheet",
+      "jogobella_source_app_loop",
+      "jogobella_source_app_makegl",
+      "jogobella_source_app_meas",
+      "jogobella_source_app_next",
+      "jogobella_source_app_placeunderline",
+      "jogobella_source_app_prev",
+      "jogobella_source_app_q",
+      "jogobella_source_app_reduced",
+      "jogobella_source_app_rendergl",
+      "jogobella_source_app_reveal",
+      "jogobella_source_app_rnd",
+      "jogobella_source_app_settab",
+      "jogobella_source_app_setx",
+      "jogobella_source_app_shadows",
+      "jogobella_source_app_sheetcache",
+      "jogobella_source_app_sizegl",
+      "jogobella_source_app_slides",
+      "jogobella_source_app_smooth",
+      "jogobella_source_app_stage",
+      "jogobella_source_app_tabsel",
+      "jogobella_source_app_touch",
+      "jogobella_source_app_u",
+      "jogobella_source_app_ul",
+      "ref_three"
+    ],
+    "1": [
+      "life_app_public_game",
+      "life_app_public_game_ago",
+      "life_app_public_game_apply",
+      "life_app_public_game_bywho",
+      "life_app_public_game_confetti",
+      "life_app_public_game_crewpose",
+      "life_app_public_game_crewupdate",
+      "life_app_public_game_current",
+      "life_app_public_game_drawchair",
+      "life_app_public_game_drawcoffeetable",
+      "life_app_public_game_drawcouchsitter",
+      "life_app_public_game_drawhead",
+      "life_app_public_game_drawkitchen",
+      "life_app_public_game_drawloungeback",
+      "life_app_public_game_drawperson",
+      "life_app_public_game_drawroom",
+      "life_app_public_game_drawscreen",
+      "life_app_public_game_drawseatedatdesk",
+      "life_app_public_game_envelope",
+      "life_app_public_game_floater",
+      "life_app_public_game_frame",
+      "life_app_public_game_hournow",
+      "life_app_public_game_milestones",
+      "life_app_public_game_picktask",
+      "life_app_public_game_poll",
+      "life_app_public_game_progress",
+      "life_app_public_game_render",
+      "life_app_public_game_say",
+      "life_app_public_game_showtab",
+      "life_app_public_game_skycolor",
+      "life_app_public_game_spawnfx",
+      "life_app_public_game_speakerpos",
+      "life_app_public_game_speechupdate",
+      "life_app_public_game_stepparticles",
+      "life_app_public_game_synccrew",
+      "life_app_public_game_talktick",
+      "life_app_public_game_taskspot",
+      "life_app_public_game_toast"
+    ],
+    "2": [
+      "jogobella_server",
+      "jogobella_server_fs",
+      "jogobella_server_http",
+      "jogobella_server_os",
+      "jogobella_server_path",
+      "jogobella_server_types",
+      "life_app_server",
+      "life_app_server_buildid",
+      "life_app_server_execfile_spawn",
+      "life_app_server_fs",
+      "life_app_server_http",
+      "life_app_server_path",
+      "life_app_server_pub",
+      "life_app_server_readstate",
+      "life_app_server_repo",
+      "life_app_server_send",
+      "life_app_server_server",
+      "life_app_server_state",
+      "life_app_server_types",
+      "life_app_server_update",
+      "life_app_server_writestate",
+      "life_start_claude_life",
+      "life_start_claude_life_sh__entry",
+      "ref_child_process",
+      "ref_fs",
+      "ref_http",
+      "ref_os",
+      "ref_path"
+    ],
+    "3": [
+      "base64",
+      "io",
+      "jogobella_source_build",
+      "jogobella_source_build_bottle",
+      "jogobella_source_build_font",
+      "jogobella_source_build_sheet",
+      "jogobella_source_build_trim",
+      "jogobella_source_seg_all",
+      "jogobella_source_seg_all_pt",
+      "jogobella_source_seg_all_rect",
+      "jogobella_source_seg_all_upscale",
+      "jogobella_source_upscale",
+      "json",
+      "numpy",
+      "os",
+      "pil",
+      "rembg",
+      "scipy",
+      "spandrel",
+      "sys",
+      "torch"
+    ],
+    "4": [
+      "bmesh",
+      "bpy",
+      "jogobella_source_fruit",
+      "jogobella_source_fruit_apricot_whole",
+      "jogobella_source_fruit_curve",
+      "jogobella_source_fruit_frame_and_render",
+      "jogobella_source_fruit_group",
+      "jogobella_source_fruit_link",
+      "jogobella_source_fruit_rosemary",
+      "jogobella_source_fruit_taper_curve",
+      "math",
+      "mathutils",
+      "random"
+    ],
+    "5": [
+      "jogobella_source_fruit_add_bump",
+      "jogobella_source_fruit_calyx",
+      "jogobella_source_fruit_leaf",
+      "jogobella_source_fruit_mat",
+      "jogobella_source_fruit_nodes",
+      "jogobella_source_fruit_peach_skin",
+      "jogobella_source_fruit_peach_whole",
+      "jogobella_source_fruit_raspberry",
+      "jogobella_source_fruit_stem_mat",
+      "jogobella_source_fruit_strawberry_flesh",
+      "jogobella_source_fruit_strawberry_mat",
+      "jogobella_source_fruit_watermelon_rind"
+    ],
+    "6": [
+      "jogobella_source_fruit_apply_rot",
+      "jogobella_source_fruit_apricot_half",
+      "jogobella_source_fruit_cherry",
+      "jogobella_source_fruit_cherry_f",
+      "jogobella_source_fruit_cherry_pair",
+      "jogobella_source_fruit_flesh_mat",
+      "jogobella_source_fruit_peach_half",
+      "jogobella_source_fruit_pit",
+      "jogobella_source_fruit_pit_f",
+      "jogobella_source_fruit_sphere",
+      "jogobella_source_fruit_stone_fruit_shape"
+    ],
+    "7": [
+      "jogobella_source_fruit_apply_mods",
+      "jogobella_source_fruit_citrus_face_mat",
+      "jogobella_source_fruit_cut",
+      "jogobella_source_fruit_lime_half",
+      "jogobella_source_fruit_lime_rind",
+      "jogobella_source_fruit_lime_slice",
+      "jogobella_source_fruit_passion_half",
+      "jogobella_source_fruit_rationale_110",
+      "jogobella_source_fruit_strawberry",
+      "jogobella_source_fruit_strawberry_shape"
+    ],
+    "8": [
+      "life_app_public_manifest",
+      "life_app_public_manifest_background_color",
+      "life_app_public_manifest_display",
+      "life_app_public_manifest_icons",
+      "life_app_public_manifest_name",
+      "life_app_public_manifest_short_name",
+      "life_app_public_manifest_start_url",
+      "life_app_public_manifest_theme_color"
+    ],
+    "9": [
+      "jogobella_source_fruit_obj_from_bm",
+      "jogobella_source_fruit_seeds_on",
+      "jogobella_source_fruit_watermelon_cube",
+      "jogobella_source_fruit_watermelon_face",
+      "jogobella_source_fruit_watermelon_wedge"
+    ],
+    "10": [
+      "jogobella_source_fruit_reset",
+      "jogobella_source_fruit_reset_area"
+    ],
+    "11": [
+      "jogobella_vercel",
+      "jogobella_vercel_headers"
+    ],
+    "12": [
+      "life_desktop_install_desktop_shortcut"
+    ]
+  },
+  "cohesion": {
+    "0": 0.09230769230769231,
+    "1": 0.11522048364153627,
+    "2": 0.0873015873015873,
+    "3": 0.16666666666666666,
+    "4": 0.23076923076923078,
+    "5": 0.36363636363636365,
+    "6": 0.2545454545454545,
+    "7": 0.24444444444444444,
+    "8": 0.25,
+    "9": 0.7,
+    "10": 1.0,
+    "11": 1.0,
+    "12": 1.0
+  },
+  "gods": [
+    {
+      "id": "jogobella_source_fruit_mat",
+      "label": "mat()",
+      "degree": 20
+    },
+    {
+      "id": "life_app_public_game_frame",
+      "label": "frame()",
+      "degree": 17
+    },
+    {
+      "id": "jogobella_source_fruit_nodes",
+      "label": "nodes()",
+      "degree": 13
+    },
+    {
+      "id": "jogobella_source_fruit_obj_from_bm",
+      "label": "obj_from_bm()",
+      "degree": 12
+    },
+    {
+      "id": "jogobella_source_app_go",
+      "label": "go()",
+      "degree": 11
+    },
+    {
+      "id": "jogobella_source_fruit_sphere",
+      "label": "sphere()",
+      "degree": 11
+    },
+    {
+      "id": "jogobella_source_fruit_strawberry",
+      "label": "strawberry()",
+      "degree": 10
+    },
+    {
+      "id": "life_app_public_game_drawroom",
+      "label": "drawRoom()",
+      "degree": 9
+    },
+    {
+      "id": "jogobella_source_fruit_add_bump",
+      "label": "add_bump()",
+      "degree": 9
+    },
+    {
+      "id": "jogobella_source_fruit_cherry",
+      "label": "cherry()",
+      "degree": 9
+    }
+  ],
+  "surprises": [
+    {
+      "source": "apricot_whole()",
+      "target": "peach_whole()",
+      "source_files": [
+        "jogobella/source/fruit.py",
+        "jogobella/source/fruit.py"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "note": "Bridges community 4 → community 5"
+    },
+    {
+      "source": "cherry()",
+      "target": "curve()",
+      "source_files": [
+        "jogobella/source/fruit.py",
+        "jogobella/source/fruit.py"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "note": "Bridges community 4 → community 6"
+    },
+    {
+      "source": "obj_from_bm()",
+      "target": "link()",
+      "source_files": [
+        "jogobella/source/fruit.py",
+        "jogobella/source/fruit.py"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "note": "Bridges community 4 → community 9"
+    },
+    {
+      "source": "cherry()",
+      "target": "add_bump()",
+      "source_files": [
+        "jogobella/source/fruit.py",
+        "jogobella/source/fruit.py"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "note": "Bridges community 5 → community 6"
+    },
+    {
+      "source": "lime_rind()",
+      "target": "add_bump()",
+      "source_files": [
+        "jogobella/source/fruit.py",
+        "jogobella/source/fruit.py"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "note": "Bridges community 5 → community 7"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `pit()` connect `Community 6` to `Community 4`, `Community 5`?",
+      "why": "High betweenness centrality (0.005) - this node is a cross-community bridge."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 0` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.09230769230769231 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `cut()` connect `Community 7` to `Community 9`, `Community 4`, `Community 6`?",
+      "why": "High betweenness centrality (0.004) - this node is a cross-community bridge."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 1` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.11522048364153627 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `mat()` connect `Community 5` to `Community 9`, `Community 4`, `Community 6`, `Community 7`?",
+      "why": "High betweenness centrality (0.004) - this node is a cross-community bridge."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 2` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.0873015873015873 - nodes in this community are weakly interconnected."
+    }
+  ]
+}
