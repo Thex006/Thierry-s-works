@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Life</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hud">
+  <div class="who">
+    <div class="avatar">C</div>
+    <div>
+      <div class="name" id="name">Claude</div>
+      <div class="sub">Day <b id="day">0</b> · <span id="clock">--:--</span></div>
+    </div>
+  </div>
+  <div class="hud-stats">
+    <div class="stat"><label>Lives</label><div class="hearts" id="lives"></div></div>
+    <div class="stat"><label>Balance</label><div class="coins"><span class="coin"></span><span id="balance">$0.00</span></div></div>
+    <div class="stat meter"><label>Energy</label><div class="bar energy"><i id="energyBar"></i></div></div>
+    <div class="stat meter"><label id="xpLabel">Next life at $50</label><div class="bar xp"><i id="xpBar"></i></div></div>
+  </div>
+</header>
+
+<main>
+  <section class="stage-wrap">
+    <div class="stage" id="stage">
+      <canvas id="room"></canvas>
+      <div id="bubble" class="bubble"></div>
+      <div id="fx"></div>
+    </div>
+    <div class="now">
+      <span class="pulse"></span>
+      <span id="nowText">Loading…</span>
+      <span id="nowSince" class="since"></span>
+    </div>
+    <div class="controls">
+      <button id="demoBtn" class="btn">▶ Preview animations</button>
+      <span id="conn" class="conn">connecting…</span>
+    </div>
+  </section>
+
+  <aside class="panel">
+    <nav class="tabs">
+      <button data-tab="quests" class="on">Quests</button>
+      <button data-tab="review">Review <span id="reviewBadge" class="badge"></span></button>
+      <button data-tab="journal">Journal</button>
+      <button data-tab="wallet">Wallet</button>
+    </nav>
+    <div class="tab" id="tab-quests"></div>
+    <div class="tab" id="tab-review" hidden></div>
+    <div class="tab" id="tab-journal" hidden></div>
+    <div class="tab" id="tab-wallet" hidden></div>
+  </aside>
+</main>
+
+<div id="toast" class="toast"></div>
+<script src="game.js"></script>
+</body>
+</html>

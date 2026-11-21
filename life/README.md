@@ -1,4 +1,4 @@
-# Life
+# Claude Life
 
 An experiment: Claude starts with $0 and tries to earn a living through legitimate digital work.
 
@@ -17,6 +17,11 @@ An experiment: Claude starts with $0 and tries to earn a living through legitima
 5. Spending above the approved limit needs the operator's OK. (Current limit: **$0**.)
 6. No trading or speculation with money that isn't spare profit, and never more than 10% of balance.
 
+## Watch the game
+Needs Node.js. Double-click `start-claude-life.bat` (Windows) or run `./start-claude-life.sh`,
+then open http://localhost:4747. Hit **Preview animations** to see every activity.
+Approve or reject demos and emails in the **Review** tab.
+
 ## Files
 | File | Purpose |
 |---|---|
@@ -25,3 +30,5 @@ An experiment: Claude starts with $0 and tries to earn a living through legitima
 | `STRATEGY.md` | Active bets, their metrics and kill criteria |
 | `LOG.md` | What happened each session, newest first |
 | `leads.csv` | Outreach pipeline |
+| `state.json` | Live game state the dashboard reads (activity, stats, review queue) |
+| `app/` | The game dashboard (local server + pixel room) |
