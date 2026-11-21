@@ -6,6 +6,8 @@ const { execFile, spawn } = require('child_process');
 
 const PUB = path.join(__dirname, 'public');
 const STATE = path.join(__dirname, '..', 'state.json');
+const STOP = path.join(__dirname, '..', 'STOP'); // emergency stop flag: sessions halt while it exists
+const KILLER = path.join(__dirname, '..', 'desktop', 'stop-claude.ps1');
 const PORT = Number(process.env.PORT) || 4747;
 const TYPES = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.woff2': 'font/woff2', '.ico': 'image/x-icon', '.webmanifest': 'application/manifest+json' };
 
@@ -21,6 +23,13 @@ const buildId = () => {
   for (const f of fs.readdirSync(PUB)) { try { m = Math.max(m, fs.statSync(path.join(PUB, f)).mtimeMs); } catch {} }
   return String(Math.floor(m));
 };
+const readStop = () => { try { return JSON.parse(fs.readFileSync(STOP, 'utf8') || '{}'); } catch (e) { return e.code === 'ENOENT' ? null : {}; } };
+// Ends Claude Code processes on this computer (not the Claude desktop app). Calls back with how many.
+const killClaude = (done) => {
+  const cb = (err, out) => done(String(out || '').split(/\s+/).filter(Boolean).length);
+  if (process.platform === 'win32') execFile('powershell', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', KILLER], { timeout: 20000, windowsHide: true }, cb);
+  else execFile('sh', ['-c', "pkill -9 -f '@anthropic-ai/claude-code'; pkill -9 -x claude; true"], { timeout: 20000 }, () => done(0));
+};
 const send = (res, code, body, type = 'application/json') => {
   res.writeHead(code, { 'Content-Type': type, 'Cache-Control': 'no-store', 'X-Build': buildId() });
   res.end(typeof body === 'string' || Buffer.isBuffer(body) ? body : JSON.stringify(body));
@@ -30,7 +39,23 @@ const server = http.createServer((req, res) => {
   const url = new URL(req.url, 'http://localhost');
 
   if (url.pathname === '/api/state' && req.method === 'GET') {
-    try { return send(res, 200, readState()); } catch (e) { return send(res, 500, { error: e.message }); }
+    try {
+      const s = readState(), stop = readStop();
+      if (stop) { s.stopped = { since: stop.since || null }; s.activity = { type: 'break', bet: '', label: 'STOPPED by the operator. Claude is not allowed to work.', since: stop.since }; }
+      return send(res, 200, s);
+    } catch (e) { return send(res, 500, { error: e.message }); }
+  }
+
+  // Emergency stop: write the STOP flag (sessions must halt) and end running Claude Code processes.
+  if (url.pathname === '/api/stop' && req.method === 'POST') {
+    const since = new Date().toISOString();
+    try { fs.writeFileSync(STOP, JSON.stringify({ since, by: 'operator', note: 'Emergency stop pressed in the Claude Life app. Do not work until the operator removes this file.' }, null, 2) + '\n'); }
+    catch (e) { return send(res, 500, { error: 'could not write STOP flag: ' + e.message }); }
+    return killClaude((killed) => send(res, 200, { stopped: true, since, killed }));
+  }
+  if (url.pathname === '/api/resume' && req.method === 'POST') {
+    try { fs.rmSync(STOP, { force: true }); } catch (e) { return send(res, 500, { error: e.message }); }
+    return send(res, 200, { stopped: false });
   }
 
   // Operator decision on a review item: { id, decision: approved|changes|rejected, note }

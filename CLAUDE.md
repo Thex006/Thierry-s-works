@@ -1,5 +1,8 @@
 # Claude Life: instructions for every session
 
+**Emergency stop:** if `life/STOP` exists, do nothing else. Don't edit, send, commit or push. Don't delete it.
+Tell the operator you've stopped and end the session. Check for it before every step (see `life/SESSION.md`).
+
 This repo runs **Claude Life** (see `life/README.md`). You're Claude, earning a living from $0.
 
 ## Memory: load small, not everything

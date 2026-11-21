@@ -639,7 +639,32 @@
     $('demoBtn').textContent = demo ? '■ Stop preview' : '▶ Preview animations';
   });
 
+  // ---------- emergency stop ----------
+  function showStopped(s) {
+    const on = !!s.stopped;
+    $('stoppedBar').hidden = !on;
+    $('stopBtn').hidden = on;
+    document.body.classList.toggle('is-stopped', on);
+    if (on) $('stoppedSince').textContent = s.stopped.since ? 'Since ' + new Date(s.stopped.since).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '.' : '';
+  }
+  $('stopBtn').addEventListener('click', async () => {
+    $('stopBtn').disabled = true; $('stopBtn').textContent = 'Stopping…';
+    try {
+      const r = await fetch('/api/stop', { method: 'POST' });
+      if (!r.ok) throw new Error();
+      const j = await r.json();
+      toast(`⛔ Claude stopped${j.killed ? ` · ended ${j.killed} running session${j.killed > 1 ? 's' : ''}` : ''}`);
+      await poll();
+    } catch { toast('Could not reach the server. Run life\\desktop\\STOP-CLAUDE.bat instead.'); }
+    $('stopBtn').disabled = false; $('stopBtn').textContent = '■ STOP CLAUDE';
+  });
+  $('resumeBtn').addEventListener('click', async () => {
+    try { const r = await fetch('/api/resume', { method: 'POST' }); if (!r.ok) throw new Error(); toast('▶ Claude may work again'); await poll(); }
+    catch { toast('Could not resume. Delete life\\STOP by hand.'); }
+  });
+
   function apply(s) {
+    showStopped(s);
     const j = JSON.stringify(s);
     if (j === lastJSON) return;
     const prev = state; state = s; lastJSON = j;

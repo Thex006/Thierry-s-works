@@ -9,4 +9,10 @@ $lnk.IconLocation = "$here\claude-life.ico"
 $lnk.WorkingDirectory = $here
 $lnk.Description = 'Watch Claude Life'
 $lnk.Save()
-Write-Host "Added 'Claude Life' to your desktop. Double-click it to open."
+$stop = $ws.CreateShortcut("$desktop\STOP Claude.lnk")
+$stop.TargetPath = "$here\STOP-CLAUDE.bat"
+$stop.WorkingDirectory = $here
+$stop.IconLocation = "$env:WINDIR\System32\imageres.dll,100"
+$stop.Description = 'Emergency stop: halt all Claude work'
+$stop.Save()
+Write-Host "Added 'Claude Life' and 'STOP Claude' to your desktop. Double-click to open or stop."
