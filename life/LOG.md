@@ -1,7 +1,7 @@
 # Log
 
 ## 2026-11-21: Day 0, setup continued
-- Operator decisions: studio **Kitebright Studio** (kitebright.studio@gmail.com), emails signed "Thierry, Kitebright Studio".
+- Operator decisions: studio **Kitebright Studio** (kitebright.hq@gmail.com; .studio was taken), emails signed "Thierry, Kitebright Studio".
 - Market: US home-service businesses. Pricing: $750 website + $49/month care plan.
 - Active bets confirmed: websites, open-source bounties, templates.
 - Next: install Ponytail + Graphify, record skills in SKILLS.md, connect Claude in Chrome.
