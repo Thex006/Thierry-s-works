@@ -6,6 +6,9 @@ no emails, no commits, no pushes. Do not delete `life/STOP` yourself. Tell the o
 end the session. Only the operator resumes (the "Let Claude work again" button, or deleting the file).
 
 ## Wake up
+0a. Open the Claude Life Chrome window so Thierry can watch live:
+    `powershell -NoProfile -ExecutionPolicy Bypass -File life\desktop\open-chrome-profile.ps1`
+    Do all browsing in that visible window (never headless, never minimised, never his personal profile).
 0. If the operator wants to watch, open the game as an app window: `wscript life\desktop\launch.vbs`
    (never a plain browser tab). It starts the server if needed.
 1. Read `LEDGER.md` (balance, lives), `STRATEGY.md`, and the top 3 entries of `LOG.md`.

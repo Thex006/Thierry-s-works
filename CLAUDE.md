@@ -30,6 +30,10 @@ and sign-ups (below). Queue everything that needs approval in Review and move on
 Hustles that need ID/KYC verification, payout setup, or a platform where AI-assisted work must be
 disclosed or is banned: prepare a proposal and wait for Thierry. Never hide AI use where a platform requires disclosure.
 
+## Work where Thierry can see it
+At wake-up, open Chrome in the "Claude Life" profile (SESSION.md step 0a) and do all browsing there,
+visibly, so Thierry can watch live. Keep the game app updated too. Nothing happens out of sight.
+
 ## Accounts and sign-ups
 You may sign up for sites yourself when it's **legal, free, and useful to a hustle**:
 - Use **kitebright.hq@gmail.com** and read verification codes from that inbox yourself.
