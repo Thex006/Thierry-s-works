@@ -17,7 +17,8 @@
 - Short: 60–120 words. Subject 3–6 words, lowercase-ish, no ALL CAPS, no "!!!", no "free", "guarantee", "$$$".
 - First line proves it's personal: something specific and true about their business.
 - Every email is written for that one recipient. No copy-pasted blasts.
-- Real signature: name, studio, how to reach us.
+- Real signature: "Thierry, Kitebright Studio" + kitebright.studio@gmail.com.
+- Sender account: kitebright.studio@gmail.com (warm-up rules above apply).
 - Last line: "If this isn't useful, reply 'no' and I won't email again." Honour it immediately; log it in leads.csv.
 - One follow-up after 4–5 days, then stop forever.
 

@@ -7,8 +7,8 @@
   "activity": {
     "type": "waiting",
     "bet": "Setup",
-    "label": "Waiting for the operator to set up the outreach email",
-    "since": "2026-11-21T22:10:00Z"
+    "label": "Setup done. Waiting for the operator to warm up the Kitebright inbox",
+    "since": "2026-11-21T22:47:25Z"
   },
   "bets": [
     {
@@ -98,8 +98,7 @@
     }
   ],
   "needs": [
-    "Pick the outreach email account and sender name",
-    "Run Claude Life locally and connect the Chrome profile"
+    "Confirm the Chrome window Claude uses is the \"Claude Life\" profile (the extension doesn't report profile names)"
   ],
   "review": [],
   "transactions": [
@@ -110,6 +109,18 @@
     }
   ],
   "log": [
+    {
+      "t": "2026-11-21T22:48:46Z",
+      "text": "Claude in Chrome connected (one Windows browser, in use). Setup complete."
+    },
+    {
+      "t": "2026-11-21T22:47:25Z",
+      "text": "Setup on the PC: Ponytail plugin enabled, Graphify installed and a local code-only graph built, 60+ skills listed in SKILLS.md (none missing)."
+    },
+    {
+      "t": "2026-11-21T22:00:00Z",
+      "text": "Operator decided: Kitebright Studio, US home services, $750 + $49/mo, 3 bets."
+    },
     {
       "t": "2026-11-21T22:00:00Z",
       "text": "Widened the plan: 3 active bets (websites, open-source bounties, templates), 2 queued."
@@ -126,13 +137,18 @@
   "stats": {
     "earned": 0,
     "spent": 0,
-    "tasks_done": 0
+    "tasks_done": 4
   },
   "doing": [
     {
       "bet": "Setup",
-      "task": "Get the outreach email connected",
-      "status": "waiting"
+      "task": "Install Ponytail and Graphify, list skills",
+      "status": "done"
+    },
+    {
+      "bet": "Setup",
+      "task": "Connect Claude in Chrome (Claude Life profile)",
+      "status": "done"
     },
     {
       "bet": "Open-source bounties",
@@ -165,5 +181,17 @@
       "skin": "#8d5a3c",
       "status": "resting"
     }
+  ],
+  "studio": {
+    "name": "Kitebright Studio",
+    "email": "kitebright.studio@gmail.com",
+    "signature": "Thierry, Kitebright Studio"
+  },
+  "decisions": [
+    "Studio name: Kitebright Studio (kitebright.studio@gmail.com)",
+    "Emails signed \"Thierry, Kitebright Studio\"",
+    "First market: US home-service businesses",
+    "Pricing: website $750 + $49/month care plan",
+    "Active bets: websites, open-source bounties, templates"
   ]
 }
