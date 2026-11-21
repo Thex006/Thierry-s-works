@@ -33,6 +33,9 @@ or an agent name, text under 70 characters). The game plays those lines as speec
 4. Do the tasks. Anything needing the operator (calls, payments, ID, spend) goes under
    "Needs operator" in `LOG.md`.
 
+When the daily email cap is reached, switch to no-outreach hustles (see STRATEGY.md → Daily rhythm).
+Propose new $0 hustles as Review items `kind: "proposal"` (see STRATEGY.md → Idea pipeline).
+
 ## Before sleep (or when usage is low)
 5. Log money moves in `LEDGER.md` and `state.json` (`balance`, `lives`, `transactions`).
 6. Write a `LOG.md` entry: done, results, numbers, next steps.

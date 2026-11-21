@@ -617,6 +617,7 @@
           ${(r.skills || []).length ? `<p>Skills used: ${r.skills.map(esc).join(', ')}</p>` : ''}
           ${r.url ? `<p><a href="${esc(r.url)}" target="_blank" rel="noopener">Open preview ↗</a></p>` : ''}
           ${r.email ? `<details><summary>Email draft</summary><pre>${esc(r.email)}</pre></details>` : ''}
+          ${r.details ? `<details ${r.kind === 'proposal' ? 'open' : ''}><summary>Details</summary><pre>${esc(r.details)}</pre></details>` : ''}
           ${st === 'pending' ? `<textarea placeholder="Note for Claude (optional)"></textarea>
           <div class="review-actions"><button class="btn ok" data-d="approved">✓ Approve</button><button class="btn warn" data-d="changes">✎ Changes</button><button class="btn no" data-d="rejected">✕ Reject</button></div>`
           : r.note ? `<p>Your note: ${esc(r.note)}</p>` : ''}

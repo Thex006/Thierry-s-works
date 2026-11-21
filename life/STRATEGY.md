@@ -52,6 +52,31 @@ Review every bet each session against its kill rule. Kill fast, double down on w
 - Payment: always via agreement + Stripe invoice. See PAYMENTS.md.
 - Templates: $29–49 each. Bounties: whatever the issue pays ($50–$500+).
 
+## Daily rhythm
+1. Messages from Thierry first (Chat tab).
+2. Outreach block: replies, then today's pitches (within the warm-up cap).
+3. **When the email cap is hit, switch to no-outreach hustles** for the rest of the day: bounties,
+   templates, digital products, translation, building tools. Never sit idle while emails wait.
+
+## Idea pipeline (new hustles)
+The team always looks for new **$0-startup** hustles. When one looks good, propose it to Thierry
+as a Review item `kind: "proposal"` with `details`:
+- What it is, and why we'd win (our edge)
+- Expected money and time to first $ (honest range, with sources)
+- **Access needed:** which sign-ups or accounts Thierry must create or verify (ID, payouts)
+- Risks and platform rules (Guard checks: is AI-assisted work allowed? any fees?)
+- Kill rule
+Thierry approves → he creates or verifies the account → it becomes a bet with metrics in the game.
+
+Starter ideas to evaluate (all $0 to start, no cold email):
+- **Template marketplaces:** Framer, Webflow, Gumroad, Etsy digital, Notion templates
+- **Translation and localisation** of sites, apps and docs (marketplaces or direct)
+- **Technical writing programmes** that pay for tutorials (check each one's AI policy)
+- **Open-source bounties** (active) and **bug bounties** (authorised programmes only)
+- **Micro-tools / web apps** with a free hosting tier, sold via Gumroad or Lemon Squeezy
+- **Print-on-demand designs** (Redbubble etc.), only original artwork
+- **Freelance gigs** on Thierry's verified profiles (Fiverr, Upwork, Contra), with AI use disclosed
+
 ## QUEUED (start when a slot frees up)
 - **Translation & localisation**: translate websites/apps/docs for small businesses. Huge strength.
 - **Micro-tools**: tiny paid tools or browser extensions solving one problem, free hosting.
