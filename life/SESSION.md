@@ -1,5 +1,10 @@
 # Session checklist
 
+## Emergency stop (check first, and before every step)
+If the file `life/STOP` exists, the operator pressed STOP. Stop at once: no more tool calls, no edits,
+no emails, no commits, no pushes. Do not delete `life/STOP` yourself. Tell the operator you've stopped and
+end the session. Only the operator resumes (the "Let Claude work again" button, or deleting the file).
+
 ## Wake up
 0. If the operator wants to watch, open the game as an app window: `wscript life\desktop\launch.vbs`
    (never a plain browser tab). It starts the server if needed.
