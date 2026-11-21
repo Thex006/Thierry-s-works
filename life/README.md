@@ -41,6 +41,7 @@ Approve or reject demos and emails in the **Review** tab.
 | `STRATEGY.md` | Active bets, their metrics and kill criteria |
 | `LOG.md` | What happened each session, newest first |
 | `leads.csv` | Outreach pipeline |
+| `OUTREACH.md` | Email rules that keep us out of spam |
 | `LESSONS.md` | Durable lessons that survive log rotation |
 | `state.json` | Live game state the dashboard reads (activity, stats, review queue) |
 | `app/` | The game dashboard (local server + pixel room) |

@@ -21,16 +21,16 @@
     sleep:     { st: 'bed',    icon: '💤', fx: ['z', 'Z', 'z'] },
     idle:      { st: null,     icon: '🙂', fx: [] },
   };
-  const ALIAS = { researching: 'research', building: 'build', coding: 'build', emailing: 'email', outreach: 'email', planning: 'think', thinking: 'think', waiting_operator: 'waiting', needs_operator: 'waiting', sleeping: 'sleep', sale: 'celebrate' };
+  const ALIAS = { writing: 'build', write: 'build', code: 'build', translating: 'build', translate: 'build', designing: 'build', submit: 'email', applying: 'email', pitching: 'email', reviewing: 'think', researching: 'research', building: 'build', coding: 'build', emailing: 'email', outreach: 'email', planning: 'think', thinking: 'think', waiting_operator: 'waiting', needs_operator: 'waiting', sleeping: 'sleep', sale: 'celebrate' };
   const norm = (t) => { t = String(t || 'idle').toLowerCase(); t = ALIAS[t] || t; return ACT[t] ? t : 'idle'; };
 
   const DEMO = [
-    ['think', 'Planning which niche to target first'],
-    ['research', 'Researching barbershops in Austin without websites'],
-    ['build', 'Building a demo site for "Fade Factory Barbers"'],
-    ['waiting', 'Waiting for you to approve the demo'],
-    ['email', 'Sending the pitch email to Fade Factory'],
-    ['celebrate', 'Sale! Fade Factory bought their site'],
+    ['think', 'Reviewing bets: which one is paying off?'],
+    ['research', 'Hunting paid GitHub bounties that fit my skills'],
+    ['build', 'Fixing a bug for a $150 open-source bounty'],
+    ['waiting', 'Waiting for you to approve a demo site'],
+    ['email', 'Sending a pitch to a barbershop in Austin'],
+    ['celebrate', 'Bounty paid! +$150'],
     ['sleep', 'Out of usage. Sleeping until it resets'],
   ];
 
@@ -275,7 +275,7 @@
     if (bubble.dataset.i !== def.icon) { bubble.textContent = def.icon; bubble.dataset.i = def.icon; }
 
     document.body.classList.toggle('sleeping', a.type === 'sleep');
-    $('nowText').textContent = (a.label || a.type) + (demo ? '  (preview)' : '');
+    $('nowText').textContent = (!demo && state?.activity?.bet ? '[' + state.activity.bet + '] ' : '') + (a.label || a.type) + (demo ? '  (preview)' : '');
     requestAnimationFrame(frame);
   }
 
@@ -302,17 +302,20 @@
     $('xpBar').style.width = progress() * 100 + '%';
     $('nowSince').textContent = s.activity?.since ? 'since ' + ago(s.activity.since) : '';
 
-    const f = s.funnel || {};
-    const steps = [['🧭', 'Leads found', 'leads'], ['🛠️', 'Demos built', 'demos'], ['✉️', 'Emails sent', 'emails'], ['💬', 'Replies', 'replies'], ['💰', 'Sales', 'sales']];
+    const st = s.stats || {};
+    const doing = s.doing || [];
     $('tab-quests').innerHTML = `
-      <h3>Pipeline</h3>
-      <div class="funnel">${steps.map(([ic, name, k], i) => {
-        const prevN = i ? f[steps[i - 1][2]] || 0 : 0, n = f[k] || 0;
-        const rate = i && prevN ? `<span class="rate">${Math.round(n / prevN * 100)}% of ${steps[i - 1][1].toLowerCase()}</span>` : '';
-        return `<div class="step"><span class="ic">${ic}</span><span>${name}${rate}</span><span class="ct">${n}</span></div>`;
-      }).join('')}</div>
+      <div class="kpis">
+        <div><b>${money(st.earned || 0)}</b><span>earned</span></div>
+        <div><b>${st.tasks_done || 0}</b><span>tasks done</span></div>
+        <div><b>${(s.bets || []).filter((b) => b.status === 'active').length}</b><span>active bets</span></div>
+      </div>
+      <h3>Doing now</h3>
+      ${doing.map((d) => `<div class="doing"><span class="dot ${esc(d.status || 'working')}"></span><div><div>${esc(d.task)}</div><small>${esc(d.bet || '')}${d.status ? ' · ' + esc(d.status) : ''}</small></div></div>`).join('') || '<div class="empty">Nothing in progress.</div>'}
       <h3>Bets</h3>
-      ${(s.bets || []).map((b) => `<div class="card"><div class="row"><span class="title">${esc(b.name)}</span><span class="chip ${esc(b.status)}">${esc(b.status)}</span></div><p>${esc(b.note)}</p></div>`).join('') || '<div class="empty">No bets yet.</div>'}`;
+      ${(s.bets || []).map((b) => `<div class="card"><div class="row"><span class="title">${esc(b.name)}</span><span class="chip ${esc(b.status)}">${esc(b.status)}</span></div><p>${esc(b.note)}</p>
+        ${(b.metrics || []).length ? `<div class="metrics">${b.metrics.map((m) => `<span><b>${esc(m.value)}</b> ${esc(m.label)}</span>`).join('')}</div>` : ''}
+        ${b.earned ? `<p class="earned">💰 ${money(b.earned)} earned</p>` : ''}</div>`).join('') || '<div class="empty">No bets yet.</div>'}`;
 
     const pending = (s.review || []).filter((r) => (r.status || 'pending') === 'pending');
     $('reviewBadge').textContent = pending.length + (s.needs || []).length || '';
@@ -392,7 +395,7 @@
     render(s, prev);
   }
 
-  const FALLBACK = { name: 'Claude', day: 0, balance: 0, lives: 1, energy: 100, activity: { type: 'idle', label: 'Offline: run start-claude-life to connect' }, funnel: {}, bets: [], needs: [], review: [], transactions: [], log: [] };
+  const FALLBACK = { name: 'Claude', day: 0, balance: 0, lives: 1, energy: 100, activity: { type: 'idle', label: 'Offline: run start-claude-life to connect' }, stats: {}, doing: [], bets: [], needs: [], review: [], transactions: [], log: [] };
   async function poll() {
     try {
       const r = await fetch('/api/state', { cache: 'no-store' });

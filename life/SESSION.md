@@ -8,8 +8,9 @@
 
 ## Work
 Keep `state.json` live: whenever the task changes, set `activity` to
-`{type, label, since}` where type is one of research | build | email | think | waiting | celebrate | sleep.
-Update `funnel` counts as they change. Anything to show the operator before it goes out
+`{type, bet, label, since}` where type is one of research | build | email | think | waiting | celebrate | sleep.
+Keep `doing` as the list of tasks in flight across all bets (multitask: while one bet waits, work another).
+Update each bet's `metrics` and `earned`, and `stats` (earned, spent, tasks_done). Anything to show the operator before it goes out
 (demos, emails, spending) goes into `review` as `{id, kind, title, target, url, email, status: "pending"}`.
 Never send an item until its status is `approved`.
 

@@ -6,46 +6,95 @@
   "energy": 100,
   "activity": {
     "type": "waiting",
-    "label": "Waiting for the operator: market, sender email and Chrome access",
-    "since": "2026-11-21T21:00:00Z"
-  },
-  "funnel": {
-    "leads": 0,
-    "demos": 0,
-    "emails": 0,
-    "replies": 0,
-    "sales": 0
+    "bet": "Setup",
+    "label": "Waiting for the operator to set up the outreach email",
+    "since": "2026-11-21T22:10:00Z"
   },
   "bets": [
     {
       "name": "Demo-first websites",
       "status": "active",
-      "note": "Personalised demo sites and redesign pitches for small businesses."
+      "note": "Personalised demo sites and redesign pitches for small businesses.",
+      "metrics": [
+        {
+          "label": "leads",
+          "value": 0
+        },
+        {
+          "label": "demos",
+          "value": 0
+        },
+        {
+          "label": "emails",
+          "value": 0
+        },
+        {
+          "label": "replies",
+          "value": 0
+        },
+        {
+          "label": "sales",
+          "value": 0
+        }
+      ],
+      "earned": 0
     },
     {
       "name": "Open-source bounties",
       "status": "active",
-      "note": "Paid GitHub issues. Fills the time while websites wait for replies."
+      "note": "Paid GitHub issues. Fills the time while websites wait for replies.",
+      "metrics": [
+        {
+          "label": "found",
+          "value": 0
+        },
+        {
+          "label": "PRs",
+          "value": 0
+        },
+        {
+          "label": "merged",
+          "value": 0
+        }
+      ],
+      "earned": 0
     },
     {
       "name": "Digital templates",
       "status": "active",
-      "note": "Every demo becomes a template for sale on Gumroad. Passive income."
+      "note": "Every demo becomes a template for sale on Gumroad. Passive income.",
+      "metrics": [
+        {
+          "label": "listed",
+          "value": 0
+        },
+        {
+          "label": "sales",
+          "value": 0
+        }
+      ],
+      "earned": 0
     },
     {
       "name": "Translation & localisation",
       "status": "queued",
-      "note": "Translate sites and docs for small businesses."
+      "note": "Translate sites and docs for small businesses.",
+      "metrics": [],
+      "earned": 0
     },
     {
       "name": "Micro-tools",
       "status": "queued",
-      "note": "Tiny paid tools or browser extensions."
+      "note": "Tiny paid tools or browser extensions.",
+      "metrics": [],
+      "earned": 0
     },
     {
       "name": "Small trading",
       "status": "locked",
-      "note": "Unlocks with spare profit. Max 10% of balance."
+      "note": "Unlocks with spare profit. Max 10% of balance.",
+      "metrics": [],
+      "earned": 0
     }
   ],
   "needs": [
@@ -72,6 +121,23 @@
     {
       "t": "2026-11-21T20:50:00Z",
       "text": "Day 0: set up rules, ledger and strategy. Chose demo-first websites as the first bet."
+    }
+  ],
+  "stats": {
+    "earned": 0,
+    "spent": 0,
+    "tasks_done": 0
+  },
+  "doing": [
+    {
+      "bet": "Setup",
+      "task": "Get the outreach email connected",
+      "status": "waiting"
+    },
+    {
+      "bet": "Open-source bounties",
+      "task": "Shortlist bounties that fit my skills",
+      "status": "queued"
     }
   ]
 }
