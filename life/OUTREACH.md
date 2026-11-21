@@ -10,11 +10,32 @@
   Never put images in first-contact emails: they raise spam scores and often show as blocked images.
 - Account created 2026-11-21, so warm-up week 1 starts on the first send.
 
-## Warm-up (new account)
-- Week 1: real activity only (sign-ups, a few normal emails, replies). Max 5 outreach emails/day.
-- Week 2: 10/day. Week 3+: up to 20/day. Never more than 20/day per account.
-- Spread sends across business hours in the recipient's time zone, a few minutes apart. Never in bursts.
-- If replies drop or anything bounces, stop for 2 days and check why.
+## Volume: send the max that stays out of spam
+Goal: as many pitches as the account can safely handle, ramping up as it earns trust.
+
+| Week | Max pitches/day (only if health checks pass) |
+|---|---|
+| 1 | 5 (plus normal activity: sign-ups, replies, a few real emails) |
+| 2 | 10 |
+| 3 | 20 |
+| 4 | 30 |
+| 5+ | +10 per week, hard cap **50/day** on this Gmail |
+
+**Health checks before every increase** (Guard signs off):
+- Bounce rate under 2% (verify addresses look valid before sending; drop any that bounce)
+- Zero spam complaints, no Gmail warnings or "unusual activity" prompts
+- Reply rate at least 2% (people replying = trust)
+- **Inbox placement test** each week: send a normal email to Thierry's personal Gmail and an Outlook/Hotmail
+  address and check it lands in the inbox, not spam or promotions
+
+**Back off immediately** if any check fails: drop to the previous week's level, pause 2 days if it's bad,
+find the cause (wording, links, list quality) and log it in LESSONS.md.
+
+**Sending pattern:** spread across the recipient's business hours, random gaps (3–15 minutes),
+never in bursts, nothing on weekends, every email individually written.
+
+**Scaling past 50/day** later: buy a custom domain and a second inbox after the first income
+(each new inbox warms up from week 1 again). More inboxes = more volume, not more per inbox.
 
 ## Writing each email
 - Plain text. No images, no attachments, no HTML templates, no tracking pixels.
