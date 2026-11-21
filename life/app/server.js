@@ -2,6 +2,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const { execFile, spawn } = require('child_process');
 
 const PUB = path.join(__dirname, 'public');
 const STATE = path.join(__dirname, '..', 'state.json');
@@ -14,12 +15,18 @@ const writeState = (s) => {
   fs.writeFileSync(tmp, JSON.stringify(s, null, 2) + '\n');
   fs.renameSync(tmp, STATE);
 };
+// Build id = newest modification time of the page files. The page reloads itself when it changes.
+const buildId = () => {
+  let m = 0;
+  for (const f of fs.readdirSync(PUB)) { try { m = Math.max(m, fs.statSync(path.join(PUB, f)).mtimeMs); } catch {} }
+  return String(Math.floor(m));
+};
 const send = (res, code, body, type = 'application/json') => {
-  res.writeHead(code, { 'Content-Type': type, 'Cache-Control': 'no-store' });
+  res.writeHead(code, { 'Content-Type': type, 'Cache-Control': 'no-store', 'X-Build': buildId() });
   res.end(typeof body === 'string' || Buffer.isBuffer(body) ? body : JSON.stringify(body));
 };
 
-http.createServer((req, res) => {
+const server = http.createServer((req, res) => {
   const url = new URL(req.url, 'http://localhost');
 
   if (url.pathname === '/api/state' && req.method === 'GET') {
@@ -55,4 +62,29 @@ http.createServer((req, res) => {
     if (err) return send(res, 404, 'not found', 'text/plain');
     send(res, 200, data, TYPES[path.extname(file)] || 'application/octet-stream');
   });
-}).listen(PORT, '127.0.0.1', () => console.log(`Claude Life running at http://localhost:${PORT}`));
+});
+
+// Start, retrying while an older copy of the server is still shutting down.
+let tries = 0;
+server.on('error', (e) => {
+  if (e.code === 'EADDRINUSE' && tries++ < 40) return setTimeout(() => server.listen(PORT, '127.0.0.1'), 300);
+  console.error(e.message); process.exit(1);
+});
+server.listen(PORT, '127.0.0.1', () => console.log(`Claude Life running at http://localhost:${PORT}`));
+
+// Auto-update: pull new versions from GitHub every 5 minutes. Page files reload in the browser by
+// themselves; if this server file changed, start a fresh copy of the server and exit.
+// Only fast-forward pulls, so local work is never overwritten. Disable with CLAUDE_LIFE_NO_UPDATE=1.
+const REPO = path.join(__dirname, '..', '..');
+const SELF = __filename, bootMtime = fs.statSync(SELF).mtimeMs;
+function update() {
+  execFile('git', ['pull', '--ff-only', '--quiet'], { cwd: REPO, timeout: 60000, windowsHide: true }, (err, out, errOut) => {
+    if (err) return console.log(`[update] skipped: ${(errOut || err.message).trim().split('\n')[0]}`);
+    let changed = false; try { changed = fs.statSync(SELF).mtimeMs !== bootMtime; } catch {}
+    if (!changed) return;
+    console.log('[update] server changed, restarting');
+    spawn(process.execPath, [SELF], { cwd: process.cwd(), detached: true, stdio: 'ignore', windowsHide: true }).unref();
+    server.close(); setTimeout(() => process.exit(0), 200);
+  });
+}
+if (!process.env.CLAUDE_LIFE_NO_UPDATE) { setTimeout(update, 3000); setInterval(update, 5 * 60 * 1000); }

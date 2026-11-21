@@ -27,6 +27,8 @@ Approve or reject demos and emails in the **Review** tab.
 2. Double-click `desktop/INSTALL-DESKTOP-ICON.bat`. A **Claude Life** icon appears on your desktop.
 3. Double-click the icon. It starts the game in the background and opens it in its own window.
 
+The app updates itself: every 5 minutes it pulls new versions from GitHub and the window reloads.
+
 ## Token savers (install on the PC running the local Claude session)
 - **Graphify** builds a knowledge graph of the project so Claude queries it instead of re-reading files:
   `pip install graphifyy && graphify install`, then run `/graphify` in Claude Code.

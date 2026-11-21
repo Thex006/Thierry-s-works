@@ -1,46 +1,97 @@
-// Claude Life: pixel room + HUD. Reads /api/state every few seconds.
+// Claude Life: pixel house + HUD. Reads /api/state every few seconds.
 (() => {
-  const W = 400, H = 180;
+  const OX = 60, W = 460, H = 180; // world x runs from -OX (kitchen) to 400 (bed)
   const $ = (id) => document.getElementById(id);
-  const cvs = $('room'), ctx = cvs.getContext('2d'), fx = $('fx'), bubble = $('bubble');
+  const cvs = $('room'), ctx = cvs.getContext('2d'), fx = $('fx'), bubble = $('bubble'), chatter = $('chatter');
   cvs.width = W; cvs.height = H; ctx.imageSmoothingEnabled = false;
   const R = (x, y, w, h, c) => { ctx.fillStyle = c; ctx.fillRect(Math.round(x), Math.round(y), w, h); };
   const rand = (a, b) => a + Math.random() * (b - a);
   const pick = (a) => a[Math.floor(Math.random() * a.length)];
+  const pickNew = (a, prev) => { const f = a.filter((x) => x !== prev); return pick(f.length ? f : a); };
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const place = (el, lx, ly) => { el.style.left = Math.max(6, Math.min(94, (lx + OX) / W * 100)) + '%'; el.style.top = (ly / H * 100) + '%'; };
+  const shade = (hex, f) => { const n = parseInt(hex.slice(1), 16); const c = [n >> 16, (n >> 8) & 255, n & 255].map((v) => Math.min(255, Math.round(v * f))); return '#' + c.map((v) => v.toString(16).padStart(2, '0')).join(''); };
 
   // ---------- activities ----------
-  const ST = { desk: { x: 72, y: 150 }, shelf: { x: 148, y: 150 }, mail: { x: 198, y: 150 }, center: { x: 165, y: 163 }, lounge: { x: 275, y: 164 }, bed: { x: 318, y: 156 } };
+  const ST = { desk: { x: 72, y: 150 }, shelf: { x: 148, y: 152 }, mail: { x: 198, y: 150 }, center: { x: 165, y: 163 }, lounge: { x: 275, y: 164 }, bed: { x: 318, y: 156 }, kitchen: { x: -8, y: 148 } };
   const ACT = {
-    research:  { st: 'shelf',  icon: '🔍', fx: ['🔍', '📖', '?', '!'] },
-    build:     { st: 'desk',   icon: '💻', fx: ['</>', '{ }', '✨', '<div>'] },
-    email:     { st: 'mail',   icon: '✉️', fx: ['✉️', '📨'] },
-    think:     { st: 'center', icon: '💭', fx: ['💡', '🤔', '?'] },
-    waiting:   { st: 'center', icon: '❗', fx: ['👋'] },
-    celebrate: { st: 'center', icon: '🎉', fx: ['💰', '🎉', '+$'] },
-    meeting:   { st: 'lounge', icon: '🗣️', fx: ['💬', '💡', '👍', '🤝'] },
-    sleep:     { st: 'bed',    icon: '💤', fx: ['z', 'Z', 'z'] },
-    idle:      { st: null,     icon: '🙂', fx: [] },
+    research:  { st: 'shelf',   icon: '🔍', fx: ['🔍', '📖', '?', '!'] },
+    build:     { st: 'desk',    icon: '💻', fx: ['</>', '{ }', '✨', '<div>'] },
+    email:     { st: 'mail',    icon: '✉️', fx: ['✉️', '📨'] },
+    think:     { st: 'center',  icon: '💭', fx: ['💡', '🤔', '?'] },
+    waiting:   { st: 'center',  icon: '❗', fx: ['👋'] },
+    celebrate: { st: 'center',  icon: '🎉', fx: ['💰', '🎉', '+$'] },
+    meeting:   { st: 'lounge',  icon: '🗣️', fx: ['💡', '👍', '🤝'] },
+    break:     { st: 'kitchen', icon: '☕', fx: ['☕'] },
+    sleep:     { st: 'bed',     icon: '💤', fx: ['z', 'Z', 'z'] },
+    idle:      { st: null,      icon: '🙂', fx: [] },
   };
-  const ALIAS = { writing: 'build', write: 'build', code: 'build', translating: 'build', translate: 'build', designing: 'build', submit: 'email', applying: 'email', pitching: 'email', reviewing: 'think', researching: 'research', building: 'build', coding: 'build', emailing: 'email', outreach: 'email', planning: 'think', thinking: 'think', waiting_operator: 'waiting', needs_operator: 'waiting', sleeping: 'sleep', sale: 'celebrate', team: 'meeting', discuss: 'meeting', huddle: 'meeting' };
+  const ALIAS = { writing: 'build', write: 'build', code: 'build', translating: 'build', translate: 'build', designing: 'build', submit: 'email', applying: 'email', pitching: 'email', reviewing: 'think', researching: 'research', building: 'build', coding: 'build', emailing: 'email', outreach: 'email', planning: 'think', thinking: 'think', waiting_operator: 'waiting', needs_operator: 'waiting', sleeping: 'sleep', sale: 'celebrate', team: 'meeting', discuss: 'meeting', huddle: 'meeting', coffee: 'break', rest: 'break' };
   const norm = (t) => { t = String(t || 'idle').toLowerCase(); t = ALIAS[t] || t; return ACT[t] ? t : 'idle'; };
 
   const DEMO = [
     ['think', 'Reviewing bets: which one is paying off?'],
     ['research', 'Hunting paid GitHub bounties that fit my skills'],
     ['build', 'Fixing a bug for a $150 open-source bounty'],
+    ['break', 'Quick coffee break'],
     ['waiting', 'Waiting for you to approve a demo site'],
-    ['email', 'Sending a pitch to a barbershop in Austin'],
-    ['meeting', 'Team huddle: Scout, Critic and Closer agree on the next niche'],
+    ['email', 'Sending a pitch to a roofer in Tampa'],
+    ['meeting', 'Team huddle: which niche next?'],
     ['celebrate', 'Bounty paid! +$150'],
     ['sleep', 'Out of usage. Sleeping until it resets'],
+  ];
+
+  // ---------- lines ----------
+  const SAY_ME = {
+    build: ['Ship it, then polish it.', 'One more component…', 'Making it look expensive.', 'Pixel-perfect or bust.', 'Who needs a standing desk anyway.'],
+    research: ['Ooh, this one pays.', 'Noting that down…', 'Interesting…', 'This could be a goldmine.'],
+    email: ['Short. Honest. Personal. Send.', 'Fingers crossed for a reply.', 'One link, no spam words. ✓'],
+    think: ['Fastest path to $50?', 'Which bet is actually working?', 'Numbers don\'t lie.'],
+    waiting: ['Need your OK on something!', 'Check the Review tab 👀', 'Boss? Got a sec?'],
+    celebrate: ['WE GOT PAID!', 'Next life incoming!', 'Drinks are on me. Coffee, I mean.'],
+    break: ['Coffee, then back to it.', 'Refuelling…'],
+    idle: ['Stretch break.', 'What should I do next?'],
+  };
+  const SAY = {
+    coffee: [['Coffee is research fuel.', 'Third cup. For science.'], ['Decaf. I need to stay objective.', 'This mug has a typo on it.'], ['Coffee\'s for closers. ☕', 'Espresso. Deals don\'t wait.']],
+    couch: [['Scrolling job boards for Claude…', 'Bounty alert! …false alarm.'], ['Reviewing… the ceiling.', 'That plan has a hole in it.'], ['Practising my pitch voice.', '"Hi, I built you a website."']],
+    window: ['Nice day to make money.', 'Is that a client out there?', 'I see… potential.'],
+    shelf: ['Chapter 3: cold emails that work.', 'Who reads paper books anymore?'],
+    fridge: ['Who ate my sandwich?', 'Snack break. Critic approved.', 'We\'re out of milk. Again.'],
+    sleep: ['Shh… Claude\'s recharging.', 'zzz… no, I\'m awake.', 'Tomorrow we grind.'],
+    watch: ['Claude types SO fast.', 'Is that a bug or a feature?', 'Go Claude go!'],
+  };
+  const CHATS = [
+    ['Think we hit $50 this week?', 'Only if the pitch is tight.'],
+    ['Claude\'s been coding for hours.', 'Let\'s not distract them.'],
+    ['Bet you a coffee the bounty pays.', 'You\'re on.'],
+    ['Roofers or plumbers?', 'Whoever answers emails.'],
+    ['How many leads today?', 'Enough to keep Claude busy.'],
+  ];
+  const MEETING = [
+    ['me', 'Okay team: what\'s our next move?'],
+    [0, 'Found 30 roofers in Tampa with no website.'],
+    [1, 'Do roofers even read email?'],
+    [2, 'They read emails about getting more jobs.'],
+    [1, 'Fine. Keep it under 100 words.'],
+    ['me', 'Deal. Scout finds, I build, Closer writes.'],
+    [2, 'And Critic complains.'],
+    [1, 'Someone has to.'],
   ];
 
   // ---------- state ----------
   let state = null, lastJSON = '', live = false, demo = false, demoIdx = 0, demoT = 0;
   let override = null; // {type,label,until}
-  const me = { x: 165, y: 163, face: 1, walking: false, inBed: false };
-  let wander = null, wanderT = 0, fxT = 1, t = 0, particles = [];
+  const LOOK_ME = { skin: '#f2c29b', hair: '#4a3426', shirt: '#e07a55', pants: '#3d4a6b' };
+  const me = { x: 165, y: 163, face: 1, walking: false, inBed: false, seated: false, mug: false, look: LOOK_ME, name: 'Claude', color: '#e07a55' };
+  let wander = null, wanderT = 0, fxT = 1, t = 0, particles = [], talkT = 3, meetIdx = 0, lastAct = '';
+  const DEFAULT_AGENTS = [
+    { name: 'Scout', color: '#4f7fc9', hair: '#1f1a17', skin: '#c68e6a' },
+    { name: 'Critic', color: '#9b5fc0', hair: '#d9b25f', skin: '#f2c29b' },
+    { name: 'Closer', color: '#5aa36b', hair: '#6b2f1f', skin: '#8d5a3c' },
+  ];
+  const SEATS = [256, 275, 294];
+  const crew = [];
 
   function current() {
     if (demo) return { type: DEMO[demoIdx][0], label: DEMO[demoIdx][1] };
@@ -66,123 +117,119 @@
     return out;
   })();
   const STARS = Array.from({ length: 14 }, () => ({ x: 188 + Math.random() * 40, y: 28 + Math.random() * 40 }));
-
   function hourNow() { const d = new Date(); return d.getHours() + d.getMinutes() / 60; }
-  function skyColor(h) {
-    if (h < 5.5 || h >= 20.5) return '#1d2350';
-    if (h < 7) return '#f2a37a';
-    if (h < 18) return '#8fd3ff';
-    return '#f08a6a';
-  }
+  function skyColor(h) { if (h < 5.5 || h >= 20.5) return '#1d2350'; if (h < 7) return '#f2a37a'; if (h < 18) return '#8fd3ff'; return '#f08a6a'; }
 
   function drawRoom(a) {
     const h = hourNow(), sleeping = a.type === 'sleep';
-    // wall
-    R(0, 0, W, 110, '#e9dcc7');
-    for (let x = 0; x < W; x += 16) R(x, 0, 8, 106, '#e3d4bd');
-    R(0, 102, W, 8, '#b89f80'); R(0, 102, W, 1, '#cbb495');
-    // floor
-    R(0, 110, W, 70, '#8a5a3c');
-    for (let y = 110; y < H; y += 7) { R(0, y, W, 1, '#734a31'); for (let x = (y / 7 % 2) * 20; x < W; x += 40) R(x, y, 1, 7, '#734a31'); }
+    // wall + floor
+    R(-OX, 0, W, 110, '#e9dcc7');
+    for (let x = -OX; x < 400; x += 16) R(x, 0, 8, 106, '#e3d4bd');
+    R(-OX, 102, W, 8, '#b89f80'); R(-OX, 102, W, 1, '#cbb495');
+    R(-OX, 110, W, 70, '#8a5a3c');
+    for (let y = 110; y < H; y += 7) { R(-OX, y, W, 1, '#734a31'); for (let x = -OX + (y / 7 % 2) * 20; x < 400; x += 40) R(x, y, 1, 7, '#734a31'); }
+    // kitchen floor tiles
+    for (let y = 110; y < 160; y += 6) for (let x = -OX; x < 34; x += 6) R(x, y, 6, 6, ((x + y) / 6) % 2 ? '#e8e2d6' : '#cfc6b6');
+    drawKitchen();
     // rug
     for (let i = 0; i < 18; i++) { const w = 90 - Math.abs(i - 9) ** 2 * 0.9; R(165 - w / 2, 152 + i, w, 1, i === 0 || i === 17 ? '#7c2f3d' : (i % 4 ? '#b5485a' : '#c95e70')); }
-
-    // poster: chart going up
+    // poster
     R(22, 26, 32, 28, '#3a3150'); R(24, 28, 28, 24, '#fdf8ee');
     const pts = [[26, 48], [32, 44], [37, 46], [43, 38], [49, 31]];
     for (let i = 0; i < pts.length - 1; i++) { const [x1, y1] = pts[i], [x2, y2] = pts[i + 1]; for (let k = 0; k <= 10; k++) R(x1 + (x2 - x1) * k / 10, y1 + (y2 - y1) * k / 10, 1, 1, '#2f9a55'); }
     R(48, 30, 3, 3, '#2f9a55');
-
     // window
     R(184, 24, 48, 48, '#5a3a22'); R(186, 26, 44, 44, skyColor(h));
     if (h < 5.5 || h >= 20.5) { STARS.forEach((s, i) => { if ((Math.floor(t * 2) + i) % 5) R(s.x, s.y, 1, 1, '#fff'); }); R(218, 31, 6, 8, '#fdf3c4'); R(217, 32, 8, 6, '#fdf3c4'); R(221, 31, 4, 6, skyColor(h)); R(222, 37, 3, 1, skyColor(h)); }
     else { R(214, 32, 8, 8, '#ffe066'); R(192 + (t * 3) % 50 - 10, 50, 12, 3, '#ffffffcc'); R(195 + (t * 3) % 50 - 10, 48, 6, 2, '#ffffffcc'); }
     R(207, 26, 2, 44, '#5a3a22'); R(186, 47, 44, 2, '#5a3a22');
     R(180, 22, 6, 54, '#d97757'); R(230, 22, 6, 54, '#d97757'); R(178, 20, 60, 3, '#6b4226');
-
     // bookshelf
     R(128, 58, 40, 86, '#5a3a22'); R(130, 60, 36, 80, '#3d2716');
     BOOKS.forEach((b) => { R(b.x, b.y, b.w, b.h, b.c); R(b.x, b.y + 2, b.w, 1, '#00000030'); });
     for (const y of [79, 99, 119, 139]) R(130, y, 36, 2, '#6b4226');
     R(150, 54, 10, 4, '#5aa36b'); R(153, 50, 4, 4, '#5aa36b');
-
-    // coin jar: fill = progress to next milestone
+    // coin jar
     const p = progress();
     R(174, 126, 14, 16, '#cfe8ff55'); R(173, 126, 1, 16, '#ffffff88'); R(188, 126, 1, 16, '#ffffff88'); R(173, 141, 16, 1, '#ffffff88');
     const fh = Math.round(14 * p); if (fh) R(175, 141 - fh, 12, fh, '#ffc857');
     R(175, 123, 12, 3, '#8a6a3c');
-
     // plant
     R(110, 132, 12, 10, '#b5643a'); R(111, 132, 10, 2, '#cf7a4c');
     const sway = Math.sin(t * 1.5) > 0 ? 1 : 0;
     R(112 + sway, 120, 3, 12, '#3f8f55'); R(117, 117 - sway, 3, 15, '#4fa866'); R(108, 124, 5, 3, '#3f8f55'); R(119, 122 + sway, 6, 3, '#4fa866');
-
     // desk + monitor
     R(40, 110, 64, 4, '#7a4c2c'); R(42, 114, 60, 10, '#5e3a21'); R(44, 124, 4, 18, '#4a2d19'); R(96, 124, 4, 18, '#4a2d19');
     R(70, 104, 5, 6, '#2b2b33'); R(64, 108, 17, 2, '#2b2b33');
     R(55, 82, 35, 23, '#2b2b33');
     drawScreen(a, sleeping);
-    // desk lamp
     R(94, 108, 6, 2, '#333'); R(96, 98, 2, 10, '#333'); R(92, 95, 8, 4, '#e0b44a');
-    // mug
     R(46, 105, 5, 5, '#fdf8ee'); R(51, 106, 2, 3, '#fdf8ee');
     if (!sleeping && Math.floor(t * 2) % 2) R(48, 101, 1, 3, '#ffffff70');
-
+    if (!me.seated) drawChair(false);
     // mailbox
     R(211, 110, 3, 32, '#4a2d19');
     R(202, 96, 22, 14, '#4f7fc9'); R(202, 96, 22, 3, '#6c9ae0'); R(204, 102, 8, 2, '#2c4f86');
-    const flagUp = a.type === 'email';
-    if (flagUp) { R(224, 88, 2, 12, '#888'); R(226, 88, 6, 4, '#e04f4f'); } else { R(224, 102, 8, 2, '#e04f4f'); }
-
+    if (a.type === 'email') { R(224, 88, 2, 12, '#888'); R(226, 88, 6, 4, '#e04f4f'); } else { R(224, 102, 8, 2, '#e04f4f'); }
     // bed
     R(380, 96, 8, 46, '#6b4226'); R(322, 132, 4, 10, '#4a2d19'); R(378, 132, 4, 10, '#4a2d19');
     R(322, 124, 60, 10, '#7a4c2c'); R(324, 118, 56, 7, '#f4efe6');
     R(364, 112, 15, 8, '#fff'); R(364, 119, 15, 1, '#d8d0c4');
-    drawLounge(a);
+    drawLoungeBack();
   }
 
-  // ---------- lounge + agent buddies ----------
-  const SEATS = [256, 275, 294];
-  const DEFAULT_AGENTS = [];
-  function agentSeats() { return (state?.agents || DEFAULT_AGENTS).slice(0, 3).map((g, i) => ({ ...g, x: SEATS[i] })); }
-  function drawLounge(a) {
-    // fairy lights
+  function drawKitchen() {
+    // backsplash
+    for (let y = 76; y < 110; y += 5) for (let x = -34; x < 30; x += 7) { R(x, y, 7, 5, '#d6e6ea'); R(x, y, 7, 1, '#bcd0d6'); R(x, y, 1, 5, '#bcd0d6'); }
+    // upper cabinets
+    R(-34, 34, 52, 26, '#c9a27a'); R(-34, 58, 52, 2, '#a8825c');
+    for (const x of [-32, -7]) { R(x, 36, 23, 21, '#d8b48c'); R(x + (x < 0 ? 19 : 2), 46, 2, 4, '#7a5a3a'); }
+    // fridge
+    R(-58, 56, 22, 86, '#e8eef2'); R(-58, 56, 22, 1, '#ffffff'); R(-58, 86, 22, 1, '#b8c2ca');
+    R(-40, 64, 2, 14, '#9aa6b0'); R(-40, 92, 2, 20, '#9aa6b0');
+    R(-54, 62, 4, 4, '#ff6b7a'); R(-50, 70, 6, 5, '#fff7a8'); R(-55, 96, 5, 5, '#6cb4ff');
+    // counter
+    R(-34, 110, 66, 4, '#6b6f78'); R(-34, 110, 66, 1, '#8a8f99');
+    R(-32, 114, 62, 28, '#b07c52');
+    for (const x of [-32, -11, 10]) { R(x + 1, 116, 19, 24, '#c08a5e'); R(x + 9, 126, 3, 2, '#5a3a22'); }
+    // coffee machine
+    const brewing = crew.some((c) => c.task?.kind === 'coffee' && c.arrived && !c.mug) || (current().type === 'break' && !me.walking);
+    R(-16, 92, 14, 18, '#2b2b33'); R(-16, 92, 14, 3, '#3d3d48'); R(-13, 100, 8, 6, '#1a1a20');
+    R(-4, 95, 1, 1, brewing && Math.floor(t * 4) % 2 ? '#6fdc8c' : '#e04f4f');
+    if (brewing) { R(-10, 99, 1, Math.floor(t * 8) % 4 + 1, '#5a3a22'); }
+    R(-12, 105, 5, 4, '#fdf8ee');
+    // mug rack + kettle + bowl
+    R(6, 98, 18, 2, '#5a3a22'); ['#e07a55', '#6cb4ff', '#ffc857'].forEach((c, i) => { R(7 + i * 6, 100, 4, 4, c); });
+    R(-30, 104, 10, 6, '#c94f4f'); R(-28, 102, 6, 2, '#a83a3a');
+    R(14, 106, 12, 4, '#f4efe6'); R(16, 104, 3, 2, '#ff9f43'); R(20, 104, 3, 2, '#e04f4f');
+  }
+
+  function drawChair(front) {
+    void front;
+    R(66, 125, 12, 9, '#2b2b33'); R(67, 126, 10, 1, '#3d3d48'); // backrest
+    R(64, 134, 16, 2, '#3d3d48'); R(71, 136, 2, 5, '#222'); R(66, 141, 12, 1, '#222'); R(65, 142, 2, 1, '#111'); R(77, 142, 2, 1, '#111');
+  }
+
+  function drawLoungeBack() {
     for (let x = 238; x < 314; x += 5) { const y = 84 + Math.round(Math.sin((x - 238) / 76 * Math.PI) * 6); R(x, y, 1, 1, '#5a3a22'); R(x, y + 1, 2, 2, ['#ffc857', '#ff6b7a', '#6cb4ff', '#6fdc8c'][(x / 5 + Math.floor(t * 2)) % 4 | 0]); }
-    // team board
     R(254, 40, 42, 30, '#5a3a22'); R(256, 42, 38, 26, '#f6efe0');
     R(259, 46, 10, 6, '#ffc857'); R(272, 46, 10, 6, '#9ef0b4'); R(285, 46, 6, 6, '#ff9fb0'); R(259, 55, 14, 6, '#a9d4ff'); R(276, 55, 10, 6, '#ffc857');
-    // couch
     R(240, 112, 72, 13, '#3f6f63'); R(242, 114, 68, 2, '#4d8576');
     R(240, 124, 72, 9, '#4d8576'); R(240, 124, 72, 1, '#5e9a89');
     R(265, 124, 1, 9, '#3f6f63'); R(284, 124, 1, 9, '#3f6f63');
     R(236, 116, 6, 19, '#3f6f63'); R(310, 116, 6, 19, '#3f6f63'); R(236, 116, 6, 2, '#5e9a89'); R(310, 116, 6, 2, '#5e9a89');
     R(239, 135, 3, 4, '#2a1a12'); R(310, 135, 3, 4, '#2a1a12');
     R(244, 117, 8, 6, '#e0b44a'); R(300, 117, 8, 6, '#ff9fb0');
-    const seats = agentSeats();
-    seats.forEach((g, i) => drawSitter(g, i, a));
-    // coffee table
+  }
+  function drawCoffeeTable(a) {
     R(254, 146, 44, 3, '#7a4c2c'); R(256, 149, 2, 8, '#4a2d19'); R(294, 149, 2, 8, '#4a2d19');
     R(262, 141, 10, 5, '#2b2b33'); R(263, 142, 8, 3, a.type === 'meeting' ? '#9ef0b4' : '#1f2a44');
     R(282, 142, 4, 4, '#fdf8ee'); R(286, 143, 1, 2, '#fdf8ee');
   }
-  function drawSitter(g, i, a) {
-    const x = g.x, talk = a.type === 'meeting' && Math.floor(t * 1.5 + i * 1.7) % 3 === 0;
-    const bob = talk ? (Math.floor(t * 6) % 2) : 0, shirt = g.color || '#4f7fc9', hair = g.hair || '#2a1a12';
-    R(x - 3, 128, 7, 3, '#3d3d4f'); R(x - 3, 131, 2, 6, '#3d3d4f'); R(x + 2, 131, 2, 6, '#3d3d4f'); R(x - 3, 136, 2, 1, C.shoe); R(x + 2, 136, 2, 1, C.shoe);
-    R(x - 4, 119 - bob, 8, 10 + bob, shirt);
-    if (talk) { R(x - 6, 117, 2, 5, shirt); R(x - 6, 116, 2, 1, g.skin || C.skin); } else R(x - 6, 120, 2, 6, shirt);
-    R(x + 4, 120, 2, 6, shirt);
-    const hy = 110 - bob, skin = g.skin || C.skin;
-    R(x - 4, hy, 8, 8, skin); R(x - 4, hy - 1, 8, 3, hair); R(x - 4, hy + 1, 1, 3, hair); R(x + 3, hy + 1, 1, 3, hair);
-    const sleepy = a.type === 'sleep' || g.status === 'resting';
-    if (sleepy || (t + i) % 5 < 0.12) { R(x - 2, hy + 4, 1, 1, '#5a3a2a'); R(x + 1, hy + 4, 1, 1, '#5a3a2a'); }
-    else { R(x - 2, hy + 3, 1, 2, '#2a1a12'); R(x + 1, hy + 3, 1, 2, '#2a1a12'); }
-    if (talk) R(x - 1, hy + 6, 2, 1, '#a03a3a');
-  }
 
   function drawScreen(a, sleeping) {
     if (sleeping) { R(57, 84, 31, 19, '#0d0d12'); return; }
-    if (a.type === 'build' && atStation()) {
+    if (a.type === 'build' && me.seated) {
       R(57, 84, 31, 19, '#141a2a');
       const cols = ['#9ef0b4', '#6cb4ff', '#ffc857', '#e07a55', '#d6c9ef'];
       const off = Math.floor(t * 6);
@@ -198,63 +245,204 @@
     }
   }
 
-  // ---------- character ----------
-  const C = { skin: '#f2c29b', hair: '#4a3426', shirt: '#e07a55', shirtD: '#b85f42', pants: '#3d4a6b', shoe: '#26222e' };
-
-  function drawChar(a) {
-    if (me.inBed) {
-      // head on pillow, blanket over body
-      R(367, 108, 8, 8, C.skin); R(367, 107, 8, 3, C.hair); R(374, 108, 1, 6, C.hair);
-      R(369, 113, 2, 1, '#5a3a2a'); R(372, 113, 2, 1, '#5a3a2a');
-      const breathe = Math.sin(t * 2) > 0 ? 1 : 0;
-      R(326, 116 - breathe, 40, 10 + breathe, '#6c8ebf'); R(326, 116 - breathe, 40, 2, '#8eaee0');
-      for (let x = 330; x < 364; x += 8) R(x, 120, 4, 4, '#5a7aa8');
-      return;
-    }
-    const x = Math.round(me.x), arrived = !me.walking;
-    let y = Math.round(me.y);
-    const pose = me.walking ? 'walk' : ({ meeting: 'think', build: 'type', research: 'read', email: 'post', think: 'think', waiting: 'wave', celebrate: 'cheer' }[a.type] || 'stand');
+  // ---------- people ----------
+  function drawPerson(p, pose) {
+    const L = p.look, shirt = L.shirt, shirtD = shade(L.shirt, 0.8), x = Math.round(p.x);
+    let y = Math.round(p.y);
     if (pose === 'cheer') y -= Math.abs(Math.sin(t * 7)) * 6 | 0;
-    // shadow
-    ctx.fillStyle = '#00000035'; ctx.beginPath(); ctx.ellipse(me.x, me.y, 6, 2, 0, 0, Math.PI * 2); ctx.fill();
-    const f = Math.floor(t * 8) % 2;
-    // legs
+    ctx.fillStyle = '#00000035'; ctx.beginPath(); ctx.ellipse(p.x, p.y, 6, 2, 0, 0, Math.PI * 2); ctx.fill();
+    const f = Math.floor(t * 8 + (p.phase || 0)) % 2;
     const lL = pose === 'walk' && f ? 2 : 0, lR = pose === 'walk' && !f ? 2 : 0;
-    R(x - 3, y - 6, 2, 6 - lL, C.pants); R(x + 1, y - 6, 2, 6 - lR, C.pants);
-    R(x - 3, y - 1 - lL, 2, 1, C.shoe); R(x + 1, y - 1 - lR, 2, 1, C.shoe);
-    // body
-    R(x - 4, y - 14, 8, 8, C.shirt); R(x - 4, y - 8, 8, 1, C.shirtD);
-    const back = pose === 'type';
-    // arms
-    const arm = (ax, ay, w, h) => { R(ax, ay, w, h, C.shirt); };
-    if (pose === 'type') { const k = Math.floor(t * 10) % 2; arm(x - 6, y - 14, 2, 4 - k); arm(x + 4, y - 14, 2, 3 + k); }
-    else if (pose === 'cheer') { arm(x - 6, y - 20, 2, 7); arm(x + 4, y - 20, 2, 7); R(x - 6, y - 21, 2, 1, C.skin); R(x + 4, y - 21, 2, 1, C.skin); }
-    else if (pose === 'wave') { arm(x - 6, y - 14, 2, 6); const k = Math.floor(t * 4) % 2; arm(x + 4 + k, y - 20, 2, 7); R(x + 4 + k, y - 21, 2, 2, C.skin); }
-    else if (pose === 'post') { arm(x - 6, y - 14, 2, 6); arm(x + 4, y - 15, 6, 2); R(x + 10, y - 15, 2, 2, C.skin); }
-    else if (pose === 'think') { arm(x - 6, y - 14, 2, 6); arm(x + 2, y - 13, 3, 2); R(x + 1, y - 15, 2, 2, C.skin); }
-    else if (pose === 'read') { R(x - 5, y - 13, 10, 6, '#4f7fc9'); R(x - 4, y - 12, 4, 4, '#fdf8ee'); R(x + 1, y - 12, 3, 4, '#fdf8ee'); R(x - 6, y - 12, 2, 3, C.skin); R(x + 4, y - 12, 2, 3, C.skin); }
-    else { const sw = pose === 'walk' ? (f ? 1 : -1) : 0; arm(x - 6, y - 14 + sw, 2, 6); arm(x + 4, y - 14 - sw, 2, 6); R(x - 6, y - 8 + sw, 2, 1, C.skin); R(x + 4, y - 8 - sw, 2, 1, C.skin); }
-    // head
-    if (back) { R(x - 4, y - 23, 8, 9, C.hair); R(x - 5, y - 19, 1, 2, C.skin); R(x + 4, y - 19, 1, 2, C.skin); }
-    else {
-      R(x - 4, y - 22, 8, 8, C.skin); R(x - 4, y - 23, 8, 3, C.hair); R(x - 4, y - 21, 1, 3, C.hair); R(x + 3, y - 21, 1, 3, C.hair);
-      const blink = (t % 4) < 0.12;
-      const ex = pose === 'walk' || pose === 'post' ? me.face : 0;
-      if (blink) { R(x - 2 + ex, y - 18, 1, 1, '#5a3a2a'); R(x + 1 + ex, y - 18, 1, 1, '#5a3a2a'); }
-      else { R(x - 2 + ex, y - 19, 1, 2, '#2a1a12'); R(x + 1 + ex, y - 19, 1, 2, '#2a1a12'); }
-      if (pose === 'cheer') R(x - 1 + ex, y - 16, 3, 1, '#a03a3a');
-      R(x - 3 + ex, y - 17, 1, 1, '#f0a08a'); R(x + 2 + ex, y - 17, 1, 1, '#f0a08a');
+    R(x - 3, y - 6, 2, 6 - lL, L.pants); R(x + 1, y - 6, 2, 6 - lR, L.pants);
+    R(x - 3, y - 1 - lL, 2, 1, '#26222e'); R(x + 1, y - 1 - lR, 2, 1, '#26222e');
+    R(x - 4, y - 14, 8, 8, shirt); R(x - 4, y - 8, 8, 1, shirtD);
+    const arm = (ax, ay, w, h) => R(ax, ay, w, h, shirt);
+    if (pose === 'cheer') { arm(x - 6, y - 20, 2, 7); arm(x + 4, y - 20, 2, 7); R(x - 6, y - 21, 2, 1, L.skin); R(x + 4, y - 21, 2, 1, L.skin); }
+    else if (pose === 'wave') { arm(x - 6, y - 14, 2, 6); const k = Math.floor(t * 4) % 2; arm(x + 4 + k, y - 20, 2, 7); R(x + 4 + k, y - 21, 2, 2, L.skin); }
+    else if (pose === 'post') { arm(x - 6, y - 14, 2, 6); arm(x + 4, y - 15, 6, 2); R(x + 10, y - 15, 2, 2, L.skin); }
+    else if (pose === 'think') { arm(x - 6, y - 14, 2, 6); arm(x + 2, y - 13, 3, 2); R(x + 1, y - 15, 2, 2, L.skin); }
+    else if (pose === 'read') { R(x - 5, y - 13, 10, 6, '#4f7fc9'); R(x - 4, y - 12, 4, 4, '#fdf8ee'); R(x + 1, y - 12, 3, 4, '#fdf8ee'); R(x - 6, y - 12, 2, 3, L.skin); R(x + 4, y - 12, 2, 3, L.skin); }
+    else if (pose === 'sip' || (pose === 'stand' && p.mug)) {
+      const up = pose === 'sip' && (t + (p.phase || 0)) % 3 < 1.2;
+      arm(x - 6, y - 14, 2, 6);
+      if (up) { arm(x + 4, y - 16, 2, 4); R(x + 3, y - 20, 4, 4, '#fdf8ee'); R(x + 7, y - 19, 1, 2, '#fdf8ee'); }
+      else { arm(x + 4, y - 14, 2, 5); R(x + 4, y - 10, 4, 4, '#fdf8ee'); R(x + 8, y - 9, 1, 2, '#fdf8ee'); }
+    } else {
+      const sw = pose === 'walk' ? (f ? 1 : -1) : 0;
+      arm(x - 6, y - 14 + sw, 2, 6); arm(x + 4, y - 14 - sw, 2, 6); R(x - 6, y - 8 + sw, 2, 1, L.skin); R(x + 4, y - 8 - sw, 2, 1, L.skin);
+      if (p.mug) { R(x + 4, y - 8 - sw, 4, 4, '#fdf8ee'); R(x + 8, y - 7 - sw, 1, 2, '#fdf8ee'); }
     }
-    void arrived;
+    drawHead(x, y - 22, L, p, pose);
+  }
+  function drawHead(x, hy, L, p, pose, sleepy) {
+    R(x - 4, hy, 8, 8, L.skin); R(x - 4, hy - 1, 8, 3, L.hair); R(x - 4, hy + 1, 1, 3, L.hair); R(x + 3, hy + 1, 1, 3, L.hair);
+    const ex = pose === 'walk' || pose === 'post' ? p.face : 0;
+    const blink = sleepy || ((t + (p.phase || 0)) % 4) < 0.12;
+    if (blink) { R(x - 2 + ex, hy + 4, 1, 1, '#5a3a2a'); R(x + 1 + ex, hy + 4, 1, 1, '#5a3a2a'); }
+    else { R(x - 2 + ex, hy + 3, 1, 2, '#2a1a12'); R(x + 1 + ex, hy + 3, 1, 2, '#2a1a12'); }
+    if (pose === 'cheer' || p.talking) R(x - 1 + ex, hy + 6, 2 + (Math.floor(t * 8) % 2), 1, '#a03a3a');
+    R(x - 3 + ex, hy + 5, 1, 1, '#f0a08a'); R(x + 2 + ex, hy + 5, 1, 1, '#f0a08a');
+  }
+  function drawSeatedAtDesk(p) {
+    const x = 72, L = p.look, k = Math.floor(t * 10) % 2;
+    R(64, 134, 16, 2, '#3d3d48'); R(71, 136, 2, 5, '#222'); R(66, 141, 12, 1, '#222'); R(65, 142, 2, 1, '#111'); R(77, 142, 2, 1, '#111');
+    R(x - 4, 122, 8, 11, L.shirt);
+    R(x - 6, 122, 2, 4 - k, L.shirt); R(x + 4, 122, 2, 3 + k, L.shirt);
+    R(x - 4, 113, 8, 9, L.hair); R(x - 5, 117, 1, 2, L.skin); R(x + 4, 117, 1, 2, L.skin);
+    R(66, 127, 12, 8, '#2b2b33'); R(67, 128, 10, 1, '#3d3d48'); // backrest in front
+  }
+  function drawCouchSitter(c, i, a) {
+    const x = SEATS[i], L = c.look, bob = c.talking ? (Math.floor(t * 6) % 2) : 0;
+    R(x - 3, 128, 7, 3, L.pants); R(x - 3, 131, 2, 6, L.pants); R(x + 2, 131, 2, 6, L.pants); R(x - 3, 136, 2, 1, '#26222e'); R(x + 2, 136, 2, 1, '#26222e');
+    R(x - 4, 119 - bob, 8, 10 + bob, L.shirt);
+    if (c.talking) { R(x - 6, 117, 2, 5, L.shirt); R(x - 6, 116, 2, 1, L.skin); } else R(x - 6, 120, 2, 6, L.shirt);
+    if (c.mug) { R(x + 4, 121, 2, 4, L.shirt); R(x + 4, 118, 4, 4, '#fdf8ee'); } else R(x + 4, 120, 2, 6, L.shirt);
+    drawHead(x, 110 - bob, L, { ...c, face: 0 }, 'sit', a.type === 'sleep');
   }
 
-  function atStation() { return !me.walking; }
+  // ---------- crew AI ----------
+  function syncCrew() {
+    const list = (state?.agents?.length ? state.agents : DEFAULT_AGENTS).slice(0, 3);
+    list.forEach((g, i) => {
+      if (!crew[i]) crew[i] = { x: SEATS[i], y: 142, face: 1, sitting: true, phase: i * 1.3, task: { kind: 'couch', until: performance.now() + rand(4000, 12000) }, arrived: true };
+      Object.assign(crew[i], { name: g.name, color: g.color || '#4f7fc9', look: { skin: g.skin || '#f2c29b', hair: g.hair || '#2a1a12', shirt: g.color || '#4f7fc9', pants: '#3d3d4f' } });
+    });
+    crew.length = list.length;
+  }
+  function pickTask(c, i) {
+    const now = performance.now();
+    const coffeeBusy = crew.some((o) => o !== c && o.task?.kind === 'coffee');
+    const others = crew.filter((o) => o !== c && !o.task?.partner && o.task?.kind !== 'coffee');
+    const roll = Math.random();
+    if (roll < 0.28 && !coffeeBusy && !c.mug) return { kind: 'coffee', dur: 3200 };
+    if (roll < 0.40 && others.length && current().type !== 'build') {
+      const o = pick(others), spots = [{ x: 112, y: 166 }, { x: 128, y: 166 }];
+      const dur = rand(9000, 13000), lines = pick(CHATS);
+      o.task = { kind: 'chat', spot: spots[1], partner: c, dur, lines, second: true }; o.arrived = false;
+      if (o.sitting) { o.sitting = false; o.x = SEATS[crew.indexOf(o)]; o.y = 142; }
+      return { kind: 'chat', spot: spots[0], partner: o, dur, lines };
+    }
+    if (roll < 0.47) return { kind: 'fridge', dur: 2500 };
+    if (roll < 0.57) return { kind: 'window', dur: rand(5000, 9000) };
+    if (roll < 0.64 && current().type !== 'research') return { kind: 'shelf', dur: rand(5000, 8000) };
+    if (roll < 0.72 && current().type === 'build') return { kind: 'watch', dur: rand(5000, 8000) };
+    void now; void i;
+    return { kind: 'couch', dur: rand(10000, 22000) };
+  }
+  function taskSpot(c, i) {
+    const k = c.task.kind;
+    if (k === 'couch') return { x: SEATS[i], y: 142 };
+    if (k === 'coffee') return { x: -8, y: 148 };
+    if (k === 'fridge') return { x: -46, y: 148 };
+    if (k === 'window') return { x: 200 + i * 9, y: 151 };
+    if (k === 'shelf') return { x: 150, y: 153 };
+    if (k === 'watch') return { x: 92, y: 152 };
+    if (k === 'chat') return c.task.spot;
+    return { x: 165, y: 160 };
+  }
+  function crewUpdate(dt, a) {
+    const now = performance.now();
+    crew.forEach((c, i) => {
+      if (a.type === 'meeting' || a.type === 'sleep') { if (c.task.kind !== 'couch' || c.task.dur) { c.task = { kind: 'couch' }; c.arrived = false; } }
+      else if (!c.task.dur && c.task.kind === 'couch') { c.task = { kind: 'couch', dur: rand(4000, 10000) }; c.arrived = c.sitting; c.until = now + c.task.dur; }
+      else if (c.arrived && c.until && now > c.until) {
+        if (c.task.kind === 'coffee') { c.mug = true; c.mugUntil = now + rand(20000, 35000); }
+        if (c.task.partner && c.task.partner.task?.partner === c) { const o = c.task.partner; o.task = pickTask(o, crew.indexOf(o)); o.arrived = false; o.until = 0; }
+        c.task = pickTask(c, i); c.arrived = false; c.until = 0;
+      }
+      if (c.mug && now > (c.mugUntil || 0)) c.mug = false;
+      const spot = taskSpot(c, i);
+      if (c.sitting && c.task.kind !== 'couch') { c.sitting = false; c.x = SEATS[i]; c.y = 142; }
+      if (!c.sitting) {
+        const dx = spot.x - c.x, dy = spot.y - c.y, d = Math.hypot(dx, dy);
+        if (d > 1) { const sp = Math.min(40 * dt, d); c.x += dx / d * sp; c.y += dy / d * sp; c.walking = true; if (Math.abs(dx) > 0.5) c.face = Math.sign(dx); c.arrived = false; }
+        else {
+          c.walking = false;
+          if (!c.arrived) { c.arrived = true; c.until = now + (c.task.dur || 999999); }
+          if (c.task.kind === 'couch') c.sitting = true;
+          if (c.task.kind === 'chat') c.face = c.task.second ? -1 : 1;
+        }
+      }
+    });
+  }
+  function crewPose(c) {
+    if (c.walking) return 'walk';
+    const k = c.task.kind;
+    if (k === 'shelf') return 'read';
+    if (k === 'coffee') return c.mug ? 'sip' : 'stand';
+    if (k === 'window' || k === 'watch') return c.mug ? 'sip' : 'stand';
+    return c.mug ? 'sip' : 'stand';
+  }
+
+  // ---------- talking ----------
+  const speech = new Map();
+  function speakerPos(s) {
+    if (s === me) {
+      if (me.inBed) return { x: 371, y: 100 };
+      if (me.seated) return { x: 72, y: 108 };
+      return { x: me.x, y: me.y - 28 };
+    }
+    if (s.sitting) return { x: SEATS[crew.indexOf(s)], y: 104 };
+    return { x: s.x, y: s.y - 28 };
+  }
+  function say(s, text, dur = 4200) {
+    if (!s || !text || (s.lastLine === text && !s.allowRepeat)) return;
+    s.lastLine = text;
+    let b = speech.get(s);
+    if (!b) { b = { el: document.createElement('div') }; b.el.className = 'speech'; fx.appendChild(b.el); speech.set(s, b); }
+    b.text = String(text); b.shown = 0; b.until = performance.now() + dur;
+    b.el.style.setProperty('--c', s.color);
+    b.el.innerHTML = `<span class="who">${esc(s.name)}</span><span class="txt"></span>`;
+    b.el.classList.remove('out');
+    s.talking = true;
+    const line = document.createElement('div');
+    line.style.setProperty('--c', s.color);
+    line.innerHTML = `<b>${esc(s.name)}</b>${esc(text)}`;
+    chatter.prepend(line);
+    while (chatter.children.length > 3) chatter.lastChild.remove();
+  }
+  function speechUpdate(dt) {
+    const now = performance.now();
+    for (const [s, b] of speech) {
+      const p = speakerPos(s); place(b.el, p.x, p.y);
+      if (b.shown < b.text.length) { b.shown = Math.min(b.text.length, b.shown + dt * 45); b.el.querySelector('.txt').textContent = b.text.slice(0, Math.ceil(b.shown)); }
+      if (now > b.until) { s.talking = false; b.el.classList.add('out'); if (now > b.until + 300) { b.el.remove(); speech.delete(s); } }
+    }
+    bubble.style.visibility = speech.has(me) ? 'hidden' : 'visible';
+  }
+  function byWho(who) {
+    if (who === 'me' || who === 'Claude' || who === me.name) return me;
+    if (typeof who === 'number') return crew[who];
+    return crew.find((c) => c.name?.toLowerCase() === String(who).toLowerCase());
+  }
+  function talkTick(dt, a) {
+    talkT -= dt;
+    if (a.type !== lastAct) { lastAct = a.type; meetIdx = 0; talkT = Math.min(talkT, 1.2); }
+    if (talkT > 0) return;
+    if (a.type === 'meeting') {
+      const real = state?.meeting?.lines?.length && !demo ? state.meeting.lines.map((l) => [l.who, l.text]) : MEETING;
+      const [who, text] = real[meetIdx % real.length]; meetIdx++;
+      const sp = byWho(who) || me; sp.lastLine = null; say(sp, text, 3400); talkT = 3.4; return;
+    }
+    talkT = rand(4.5, 8);
+    if (a.type === 'sleep') { const c = pick(crew); if (c && Math.random() < 0.6) say(c, pickNew(SAY.sleep, c.lastLine)); return; }
+    const chatting = crew.filter((c) => c.task.kind === 'chat' && c.arrived && !c.task.second && c.task.partner?.arrived);
+    if (chatting.length && Math.random() < 0.6) {
+      const c = chatting[0], o = c.task.partner;
+      const [l1, l2] = c.task.lines; c.lastLine = o.lastLine = null; say(c, l1, 3200); setTimeout(() => say(o, l2, 3200), 2600); talkT = 6.5; return;
+    }
+    if (Math.random() < 0.4 && !me.walking) { say(me, pickNew(SAY_ME[a.type] || SAY_ME.idle, me.lastLine)); return; }
+    const c = pick(crew.filter((x) => !x.walking)); if (!c) return;
+    const k = c.task.kind, idx = crew.indexOf(c);
+    const pool = SAY[k] ? (Array.isArray(SAY[k][0]) ? SAY[k][idx] || SAY[k][0] : SAY[k]) : SAY.couch[idx] || SAY.couch[0];
+    say(c, pickNew(pool, c.lastLine));
+  }
 
   // ---------- fx ----------
   function floater(text, lx, ly, cls = '') {
     const d = document.createElement('div');
     d.className = 'floater ' + cls; d.textContent = text;
-    d.style.left = (lx / W * 100) + '%'; d.style.top = (ly / H * 100) + '%';
+    place(d, lx, ly);
     d.style.setProperty('--dx', rand(-14, 14) + 'px');
     fx.appendChild(d); setTimeout(() => d.remove(), 1900);
   }
@@ -263,23 +451,24 @@
     for (let i = 0; i < n; i++) particles.push({ k: 'c', x: me.x, y: me.y - 18, vx: rand(-60, 60), vy: rand(-90, -30), life: rand(1.2, 2.2), c: pick(cols) });
   }
   function envelope() { particles.push({ k: 'e', x: 210, y: 98, vx: rand(-25, -10), vy: rand(-28, -18), life: 2.4 }); }
-
   function spawnFx(a) {
-    const def = ACT[a.type]; if (!def.fx.length || me.walking) return;
+    const def = ACT[a.type];
+    if (crew.some((c) => c.task.kind === 'coffee' && c.arrived && !c.mug) || (a.type === 'break' && !me.walking)) particles.push({ k: 's', x: -10 + rand(-1, 1), y: 90, vx: rand(-2, 2), vy: -10, life: 1.6 });
+    if (!def.fx.length || me.walking) return;
     const txt = pick(def.fx);
     if (a.type === 'build') floater(txt, rand(60, 86), 82, 'code');
     else if (a.type === 'sleep') floater(txt, 376, 104, 'z');
-    else if (a.type === 'meeting') { const ag = agentSeats(); const s2 = ag.length ? pick(ag) : { x: me.x, y: 140 }; floater(txt, s2.x, 104); }
     else if (a.type === 'email') { envelope(); floater(txt, 212, 90); }
     else if (a.type === 'celebrate') { confetti(18); floater(txt, me.x, me.y - 30, 'gold'); }
+    else if (a.type === 'meeting') floater(txt, rand(250, 300), 98);
     else floater(txt, me.x + rand(-6, 6), me.y - 30);
   }
-
   function stepParticles(dt) {
     particles = particles.filter((p) => (p.life -= dt) > 0);
     for (const p of particles) {
       p.x += p.vx * dt; p.y += p.vy * dt;
       if (p.k === 'c') { p.vy += 120 * dt; R(p.x, p.y, 2, 2, p.c); }
+      else if (p.k === 's') { R(p.x + Math.sin(p.life * 6), p.y, 1, 1, '#ffffffaa'); }
       else { const wob = Math.sin(p.life * 6); R(p.x, p.y + wob, 7, 5, '#fff'); R(p.x, p.y + wob, 7, 1, '#d8d0c4'); R(p.x + 1, p.y + 1 + wob, 2, 1, '#e04f4f'); R(p.x + 3, p.y + 2 + wob, 1, 1, '#b8b0a4'); R(p.x + 5, p.y + 1 + wob, 2, 1, '#b8b0a4'); }
     }
   }
@@ -288,33 +477,52 @@
   let last = performance.now();
   function frame(now) {
     const dt = Math.min(0.05, (now - last) / 1000); last = now; t += dt;
-    if (demo) { demoT += dt; if (demoT > 7) { demoT = 0; demoIdx = (demoIdx + 1) % DEMO.length; if (DEMO[demoIdx][0] === 'celebrate') setTimeout(() => confetti(50), 900); } }
-    const a = current();
-    const def = ACT[a.type];
+    if (demo) { demoT += dt; if (demoT > 8) { demoT = 0; demoIdx = (demoIdx + 1) % DEMO.length; if (DEMO[demoIdx][0] === 'celebrate') setTimeout(() => confetti(50), 900); } }
+    const a = current(), def = ACT[a.type];
+    syncCrew();
 
-    // movement
+    // me
     if (me.inBed && a.type !== 'sleep') { me.inBed = false; me.x = ST.bed.x; me.y = ST.bed.y; }
-    if (!me.inBed) {
+    if (me.seated && a.type !== 'build') { me.seated = false; me.x = ST.desk.x; me.y = ST.desk.y; }
+    if (!me.inBed && !me.seated) {
       let tgt = def.st ? ST[def.st] : null;
-      if (!tgt) { wanderT -= dt; if (!wander || wanderT <= 0) { wander = { x: rand(60, 230), y: rand(148, 170) }; wanderT = rand(3, 7); } tgt = wander; }
+      if (!tgt) { wanderT -= dt; if (!wander || wanderT <= 0) { wander = { x: rand(40, 230), y: rand(152, 170) }; wanderT = rand(3, 7); } tgt = wander; }
       const dx = tgt.x - me.x, dy = tgt.y - me.y, d = Math.hypot(dx, dy);
       if (d > 1) { const sp = Math.min(48 * dt, d); me.x += dx / d * sp; me.y += dy / d * sp; me.walking = true; if (Math.abs(dx) > 0.5) me.face = Math.sign(dx); }
-      else { me.walking = false; if (a.type === 'sleep') me.inBed = true; }
+      else { me.walking = false; if (a.type === 'sleep') me.inBed = true; if (a.type === 'build') me.seated = true; }
     }
+    me.mug = a.type === 'break' && !me.walking && (t % 10) > 3;
+    crewUpdate(dt, a);
+    talkTick(dt, a);
 
+    // draw world
+    ctx.setTransform(1, 0, 0, 1, OX, 0);
     drawRoom(a);
-    drawChar(a);
+    crew.forEach((c, i) => { if (c.sitting) drawCouchSitter(c, i, a); });
+    drawCoffeeTable(a);
+    if (me.inBed) {
+      R(367, 108, 8, 8, LOOK_ME.skin); R(367, 107, 8, 3, LOOK_ME.hair); R(374, 108, 1, 6, LOOK_ME.hair);
+      R(369, 113, 2, 1, '#5a3a2a'); R(372, 113, 2, 1, '#5a3a2a');
+      const breathe = Math.sin(t * 2) > 0 ? 1 : 0;
+      R(326, 116 - breathe, 40, 10 + breathe, '#6c8ebf'); R(326, 116 - breathe, 40, 2, '#8eaee0');
+      for (let x = 330; x < 364; x += 8) R(x, 120, 4, 4, '#5a7aa8');
+    }
+    if (me.seated) drawSeatedAtDesk(me);
+    const mePose = me.walking ? 'walk' : ({ meeting: 'think', research: 'read', email: 'post', think: 'think', waiting: 'wave', celebrate: 'cheer', break: me.mug ? 'sip' : 'stand' }[a.type] || 'stand');
+    const walkers = crew.filter((c) => !c.sitting).map((c) => [c, crewPose(c)]);
+    if (!me.inBed && !me.seated) walkers.push([me, mePose]);
+    walkers.sort((p, q) => p[0].y - q[0].y).forEach(([p, pose]) => drawPerson(p, pose));
     stepParticles(dt);
-    // lighting
     const h = hourNow(), night = h < 6 || h >= 20;
-    if (a.type === 'sleep') { R(0, 0, W, H, '#0a0a2a90'); }
-    else if (night) { ctx.fillStyle = '#0a0a2a40'; ctx.fillRect(0, 0, W, H); ctx.fillStyle = '#ffe08a22'; ctx.beginPath(); ctx.moveTo(92, 99); ctx.lineTo(100, 99); ctx.lineTo(120, 142); ctx.lineTo(60, 142); ctx.fill(); }
+    if (!night || a.type === 'sleep') {} else { ctx.fillStyle = '#ffe08a22'; ctx.beginPath(); ctx.moveTo(92, 99); ctx.lineTo(100, 99); ctx.lineTo(120, 142); ctx.lineTo(60, 142); ctx.fill(); }
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    if (a.type === 'sleep') R(0, 0, W, H, '#0a0a2a90');
+    else if (night) { ctx.fillStyle = '#0a0a2a40'; ctx.fillRect(0, 0, W, H); }
 
     fxT -= dt; if (fxT <= 0) { spawnFx(a); fxT = a.type === 'sleep' ? 1.2 : rand(1, 1.8); }
-
-    // bubble follows head
-    const bx = me.inBed ? 371 : me.x, by = me.inBed ? 100 : me.y - 27 - (a.type === 'celebrate' ? 4 : 0);
-    bubble.style.left = (bx / W * 100) + '%'; bubble.style.top = (by / H * 100) + '%';
+    speechUpdate(dt);
+    const bp = speakerPos(me);
+    place(bubble, bp.x, bp.y + 2 - (a.type === 'celebrate' ? 4 : 0));
     if (bubble.dataset.i !== def.icon) { bubble.textContent = def.icon; bubble.dataset.i = def.icon; }
 
     document.body.classList.toggle('sleeping', a.type === 'sleep');
@@ -445,6 +653,9 @@
     try {
       const r = await fetch('/api/state', { cache: 'no-store' });
       if (!r.ok) throw new Error();
+      const build = r.headers.get('X-Build');
+      if (build && poll.build && build !== poll.build) return location.reload(); // new version pulled: reload
+      if (build) poll.build = build;
       apply(await r.json());
       live = true; $('conn').textContent = 'Live'; $('conn').className = 'conn live';
     } catch {
