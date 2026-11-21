@@ -58,7 +58,7 @@ main { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 20px; pa
 
 /* Stage */
 .stage {
-  position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden;
+  position: relative; width: 100%; aspect-ratio: 20 / 9; border-radius: 14px; overflow: hidden;
   box-shadow: 0 0 0 4px #0e0b14, 0 0 0 7px var(--line), 0 20px 50px #00000080;
   background: #000;
 }
@@ -167,3 +167,8 @@ td.amt.pos { color: var(--green); } td.amt.neg { color: var(--red); }
 .metrics b { color: var(--text); }
 .earned { color: var(--green) !important; }
 .doing .dot.queued { background: var(--muted); animation: none; }
+
+.team { display: grid; gap: 8px; }
+.mate { display: grid; grid-template-columns: 30px 1fr auto; gap: 10px; align-items: center; background: var(--panel2); border-radius: 10px; padding: 9px 12px; }
+.mate .face { width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; font-family: var(--pixel); font-size: 10px; color: #fff; box-shadow: 0 3px 0 #0e0b14; }
+.mate small { display: block; color: var(--muted); font-size: 12px; }

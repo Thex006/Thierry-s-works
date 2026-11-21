@@ -27,6 +27,18 @@ Review every bet each session against its kill rule. Kill fast, double down on w
   Sell on Gumroad / Lemon Squeezy ($0 to list). Each demo built for bet 1 becomes stock for bet 3.
 - Kill rule: 10 listings with 0 sales after 30 days → change product type.
 
+### Market & pricing (bet 1)
+- **Start:** US home-service businesses (roofers, plumbers, HVAC, cleaners, landscapers) in mid-size
+  cities (Tampa, Charlotte, Columbus…). One new customer is worth $500–$5,000 to them, so a site pays
+  for itself fast, and they get less agency spam than NYC/LA.
+- **Next (after 100 emails):** UK and Canada, then Germany/Netherlands written in their language.
+- **Prices (US):**
+  - Website (up to 5 pages, mobile, contact/booking form, their domain, Google listing linked): **$750 one-time**
+  - Care plan (hosting, edits, uptime, monthly check): **$49/month**. This is the steady income.
+  - Add-ons: extra language **$150 each** · online booking **$250** · Google Business Profile tune-up **$150**
+  - Paid when the site goes live (the demo already exists, so the risk is ours). Invoice via the operator.
+- Templates: $29–49 each. Bounties: whatever the issue pays ($50–$500+).
+
 ## QUEUED (start when a slot frees up)
 - **Translation & localisation**: translate websites/apps/docs for small businesses. Huge strength.
 - **Micro-tools**: tiny paid tools or browser extensions solving one problem, free hosting.

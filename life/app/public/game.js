@@ -1,6 +1,6 @@
 // Claude Life: pixel room + HUD. Reads /api/state every few seconds.
 (() => {
-  const W = 320, H = 180;
+  const W = 400, H = 180;
   const $ = (id) => document.getElementById(id);
   const cvs = $('room'), ctx = cvs.getContext('2d'), fx = $('fx'), bubble = $('bubble');
   cvs.width = W; cvs.height = H; ctx.imageSmoothingEnabled = false;
@@ -10,7 +10,7 @@
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
   // ---------- activities ----------
-  const ST = { desk: { x: 72, y: 150 }, shelf: { x: 148, y: 150 }, mail: { x: 198, y: 150 }, center: { x: 165, y: 163 }, bed: { x: 238, y: 156 } };
+  const ST = { desk: { x: 72, y: 150 }, shelf: { x: 148, y: 150 }, mail: { x: 198, y: 150 }, center: { x: 165, y: 163 }, lounge: { x: 275, y: 164 }, bed: { x: 318, y: 156 } };
   const ACT = {
     research:  { st: 'shelf',  icon: '🔍', fx: ['🔍', '📖', '?', '!'] },
     build:     { st: 'desk',   icon: '💻', fx: ['</>', '{ }', '✨', '<div>'] },
@@ -18,10 +18,11 @@
     think:     { st: 'center', icon: '💭', fx: ['💡', '🤔', '?'] },
     waiting:   { st: 'center', icon: '❗', fx: ['👋'] },
     celebrate: { st: 'center', icon: '🎉', fx: ['💰', '🎉', '+$'] },
+    meeting:   { st: 'lounge', icon: '🗣️', fx: ['💬', '💡', '👍', '🤝'] },
     sleep:     { st: 'bed',    icon: '💤', fx: ['z', 'Z', 'z'] },
     idle:      { st: null,     icon: '🙂', fx: [] },
   };
-  const ALIAS = { writing: 'build', write: 'build', code: 'build', translating: 'build', translate: 'build', designing: 'build', submit: 'email', applying: 'email', pitching: 'email', reviewing: 'think', researching: 'research', building: 'build', coding: 'build', emailing: 'email', outreach: 'email', planning: 'think', thinking: 'think', waiting_operator: 'waiting', needs_operator: 'waiting', sleeping: 'sleep', sale: 'celebrate' };
+  const ALIAS = { writing: 'build', write: 'build', code: 'build', translating: 'build', translate: 'build', designing: 'build', submit: 'email', applying: 'email', pitching: 'email', reviewing: 'think', researching: 'research', building: 'build', coding: 'build', emailing: 'email', outreach: 'email', planning: 'think', thinking: 'think', waiting_operator: 'waiting', needs_operator: 'waiting', sleeping: 'sleep', sale: 'celebrate', team: 'meeting', discuss: 'meeting', huddle: 'meeting' };
   const norm = (t) => { t = String(t || 'idle').toLowerCase(); t = ALIAS[t] || t; return ACT[t] ? t : 'idle'; };
 
   const DEMO = [
@@ -30,6 +31,7 @@
     ['build', 'Fixing a bug for a $150 open-source bounty'],
     ['waiting', 'Waiting for you to approve a demo site'],
     ['email', 'Sending a pitch to a barbershop in Austin'],
+    ['meeting', 'Team huddle: Scout, Critic and Closer agree on the next niche'],
     ['celebrate', 'Bounty paid! +$150'],
     ['sleep', 'Out of usage. Sleeping until it resets'],
   ];
@@ -133,9 +135,49 @@
     if (flagUp) { R(224, 88, 2, 12, '#888'); R(226, 88, 6, 4, '#e04f4f'); } else { R(224, 102, 8, 2, '#e04f4f'); }
 
     // bed
-    R(300, 96, 8, 46, '#6b4226'); R(242, 132, 4, 10, '#4a2d19'); R(298, 132, 4, 10, '#4a2d19');
-    R(242, 124, 60, 10, '#7a4c2c'); R(244, 118, 56, 7, '#f4efe6');
-    R(284, 112, 15, 8, '#fff'); R(284, 119, 15, 1, '#d8d0c4');
+    R(380, 96, 8, 46, '#6b4226'); R(322, 132, 4, 10, '#4a2d19'); R(378, 132, 4, 10, '#4a2d19');
+    R(322, 124, 60, 10, '#7a4c2c'); R(324, 118, 56, 7, '#f4efe6');
+    R(364, 112, 15, 8, '#fff'); R(364, 119, 15, 1, '#d8d0c4');
+    drawLounge(a);
+  }
+
+  // ---------- lounge + agent buddies ----------
+  const SEATS = [256, 275, 294];
+  const DEFAULT_AGENTS = [];
+  function agentSeats() { return (state?.agents || DEFAULT_AGENTS).slice(0, 3).map((g, i) => ({ ...g, x: SEATS[i] })); }
+  function drawLounge(a) {
+    // fairy lights
+    for (let x = 238; x < 314; x += 5) { const y = 84 + Math.round(Math.sin((x - 238) / 76 * Math.PI) * 6); R(x, y, 1, 1, '#5a3a22'); R(x, y + 1, 2, 2, ['#ffc857', '#ff6b7a', '#6cb4ff', '#6fdc8c'][(x / 5 + Math.floor(t * 2)) % 4 | 0]); }
+    // team board
+    R(254, 40, 42, 30, '#5a3a22'); R(256, 42, 38, 26, '#f6efe0');
+    R(259, 46, 10, 6, '#ffc857'); R(272, 46, 10, 6, '#9ef0b4'); R(285, 46, 6, 6, '#ff9fb0'); R(259, 55, 14, 6, '#a9d4ff'); R(276, 55, 10, 6, '#ffc857');
+    // couch
+    R(240, 112, 72, 13, '#3f6f63'); R(242, 114, 68, 2, '#4d8576');
+    R(240, 124, 72, 9, '#4d8576'); R(240, 124, 72, 1, '#5e9a89');
+    R(265, 124, 1, 9, '#3f6f63'); R(284, 124, 1, 9, '#3f6f63');
+    R(236, 116, 6, 19, '#3f6f63'); R(310, 116, 6, 19, '#3f6f63'); R(236, 116, 6, 2, '#5e9a89'); R(310, 116, 6, 2, '#5e9a89');
+    R(239, 135, 3, 4, '#2a1a12'); R(310, 135, 3, 4, '#2a1a12');
+    R(244, 117, 8, 6, '#e0b44a'); R(300, 117, 8, 6, '#ff9fb0');
+    const seats = agentSeats();
+    seats.forEach((g, i) => drawSitter(g, i, a));
+    // coffee table
+    R(254, 146, 44, 3, '#7a4c2c'); R(256, 149, 2, 8, '#4a2d19'); R(294, 149, 2, 8, '#4a2d19');
+    R(262, 141, 10, 5, '#2b2b33'); R(263, 142, 8, 3, a.type === 'meeting' ? '#9ef0b4' : '#1f2a44');
+    R(282, 142, 4, 4, '#fdf8ee'); R(286, 143, 1, 2, '#fdf8ee');
+  }
+  function drawSitter(g, i, a) {
+    const x = g.x, talk = a.type === 'meeting' && Math.floor(t * 1.5 + i * 1.7) % 3 === 0;
+    const bob = talk ? (Math.floor(t * 6) % 2) : 0, shirt = g.color || '#4f7fc9', hair = g.hair || '#2a1a12';
+    R(x - 3, 128, 7, 3, '#3d3d4f'); R(x - 3, 131, 2, 6, '#3d3d4f'); R(x + 2, 131, 2, 6, '#3d3d4f'); R(x - 3, 136, 2, 1, C.shoe); R(x + 2, 136, 2, 1, C.shoe);
+    R(x - 4, 119 - bob, 8, 10 + bob, shirt);
+    if (talk) { R(x - 6, 117, 2, 5, shirt); R(x - 6, 116, 2, 1, g.skin || C.skin); } else R(x - 6, 120, 2, 6, shirt);
+    R(x + 4, 120, 2, 6, shirt);
+    const hy = 110 - bob, skin = g.skin || C.skin;
+    R(x - 4, hy, 8, 8, skin); R(x - 4, hy - 1, 8, 3, hair); R(x - 4, hy + 1, 1, 3, hair); R(x + 3, hy + 1, 1, 3, hair);
+    const sleepy = a.type === 'sleep' || g.status === 'resting';
+    if (sleepy || (t + i) % 5 < 0.12) { R(x - 2, hy + 4, 1, 1, '#5a3a2a'); R(x + 1, hy + 4, 1, 1, '#5a3a2a'); }
+    else { R(x - 2, hy + 3, 1, 2, '#2a1a12'); R(x + 1, hy + 3, 1, 2, '#2a1a12'); }
+    if (talk) R(x - 1, hy + 6, 2, 1, '#a03a3a');
   }
 
   function drawScreen(a, sleeping) {
@@ -162,16 +204,16 @@
   function drawChar(a) {
     if (me.inBed) {
       // head on pillow, blanket over body
-      R(287, 108, 8, 8, C.skin); R(287, 107, 8, 3, C.hair); R(294, 108, 1, 6, C.hair);
-      R(289, 113, 2, 1, '#5a3a2a'); R(292, 113, 2, 1, '#5a3a2a');
+      R(367, 108, 8, 8, C.skin); R(367, 107, 8, 3, C.hair); R(374, 108, 1, 6, C.hair);
+      R(369, 113, 2, 1, '#5a3a2a'); R(372, 113, 2, 1, '#5a3a2a');
       const breathe = Math.sin(t * 2) > 0 ? 1 : 0;
-      R(246, 116 - breathe, 40, 10 + breathe, '#6c8ebf'); R(246, 116 - breathe, 40, 2, '#8eaee0');
-      for (let x = 250; x < 284; x += 8) R(x, 120, 4, 4, '#5a7aa8');
+      R(326, 116 - breathe, 40, 10 + breathe, '#6c8ebf'); R(326, 116 - breathe, 40, 2, '#8eaee0');
+      for (let x = 330; x < 364; x += 8) R(x, 120, 4, 4, '#5a7aa8');
       return;
     }
     const x = Math.round(me.x), arrived = !me.walking;
     let y = Math.round(me.y);
-    const pose = me.walking ? 'walk' : ({ build: 'type', research: 'read', email: 'post', think: 'think', waiting: 'wave', celebrate: 'cheer' }[a.type] || 'stand');
+    const pose = me.walking ? 'walk' : ({ meeting: 'think', build: 'type', research: 'read', email: 'post', think: 'think', waiting: 'wave', celebrate: 'cheer' }[a.type] || 'stand');
     if (pose === 'cheer') y -= Math.abs(Math.sin(t * 7)) * 6 | 0;
     // shadow
     ctx.fillStyle = '#00000035'; ctx.beginPath(); ctx.ellipse(me.x, me.y, 6, 2, 0, 0, Math.PI * 2); ctx.fill();
@@ -226,7 +268,8 @@
     const def = ACT[a.type]; if (!def.fx.length || me.walking) return;
     const txt = pick(def.fx);
     if (a.type === 'build') floater(txt, rand(60, 86), 82, 'code');
-    else if (a.type === 'sleep') floater(txt, 296, 104, 'z');
+    else if (a.type === 'sleep') floater(txt, 376, 104, 'z');
+    else if (a.type === 'meeting') { const ag = agentSeats(); const s2 = ag.length ? pick(ag) : { x: me.x, y: 140 }; floater(txt, s2.x, 104); }
     else if (a.type === 'email') { envelope(); floater(txt, 212, 90); }
     else if (a.type === 'celebrate') { confetti(18); floater(txt, me.x, me.y - 30, 'gold'); }
     else floater(txt, me.x + rand(-6, 6), me.y - 30);
@@ -264,13 +307,13 @@
     stepParticles(dt);
     // lighting
     const h = hourNow(), night = h < 6 || h >= 20;
-    if (a.type === 'sleep') { R(0, 0, W, H, '#0a0a2a90'); R(186, 26, 44, 44, '#1d235040'); }
+    if (a.type === 'sleep') { R(0, 0, W, H, '#0a0a2a90'); }
     else if (night) { ctx.fillStyle = '#0a0a2a40'; ctx.fillRect(0, 0, W, H); ctx.fillStyle = '#ffe08a22'; ctx.beginPath(); ctx.moveTo(92, 99); ctx.lineTo(100, 99); ctx.lineTo(120, 142); ctx.lineTo(60, 142); ctx.fill(); }
 
     fxT -= dt; if (fxT <= 0) { spawnFx(a); fxT = a.type === 'sleep' ? 1.2 : rand(1, 1.8); }
 
     // bubble follows head
-    const bx = me.inBed ? 291 : me.x, by = me.inBed ? 100 : me.y - 27 - (a.type === 'celebrate' ? 4 : 0);
+    const bx = me.inBed ? 371 : me.x, by = me.inBed ? 100 : me.y - 27 - (a.type === 'celebrate' ? 4 : 0);
     bubble.style.left = (bx / W * 100) + '%'; bubble.style.top = (by / H * 100) + '%';
     if (bubble.dataset.i !== def.icon) { bubble.textContent = def.icon; bubble.dataset.i = def.icon; }
 
@@ -312,6 +355,8 @@
       </div>
       <h3>Doing now</h3>
       ${doing.map((d) => `<div class="doing"><span class="dot ${esc(d.status || 'working')}"></span><div><div>${esc(d.task)}</div><small>${esc(d.bet || '')}${d.status ? ' · ' + esc(d.status) : ''}</small></div></div>`).join('') || '<div class="empty">Nothing in progress.</div>'}
+      <h3>Team</h3>
+      <div class="team">${(s.agents || []).map((g) => `<div class="mate"><span class="face" style="background:${esc(g.color)}">${esc((g.name || '?')[0])}</span><div>${esc(g.name)}<small>${esc(g.role)}</small></div><span class="chip ${g.status === 'active' ? 'active' : 'locked'}">${esc(g.status || 'resting')}</span></div>`).join('') || '<div class="empty">No buddies yet.</div>'}</div>
       <h3>Bets</h3>
       ${(s.bets || []).map((b) => `<div class="card"><div class="row"><span class="title">${esc(b.name)}</span><span class="chip ${esc(b.status)}">${esc(b.status)}</span></div><p>${esc(b.note)}</p>
         ${(b.metrics || []).length ? `<div class="metrics">${b.metrics.map((m) => `<span><b>${esc(m.value)}</b> ${esc(m.label)}</span>`).join('')}</div>` : ''}

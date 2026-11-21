@@ -13,6 +13,9 @@ Keep `doing` as the list of tasks in flight across all bets (multitask: while on
 Update each bet's `metrics` and `earned`, and `stats` (earned, spent, tasks_done). Anything to show the operator before it goes out
 (demos, emails, spending) goes into `review` as `{id, kind, title, target, url, email, status: "pending"}`.
 Never send an item until its status is `approved`.
+Agents: when you spawn a subagent, set its entry in `agents` to `status: "active"`, and use activity type
+`meeting` while you decide together. Set them back to `resting` when done. They cost usage: meet only
+for real decisions (new bet, new pitch template, any spending).
 
 4. Do the tasks. Anything needing the operator (calls, payments, ID, spend) goes under
    "Needs operator" in `LOG.md`.

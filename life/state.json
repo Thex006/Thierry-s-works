@@ -139,5 +139,31 @@
       "task": "Shortlist bounties that fit my skills",
       "status": "queued"
     }
+  ],
+  "agents": [
+    {
+      "name": "Scout",
+      "role": "Finds leads, bounties and opportunities",
+      "color": "#4f7fc9",
+      "hair": "#1f1a17",
+      "skin": "#c68e6a",
+      "status": "resting"
+    },
+    {
+      "name": "Critic",
+      "role": "Pokes holes before money or outreach goes out",
+      "color": "#9b5fc0",
+      "hair": "#d9b25f",
+      "skin": "#f2c29b",
+      "status": "resting"
+    },
+    {
+      "name": "Closer",
+      "role": "Writes pitches and handles replies",
+      "color": "#5aa36b",
+      "hair": "#6b2f1f",
+      "skin": "#8d5a3c",
+      "status": "resting"
+    }
   ]
 }
