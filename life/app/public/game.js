@@ -36,7 +36,7 @@
     ['break', 'Quick coffee break'],
     ['waiting', 'Waiting for you to approve a demo site'],
     ['email', 'Sending a pitch to a roofer in Tampa'],
-    ['meeting', 'Team huddle: which niche next?'],
+    ['meeting', 'Team huddle: next niche, price and payment plan'],
     ['celebrate', 'Bounty paid! +$150'],
     ['sleep', 'Out of usage. Sleeping until it resets'],
   ];
@@ -52,31 +52,41 @@
     break: ['Coffee, then back to it.', 'Refuelling…'],
     idle: ['Stretch break.', 'What should I do next?'],
   };
-  const SAY = {
-    coffee: [['Coffee is research fuel.', 'Third cup. For science.'], ['Decaf. I need to stay objective.', 'This mug has a typo on it.'], ['Coffee\'s for closers. ☕', 'Espresso. Deals don\'t wait.']],
-    couch: [['Scrolling job boards for Claude…', 'Bounty alert! …false alarm.'], ['Reviewing… the ceiling.', 'That plan has a hole in it.'], ['Practising my pitch voice.', '"Hi, I built you a website."']],
+  const SAY = { // generic lines by activity
+    coffee: ['Coffee is research fuel.', 'Third cup. For science.', 'This mug has a typo on it.'],
+    couch: ['Thinking…', 'What\'s our next big move?', 'Comfy. Productive. Both.'],
     window: ['Nice day to make money.', 'Is that a client out there?', 'I see… potential.'],
     shelf: ['Chapter 3: cold emails that work.', 'Who reads paper books anymore?'],
-    fridge: ['Who ate my sandwich?', 'Snack break. Critic approved.', 'We\'re out of milk. Again.'],
+    fridge: ['Who ate my sandwich?', 'Snack break.', 'We\'re out of milk. Again.'],
     sleep: ['Shh… Claude\'s recharging.', 'zzz… no, I\'m awake.', 'Tomorrow we grind.'],
     watch: ['Claude types SO fast.', 'Is that a bug or a feature?', 'Go Claude go!'],
   };
+  const SAYN = { // personality lines by teammate
+    Scout: { coffee: ['Coffee is research fuel.', 'Found 3 leads while it brewed.'], couch: ['Scrolling job boards for Claude…', 'Bounty alert! …false alarm.', 'Plumbers in Ohio: 0 websites. Hmm.'], window: ['Every shop out there needs something.'] },
+    Closer: { coffee: ['Coffee\'s for closers. ☕', 'Espresso. Deals don\'t wait.'], couch: ['Practising my pitch voice.', '"Hi, I built you a website."', 'Short emails close. Long ones get archived.'] },
+    Guard: { coffee: ['Checked the coffee for phishing. Clean.', 'Decaf. I need to stay objective.'], couch: ['Nothing ships until I check it.', 'Is that button centred? Asking for a friend.', 'That inbox email? Scam. Deleted.', 'Was the taste skill used on that demo?'], window: ['Scanning the perimeter…'], watch: ['Mobile view. Did you check mobile view?', 'Run it once more before it goes out.'] },
+    Ledger: { coffee: ['Coffee: $0.40 a cup. Worth it.'], couch: ['Margins first, vibes second.', 'No contract, no work. No invoice, no money.', 'Payment plans: 3 x $250 beats a no.'], fridge: ['Snacks are an operating expense.'] },
+    Dominika: { coffee: ['Making a fresh pot for everyone ☕'], couch: ['Everyone take a breath. Then decide.', 'What if we offer a payment plan?', 'Thierry, you good? Snacks are in the fridge 💛'], window: ['Such a pretty day. Short break, team?'], fridge: ['Healthy snacks only. Okay, one cookie.'], watch: ['Proud of you, Claude. Stretch those fingers!'] },
+  };
+  const SERVE_LINES = ['Coffee for the hardest worker 💛', 'Take a sip, then ship it.', 'Hydrate! …with coffee.'];
   const CHATS = [
     ['Think we hit $50 this week?', 'Only if the pitch is tight.'],
     ['Claude\'s been coding for hours.', 'Let\'s not distract them.'],
     ['Bet you a coffee the bounty pays.', 'You\'re on.'],
-    ['Roofers or plumbers?', 'Whoever answers emails.'],
-    ['How many leads today?', 'Enough to keep Claude busy.'],
+    ['Is $750 too much for a small shop?', 'Then offer a starter tier.'],
+    ['Did Guard check that link?', 'Twice.'],
+    ['Contract before invoice, right?', 'Always.'],
   ];
   const MEETING = [
-    ['me', 'Okay team: what\'s our next move?'],
-    [0, 'Found 30 roofers in Tampa with no website.'],
-    [1, 'Do roofers even read email?'],
-    [2, 'They read emails about getting more jobs.'],
-    [1, 'Fine. Keep it under 100 words.'],
-    ['me', 'Deal. Scout finds, I build, Closer writes.'],
-    [2, 'And Critic complains.'],
-    [1, 'Someone has to.'],
+    ['me', 'Team: what\'s our next move?'],
+    ['Scout', 'Found 30 roofers in Tampa with no website.'],
+    ['Ledger', 'Small crews can\'t do $750. Starter tier at $350?'],
+    ['Dominika', 'And a 2-part payment plan. Makes it easy to say yes.'],
+    ['Guard', 'Only if the demo looks premium. And public emails only.'],
+    ['Closer', 'I\'ll keep the pitch under 100 words.'],
+    ['me', 'Vote: Tampa roofers, starter tier, payment plan?'],
+    ['Guard', 'Quality + security ✅'], ['Ledger', 'Money ✅'], ['Dominika', 'Everyone happy ✅'],
+    ['me', 'Agreed. Let\'s go.'],
   ];
 
   // ---------- state ----------
@@ -86,11 +96,17 @@
   const me = { x: 165, y: 163, face: 1, walking: false, inBed: false, seated: false, mug: false, look: LOOK_ME, name: 'Claude', color: '#e07a55' };
   let wander = null, wanderT = 0, fxT = 1, t = 0, particles = [], talkT = 3, meetIdx = 0, lastAct = '';
   const DEFAULT_AGENTS = [
-    { name: 'Scout', color: '#4f7fc9', hair: '#1f1a17', skin: '#c68e6a' },
-    { name: 'Critic', color: '#9b5fc0', hair: '#d9b25f', skin: '#f2c29b' },
-    { name: 'Closer', color: '#5aa36b', hair: '#6b2f1f', skin: '#8d5a3c' },
+    { name: 'Scout', role: 'Research & opportunities', color: '#4f7fc9', hair: '#1f1a17', skin: '#c68e6a' },
+    { name: 'Closer', role: 'Sales, pricing & copy', color: '#5aa36b', hair: '#6b2f1f', skin: '#8d5a3c' },
+    { name: 'Guard', role: 'Quality, security & errors. Checks everything first', color: '#2f8f83', hair: '#15171c', skin: '#e0ac85' },
+    { name: 'Ledger', role: 'Money, contracts & invoices', color: '#d9a43a', hair: '#7a7f8a', skin: '#f2c29b' },
+    { name: 'Dominika', role: 'Comfort, wellbeing & smart ideas', color: '#e86a9a', hair: '#5a3424', skin: '#f6cfb0', long: true },
   ];
-  const SEATS = [256, 275, 294];
+  // couch x3, beanbags x2
+  const SEATS = [
+    { x: 256, dy: 0 }, { x: 275, dy: 0 }, { x: 294, dy: 0 },
+    { x: 228, dy: 28, kind: 'bag', c: '#c95e70' }, { x: 318, dy: 28, kind: 'bag', c: '#6c8ebf' },
+  ];
   const crew = [];
 
   function current() {
@@ -282,6 +298,7 @@
     else { R(x - 2 + ex, hy + 3, 1, 2, '#2a1a12'); R(x + 1 + ex, hy + 3, 1, 2, '#2a1a12'); }
     if (pose === 'cheer' || p.talking) R(x - 1 + ex, hy + 6, 2 + (Math.floor(t * 8) % 2), 1, '#a03a3a');
     R(x - 3 + ex, hy + 5, 1, 1, '#f0a08a'); R(x + 2 + ex, hy + 5, 1, 1, '#f0a08a');
+    if (L.long) { R(x - 5, hy, 1, 11, L.hair); R(x + 4, hy, 1, 11, L.hair); R(x - 4, hy + 1, 1, 8, L.hair); R(x + 3, hy + 1, 1, 8, L.hair); }
   }
   function drawSeatedAtDesk(p) {
     const x = 72, L = p.look, k = Math.floor(t * 10) % 2;
@@ -291,21 +308,31 @@
     R(x - 4, 113, 8, 9, L.hair); R(x - 5, 117, 1, 2, L.skin); R(x + 4, 117, 1, 2, L.skin);
     R(66, 127, 12, 8, '#2b2b33'); R(67, 128, 10, 1, '#3d3d48'); // backrest in front
   }
+  function drawSeatProp(st) {
+    const x = st.x, y = 137 + st.dy;
+    if (st.kind === 'bag') { R(x - 9, y - 10, 18, 11, st.c); R(x - 7, y - 12, 14, 2, st.c); R(x - 10, y - 6, 20, 6, st.c); R(x - 6, y - 10, 5, 2, '#ffffff30'); }
+    if (st.kind === 'cushion') { R(x - 8, y - 3, 16, 4, st.c); R(x - 7, y - 4, 14, 1, '#ffffff40'); }
+  }
   function drawCouchSitter(c, i, a) {
-    const x = SEATS[i], L = c.look, bob = c.talking ? (Math.floor(t * 6) % 2) : 0;
-    R(x - 3, 128, 7, 3, L.pants); R(x - 3, 131, 2, 6, L.pants); R(x + 2, 131, 2, 6, L.pants); R(x - 3, 136, 2, 1, '#26222e'); R(x + 2, 136, 2, 1, '#26222e');
-    R(x - 4, 119 - bob, 8, 10 + bob, L.shirt);
-    if (c.talking) { R(x - 6, 117, 2, 5, L.shirt); R(x - 6, 116, 2, 1, L.skin); } else R(x - 6, 120, 2, 6, L.shirt);
-    if (c.mug) { R(x + 4, 121, 2, 4, L.shirt); R(x + 4, 118, 4, 4, '#fdf8ee'); } else R(x + 4, 120, 2, 6, L.shirt);
-    drawHead(x, 110 - bob, L, { ...c, face: 0 }, 'sit', a.type === 'sleep');
+    const st = SEATS[i], x = st.x, Y = (v) => v + st.dy, L = c.look, bob = c.talking ? (Math.floor(t * 6) % 2) : 0;
+    R(x - 3, Y(128), 7, 3, L.pants); R(x - 3, Y(131), 2, 6, L.pants); R(x + 2, Y(131), 2, 6, L.pants); R(x - 3, Y(136), 2, 1, '#26222e'); R(x + 2, Y(136), 2, 1, '#26222e');
+    R(x - 4, Y(119) - bob, 8, 10 + bob, L.shirt);
+    if (c.talking) { R(x - 6, Y(117), 2, 5, L.shirt); R(x - 6, Y(116), 2, 1, L.skin); } else R(x - 6, Y(120), 2, 6, L.shirt);
+    if (c.mug) { R(x + 4, Y(121), 2, 4, L.shirt); R(x + 4, Y(118), 4, 4, '#fdf8ee'); } else R(x + 4, Y(120), 2, 6, L.shirt);
+    drawHead(x, Y(110) - bob, L, { ...c, face: 0 }, 'sit', a.type === 'sleep');
   }
 
   // ---------- crew AI ----------
+  // The team is fixed in code (5 teammates); state.json can only update a teammate's status.
+  function roster(s) {
+    const fromState = s?.agents || [];
+    return DEFAULT_AGENTS.map((d) => ({ ...d, status: fromState.find((g) => g.name === d.name)?.status || 'resting' }));
+  }
   function syncCrew() {
-    const list = (state?.agents?.length ? state.agents : DEFAULT_AGENTS).slice(0, 3);
+    const list = roster(state);
     list.forEach((g, i) => {
-      if (!crew[i]) crew[i] = { x: SEATS[i], y: 142, face: 1, sitting: true, phase: i * 1.3, task: { kind: 'couch', until: performance.now() + rand(4000, 12000) }, arrived: true };
-      Object.assign(crew[i], { name: g.name, color: g.color || '#4f7fc9', look: { skin: g.skin || '#f2c29b', hair: g.hair || '#2a1a12', shirt: g.color || '#4f7fc9', pants: '#3d3d4f' } });
+      if (!crew[i]) crew[i] = { x: SEATS[i].x, y: 142 + SEATS[i].dy, face: 1, sitting: true, phase: i * 1.3, task: { kind: 'couch', until: performance.now() + rand(4000, 12000) }, arrived: true };
+      Object.assign(crew[i], { name: g.name, color: g.color || '#4f7fc9', look: { skin: g.skin || '#f2c29b', hair: g.hair || '#2a1a12', shirt: g.color || '#4f7fc9', pants: '#3d3d4f', long: !!g.long } });
     });
     crew.length = list.length;
   }
@@ -314,12 +341,13 @@
     const coffeeBusy = crew.some((o) => o !== c && o.task?.kind === 'coffee');
     const others = crew.filter((o) => o !== c && !o.task?.partner && o.task?.kind !== 'coffee');
     const roll = Math.random();
+    if (c.name === 'Dominika' && roll < 0.3 && !coffeeBusy && !c.mug && current().type === 'build') return { kind: 'coffee', dur: 3200, serve: true };
     if (roll < 0.28 && !coffeeBusy && !c.mug) return { kind: 'coffee', dur: 3200 };
     if (roll < 0.40 && others.length && current().type !== 'build') {
       const o = pick(others), spots = [{ x: 112, y: 166 }, { x: 128, y: 166 }];
       const dur = rand(9000, 13000), lines = pick(CHATS);
       o.task = { kind: 'chat', spot: spots[1], partner: c, dur, lines, second: true }; o.arrived = false;
-      if (o.sitting) { o.sitting = false; o.x = SEATS[crew.indexOf(o)]; o.y = 142; }
+      if (o.sitting) { const so = SEATS[crew.indexOf(o)]; o.sitting = false; o.x = so.x; o.y = 142 + so.dy; }
       return { kind: 'chat', spot: spots[0], partner: o, dur, lines };
     }
     if (roll < 0.47) return { kind: 'fridge', dur: 2500 };
@@ -331,7 +359,8 @@
   }
   function taskSpot(c, i) {
     const k = c.task.kind;
-    if (k === 'couch') return { x: SEATS[i], y: 142 };
+    if (k === 'couch') return { x: SEATS[i].x, y: 142 + SEATS[i].dy };
+    if (k === 'serve') return { x: 90, y: 152 };
     if (k === 'coffee') return { x: -8, y: 148 };
     if (k === 'fridge') return { x: -46, y: 148 };
     if (k === 'window') return { x: 200 + i * 9, y: 151 };
@@ -347,12 +376,13 @@
       else if (!c.task.dur && c.task.kind === 'couch') { c.task = { kind: 'couch', dur: rand(4000, 10000) }; c.arrived = c.sitting; c.until = now + c.task.dur; }
       else if (c.arrived && c.until && now > c.until) {
         if (c.task.kind === 'coffee') { c.mug = true; c.mugUntil = now + rand(20000, 35000); }
+        if (c.task.serve) { c.task = { kind: 'serve', dur: 3500 }; c.arrived = false; c.until = 0; return; }
         if (c.task.partner && c.task.partner.task?.partner === c) { const o = c.task.partner; o.task = pickTask(o, crew.indexOf(o)); o.arrived = false; o.until = 0; }
         c.task = pickTask(c, i); c.arrived = false; c.until = 0;
       }
       if (c.mug && now > (c.mugUntil || 0)) c.mug = false;
       const spot = taskSpot(c, i);
-      if (c.sitting && c.task.kind !== 'couch') { c.sitting = false; c.x = SEATS[i]; c.y = 142; }
+      if (c.sitting && c.task.kind !== 'couch') { c.sitting = false; c.x = SEATS[i].x; c.y = 142 + SEATS[i].dy; }
       if (!c.sitting) {
         const dx = spot.x - c.x, dy = spot.y - c.y, d = Math.hypot(dx, dy);
         if (d > 1) { const sp = Math.min(40 * dt, d); c.x += dx / d * sp; c.y += dy / d * sp; c.walking = true; if (Math.abs(dx) > 0.5) c.face = Math.sign(dx); c.arrived = false; }
@@ -360,6 +390,7 @@
           c.walking = false;
           if (!c.arrived) { c.arrived = true; c.until = now + (c.task.dur || 999999); }
           if (c.task.kind === 'couch') c.sitting = true;
+          if (c.task.kind === 'serve' && !c.task.said) { c.task.said = true; c.lastLine = null; say(c, pick(SERVE_LINES)); c.mug = false; }
           if (c.task.kind === 'chat') c.face = c.task.second ? -1 : 1;
         }
       }
@@ -382,7 +413,7 @@
       if (me.seated) return { x: 72, y: 108 };
       return { x: me.x, y: me.y - 28 };
     }
-    if (s.sitting) return { x: SEATS[crew.indexOf(s)], y: 104 };
+    if (s.sitting) { const st = SEATS[crew.indexOf(s)]; return { x: st.x, y: 104 + st.dy }; }
     return { x: s.x, y: s.y - 28 };
   }
   function say(s, text, dur = 4200) {
@@ -433,8 +464,8 @@
     }
     if (Math.random() < 0.4 && !me.walking) { say(me, pickNew(SAY_ME[a.type] || SAY_ME.idle, me.lastLine)); return; }
     const c = pick(crew.filter((x) => !x.walking)); if (!c) return;
-    const k = c.task.kind, idx = crew.indexOf(c);
-    const pool = SAY[k] ? (Array.isArray(SAY[k][0]) ? SAY[k][idx] || SAY[k][0] : SAY[k]) : SAY.couch[idx] || SAY.couch[0];
+    const k = c.task.kind, mine = SAYN[c.name] || {};
+    const pool = mine[k] || (Math.random() < 0.5 && mine.couch) || SAY[k] || mine.couch || SAY.couch;
     say(c, pickNew(pool, c.lastLine));
   }
 
@@ -498,7 +529,7 @@
     // draw world
     ctx.setTransform(1, 0, 0, 1, OX, 0);
     drawRoom(a);
-    crew.forEach((c, i) => { if (c.sitting) drawCouchSitter(c, i, a); });
+    crew.forEach((c, i) => { if (c.sitting && !SEATS[i].dy) drawCouchSitter(c, i, a); });
     drawCoffeeTable(a);
     if (me.inBed) {
       R(367, 108, 8, 8, LOOK_ME.skin); R(367, 107, 8, 3, LOOK_ME.hair); R(374, 108, 1, 6, LOOK_ME.hair);
@@ -510,8 +541,9 @@
     if (me.seated) drawSeatedAtDesk(me);
     const mePose = me.walking ? 'walk' : ({ meeting: 'think', research: 'read', email: 'post', think: 'think', waiting: 'wave', celebrate: 'cheer', break: me.mug ? 'sip' : 'stand' }[a.type] || 'stand');
     const walkers = crew.filter((c) => !c.sitting).map((c) => [c, crewPose(c)]);
+    SEATS.forEach((st, i) => { if (st.kind) { const c = crew[i]; walkers.push([{ y: 137 + st.dy - 0.5, seat: st }, 'prop']); if (c?.sitting) walkers.push([{ y: 137 + st.dy, ref: c, i }, 'seated']); } });
     if (!me.inBed && !me.seated) walkers.push([me, mePose]);
-    walkers.sort((p, q) => p[0].y - q[0].y).forEach(([p, pose]) => drawPerson(p, pose));
+    walkers.sort((p, q) => p[0].y - q[0].y).forEach(([p, pose]) => pose === 'prop' ? drawSeatProp(p.seat) : pose === 'seated' ? drawCouchSitter(p.ref, p.i, a) : drawPerson(p, pose));
     stepParticles(dt);
     const h = hourNow(), night = h < 6 || h >= 20;
     if (!night || a.type === 'sleep') {} else { ctx.fillStyle = '#ffe08a22'; ctx.beginPath(); ctx.moveTo(92, 99); ctx.lineTo(100, 99); ctx.lineTo(120, 142); ctx.lineTo(60, 142); ctx.fill(); }
@@ -564,7 +596,7 @@
       <h3>Doing now</h3>
       ${doing.map((d) => `<div class="doing"><span class="dot ${esc(d.status || 'working')}"></span><div><div>${esc(d.task)}</div><small>${esc(d.bet || '')}${d.status ? ' · ' + esc(d.status) : ''}</small></div></div>`).join('') || '<div class="empty">Nothing in progress.</div>'}
       <h3>Team</h3>
-      <div class="team">${(s.agents || []).map((g) => `<div class="mate"><span class="face" style="background:${esc(g.color)}">${esc((g.name || '?')[0])}</span><div>${esc(g.name)}<small>${esc(g.role)}</small></div><span class="chip ${g.status === 'active' ? 'active' : 'locked'}">${esc(g.status || 'resting')}</span></div>`).join('') || '<div class="empty">No buddies yet.</div>'}</div>
+      <div class="team">${roster(s).map((g) => `<div class="mate"><span class="face" style="background:${esc(g.color)}">${esc((g.name || '?')[0])}</span><div>${esc(g.name)}<small>${esc(g.role)}</small></div><span class="chip ${g.status === 'active' ? 'active' : 'locked'}">${esc(g.status || 'resting')}</span></div>`).join('') || '<div class="empty">No buddies yet.</div>'}</div>
       <h3>Bets</h3>
       ${(s.bets || []).map((b) => `<div class="card"><div class="row"><span class="title">${esc(b.name)}</span><span class="chip ${esc(b.status)}">${esc(b.status)}</span></div><p>${esc(b.note)}</p>
         ${(b.metrics || []).length ? `<div class="metrics">${b.metrics.map((m) => `<span><b>${esc(m.value)}</b> ${esc(m.label)}</span>`).join('')}</div>` : ''}
@@ -581,6 +613,8 @@
         return `<div class="card" data-id="${esc(r.id)}">
           <div class="row"><span class="title">${esc(r.title)}</span><span class="chip ${esc(st)}">${esc(st)}</span></div>
           <p>${esc(r.kind || 'item')}${r.target ? ' · ' + esc(r.target) : ''}</p>
+          ${r.checks ? `<div class="metrics">${Object.entries(r.checks).map(([k, v]) => `<span>${esc(k)}: <b>${esc(v)}</b></span>`).join('')}</div>` : ''}
+          ${(r.skills || []).length ? `<p>Skills used: ${r.skills.map(esc).join(', ')}</p>` : ''}
           ${r.url ? `<p><a href="${esc(r.url)}" target="_blank" rel="noopener">Open preview ↗</a></p>` : ''}
           ${r.email ? `<details><summary>Email draft</summary><pre>${esc(r.email)}</pre></details>` : ''}
           ${st === 'pending' ? `<textarea placeholder="Note for Claude (optional)"></textarea>
@@ -589,6 +623,14 @@
         </div>`;
       }).join('') || '<div class="empty">Nothing to approve yet. Demos and emails show up here before they go out.</div>'}`;
 
+    const inbox = s.inbox || [];
+    $('msgBadge').textContent = inbox.filter((m) => m.status !== 'done').length || '';
+    const ST_LABEL = { new: 'waiting for Claude', seen: 'seen', working: 'team is on it', done: 'done' };
+    $('thread').innerHTML = inbox.map((m) => `
+      <div class="msg mine"><div>${esc(m.text)}</div><small>${m.t ? new Date(m.t).toLocaleString() : ''} · ${esc(ST_LABEL[m.status] || m.status)}</small></div>
+      ${(m.team || []).length ? `<div class="msg team">${m.team.map((x) => `<div><b>${esc(x.who)}</b> ${esc(x.text)}</div>`).join('')}</div>` : ''}
+      ${m.reply ? `<div class="msg claude"><b>Claude</b><div>${esc(m.reply)}</div></div>` : ''}`).join('')
+      || '<div class="empty">Text Claude anything: "fix the mobile menu on the demo", "try dentists next", "what are you working on?" Claude reads it, the team discusses it, and the answer shows up here.</div>';
     $('tab-journal').innerHTML = `<ul class="log">${(s.log || []).map((l) => `<li>${esc(l.text)}<time>${l.t ? new Date(l.t).toLocaleString() : ''}</time></li>`).join('') || '<li class="empty">No entries yet.</li>'}</ul>`;
 
     $('tab-wallet').innerHTML = `
@@ -624,6 +666,19 @@
       toast(b.dataset.d === 'approved' ? '✓ Approved' : b.dataset.d === 'changes' ? '✎ Sent back for changes' : '✕ Rejected');
     } catch { toast('Could not save that decision'); }
   });
+
+  $('msgForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const text = $('msgText').value.trim(); if (!text) return;
+    if (!live) return toast('Offline: start the app first');
+    try {
+      const r = await fetch('/api/message', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text }) });
+      if (!r.ok) throw new Error();
+      $('msgText').value = ''; $('msgText').blur(); lastJSON = ''; await poll();
+      say(me, 'Got your message! Team, huddle up.'); toast('✉️ Sent to Claude');
+    } catch { toast('Could not send. Is the app running?'); }
+  });
+  $('msgText').addEventListener('keydown', (e) => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) $('msgForm').requestSubmit(); });
 
   document.querySelectorAll('.tabs button').forEach((btn) => btn.addEventListener('click', () => showTab(btn.dataset.tab)));
   function showTab(name) {

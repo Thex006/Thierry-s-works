@@ -56,11 +56,19 @@
     <nav class="tabs">
       <button data-tab="quests" class="on">Quests</button>
       <button data-tab="review">Review <span id="reviewBadge" class="badge"></span></button>
+      <button data-tab="messages">Chat <span id="msgBadge" class="badge"></span></button>
       <button data-tab="journal">Journal</button>
       <button data-tab="wallet">Wallet</button>
     </nav>
     <div class="tab" id="tab-quests"></div>
     <div class="tab" id="tab-review" hidden></div>
+    <div class="tab" id="tab-messages" hidden>
+      <div id="thread" class="thread"></div>
+      <form id="msgForm" class="msg-form">
+        <textarea id="msgText" placeholder="Text Claude: a fix, an idea, a question… The whole team works on it."></textarea>
+        <button class="btn on" type="submit">Send</button>
+      </form>
+    </div>
     <div class="tab" id="tab-journal" hidden></div>
     <div class="tab" id="tab-wallet" hidden></div>
   </aside>

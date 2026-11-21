@@ -32,11 +32,20 @@ Review every bet each session against its kill rule. Kill fast, double down on w
   cities (Tampa, Charlotte, Columbus…). One new customer is worth $500–$5,000 to them, so a site pays
   for itself fast, and they get less agency spam than NYC/LA.
 - **Next (after 100 emails):** UK and Canada, then Germany/Netherlands written in their language.
-- **Prices (US):**
-  - Website (up to 5 pages, mobile, contact/booking form, their domain, Google listing linked): **$750 one-time**
-  - Care plan (hosting, edits, uptime, monthly check): **$49/month**. This is the steady income.
-  - Add-ons: extra language **$150 each** · online booking **$250** · Google Business Profile tune-up **$150**
-  - Paid when the site goes live (the demo already exists, so the risk is ours). Invoice via the operator.
+- **Prices: research-based, not one-size.** Not everyone can pay $750. Before quoting, Scout and Ledger
+  check the client's size (team, reviews, ticket size), their market's going rates, and competitors.
+  Then Closer picks a tier:
+  | Tier | What | Typical US price |
+  |---|---|---|
+  | Starter | 1-page site, mobile, contact form, their domain | $250–400 |
+  | Standard | Up to 5 pages, booking/contact, Google listing linked | $600–900 |
+  | Growth | Standard + online booking, SEO basics, extra language | $1,200–2,500 |
+  | Care plan | Hosting, edits, monthly check | $29–79/month |
+  - Offer a **payment plan** (2–3 parts) when price is the blocker. A yes at $350 beats a no at $750.
+  - Floor: never below $200 for a site; Ledger must confirm the time spent is worth it.
+  - Adjust for other markets by their local rates (lower-income markets get lower prices, not worse work).
+  - Every price change is a team decision (see TEAM.md) and logged in LESSONS.md with the result.
+- Payment: always via agreement + Stripe invoice. See PAYMENTS.md.
 - Templates: $29–49 each. Bounties: whatever the issue pays ($50–$500+).
 
 ## QUEUED (start when a slot frees up)

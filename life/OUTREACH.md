@@ -27,6 +27,10 @@
 - Last line: "If this isn't useful, reply 'no' and I won't email again." Honour it immediately; log it in leads.csv.
 - One follow-up after 4–5 days, then stop forever.
 
+## Approval order
+1. Demo site → Thierry approves it in Review. 2. Pitch email → Thierry approves it. 3. Then send.
+Both go through the Guard gate (TEAM.md) first.
+
 ## Who we email
 - Public business contact addresses only (their site, Google listing, social page). No guessed or scraped personal emails.
 - EU/UK: business addresses only, a clear reason we're writing, easy opt-out.

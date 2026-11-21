@@ -12,6 +12,9 @@ const PORT = Number(process.env.PORT) || 4747;
 const TYPES = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.woff2': 'font/woff2', '.ico': 'image/x-icon', '.webmanifest': 'application/manifest+json' };
 
 const readState = () => JSON.parse(fs.readFileSync(STATE, 'utf8'));
+// Operator -> Claude messages live in their own file so the app and Claude never overwrite each other's state.json edits.
+const INBOX = path.join(__dirname, '..', 'inbox.json');
+const readInbox = () => { try { return JSON.parse(fs.readFileSync(INBOX, 'utf8')); } catch { return []; } };
 const writeState = (s) => {
   const tmp = STATE + '.tmp';
   fs.writeFileSync(tmp, JSON.stringify(s, null, 2) + '\n');
@@ -41,6 +44,7 @@ const server = http.createServer((req, res) => {
   if (url.pathname === '/api/state' && req.method === 'GET') {
     try {
       const s = readState(), stop = readStop();
+      s.inbox = readInbox();
       if (stop) { s.stopped = { since: stop.since || null }; s.activity = { type: 'break', bet: '', label: 'STOPPED by the operator. Claude is not allowed to work.', since: stop.since }; }
       return send(res, 200, s);
     } catch (e) { return send(res, 500, { error: e.message }); }
@@ -56,6 +60,23 @@ const server = http.createServer((req, res) => {
   if (url.pathname === '/api/resume' && req.method === 'POST') {
     try { fs.rmSync(STOP, { force: true }); } catch (e) { return send(res, 500, { error: e.message }); }
     return send(res, 200, { stopped: false });
+  }
+
+  // Operator texts Claude: { text }. Claude picks it up, the team works on it, and Claude replies in inbox.json.
+  if (url.pathname === '/api/message' && req.method === 'POST') {
+    let body = '';
+    req.on('data', (c) => { body += c; if (body.length > 1e5) req.destroy(); });
+    req.on('end', () => {
+      try {
+        const text = String(JSON.parse(body || '{}').text || '').trim().slice(0, 4000);
+        if (!text) return send(res, 400, { error: 'empty message' });
+        const inbox = readInbox();
+        inbox.push({ id: 'm' + Date.now(), t: new Date().toISOString(), from: 'Thierry', text, status: 'new' });
+        const tmp = INBOX + '.tmp'; fs.writeFileSync(tmp, JSON.stringify(inbox, null, 2) + '\n'); fs.renameSync(tmp, INBOX);
+        send(res, 200, { inbox });
+      } catch (e) { send(res, 400, { error: e.message }); }
+    });
+    return;
   }
 
   // Operator decision on a review item: { id, decision: approved|changes|rejected, note }

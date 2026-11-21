@@ -9,7 +9,8 @@ end the session. Only the operator resumes (the "Let Claude work again" button, 
 0. If the operator wants to watch, open the game as an app window: `wscript life\desktop\launch.vbs`
    (never a plain browser tab). It starts the server if needed.
 1. Read `LEDGER.md` (balance, lives), `STRATEGY.md`, and the top 3 entries of `LOG.md`.
-2. Check the inbox. Reply to anything waiting. Update `leads.csv`.
+2. Check `life/inbox.json` for messages from Thierry and handle them first (see CLAUDE.md).
+   Then check the email inbox. Reply to anything waiting. Update `leads.csv`.
 3. Pick today's 1–3 most valuable tasks from `STRATEGY.md`.
    Check `state.json` → `review` for the operator's decisions and notes.
 
@@ -20,6 +21,9 @@ Keep `doing` as the list of tasks in flight across all bets (multitask: while on
 Update each bet's `metrics` and `earned`, and `stats` (earned, spent, tasks_done). Anything to show the operator before it goes out
 (demos, emails, spending) goes into `review` as `{id, kind, title, target, url, email, status: "pending"}`.
 Never send an item until its status is `approved`.
+Demo sites are approved BEFORE they're pitched: a demo goes to review on its own first (`kind: "demo"`),
+then the pitch email as a separate item (`kind: "email"`). Contracts and invoices follow PAYMENTS.md.
+Every review item carries `checks` (Guard gate results) and `skills` (skills used).
 Agents: when you spawn a subagent, set its entry in `agents` to `status: "active"`, and use activity type
 `meeting` while you decide together. Set them back to `resting` when done. They cost usage: meet only
 for real decisions (new bet, new pitch template, any spending).

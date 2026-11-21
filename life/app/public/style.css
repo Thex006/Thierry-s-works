@@ -209,3 +209,15 @@ td.amt.pos { color: var(--green); } td.amt.neg { color: var(--red); }
 .stopped-bar[hidden], .stop-btn[hidden] { display: none; }
 .stopped-bar .btn { margin-left: auto; background: #2f6b45; }
 body.is-stopped .stage { filter: grayscale(.8) brightness(.7); }
+
+/* chat with Claude */
+.thread { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+.msg { max-width: 88%; padding: 9px 12px; border-radius: 12px; font-size: 14px; }
+.msg small { display: block; color: var(--muted); font-size: 11px; margin-top: 4px; }
+.msg.mine { align-self: flex-end; background: #3a2a1f; box-shadow: 0 0 0 2px #6b4a2f; border-bottom-right-radius: 4px; }
+.msg.claude { align-self: flex-start; background: var(--panel2); box-shadow: 0 0 0 2px var(--orange); border-bottom-left-radius: 4px; }
+.msg.claude b, .msg.team b { font-family: var(--pixel); font-size: 8px; color: var(--orange); margin-right: 6px; }
+.msg.team { align-self: flex-start; background: #1a1524; font-size: 13px; display: grid; gap: 4px; color: var(--muted); }
+.msg.team b { color: var(--gold); }
+.msg-form { display: grid; gap: 8px; position: sticky; bottom: 0; background: var(--panel); padding-top: 6px; }
+.msg-form textarea { min-height: 70px; margin: 0; }
