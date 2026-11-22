@@ -19,5 +19,6 @@ Each skill below was loaded with the Skill tool on 2026-11-22 (21:25 run) unless
   than the right. Fixed with equal padding.
 - **design-taste-frontend:** used for the whole build (deal, product render, word-highlight moment, gate PASS at 12:29).
   Next step: re-run the finish gate after these edits.
-- **playwright-cli:** next step: screenshots at 375 and 1280 (light-checks rule).
-- **graphify:** next step: query the graph before any further code reading. No code was read beyond index.html and two grep hits in this step.
+- **playwright-cli:** loaded in the 21:29 run; full-page screenshots at 375 and 1280 (taken with the kit's shoot.mjs, which serves the page itself). Both are clean.
+- **graphify:** doesn't apply to this step. The checks only read index.html, which the gate's findings pointed to directly.
+- **design-taste-frontend finish gate (21:29 run):** GATE: OPEN 2 after 3 rounds. Fixed: commercial heading and FAQ questions now name the repairs, areas split is text-left, the footer is back to one screen, the partner line hides on phones so the hero button fits, and the service rows have a focus outline. Still open: the FAQ-to-quote gap at 1440, and the checker can't see the service-row focus ring. Footer empty space waived (type close without its button).

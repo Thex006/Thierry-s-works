@@ -1,5 +1,12 @@
 # Log
 
+## 2026-11-22: Worker run, 21:29
+- 3D handyman checks: gate OPEN 2 after 3 rounds (FAQ/quote gap; service-row focus ring not seen by the checker); 1 waiver (footer close). Shots 375 + 1280 clean.
+- 2D republished (no changes to upload). 3D publish failed: wrangler 4.166 `pages project create` now needs `--force`.
+- Pitch + reply template approved by Thierry, but the pitch waits until the 3D link loads.
+- Next: publish 3D once the script is fixed; meanwhile pricing/flow update in OUTREACH.md + STRATEGY.md (inbox m1795379615339).
+- **Needs operator:** add --force to publish-demo.ps1 line 34.
+
 ## 2026-11-22: Worker run, 21:21
 - Resumed after cut-off at "3D: quote bar removed": it was done but uncommitted; committed. Closed 9 stale inbox messages; inbox rule added to CLAUDE.md.
 - 3D skills step: loaded 8 skills with the Skill tool; fixes: favicon matches ring mark, FAQ column alignment, row focus state, HUD spelled out, scrollbar/underline themed.

@@ -53,12 +53,12 @@
   /* prices and hours line up digit for digit; anchors glide unless motion is reduced (redesign audit) */
   .visit__rows, .hours { font-variant-numeric: tabular-nums; }
   @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
-  /* the close lost its big button: the footer takes its content's height, not a whole screen */
-  footer.closing#contact { height: auto; min-height: 0; }
-  footer.closing#contact > .wrap { justify-content: flex-start; row-gap: var(--s-8); }
+  /* a phone: the partner line gives its height to the hero so the button stays on the first screen */
+  @media (max-width: 639px) { .hero__head > .t-small { display: none; } }
   /* two FAQ columns: the kit's first-child padding trim would lift only the left column's first row */
   .faq.grid > .faq__item:first-child { padding-top: var(--s-5); }
   /* keyboard focus on a service row shows the same accent as hover (typeui-minimal: explicit states) */
+  .rows li:focus-visible { outline: 2px solid var(--p-action); outline-offset: -2px; }
   .rows li:focus-visible .rows__name { color: var(--p-accent); }
   /* subtle hover: photos ease in 2.5%, service rows nudge right, the address link underlines */
   @media (hover: hover) and (prefers-reduced-motion: no-preference) {
@@ -131,7 +131,7 @@
       <div class="hero__head">
         <div>
           <h1 id="hero-h">Handyman service in Columbus, Ohio</h1>
-          <p class="hero__lead">Plumbing, electrical, drywall and painting for homes, offices and commercial sites in Franklin County. One insured crew, emergencies 24 hours a day.</p>
+          <p class="hero__lead">Plumbing, electrical, drywall and painting for homes and businesses in Franklin County. Insured crew, emergencies 24 hours a day.</p>
         </div>
         <div class="btn-row"><a class="btn btn--primary" href="#quote">Request a quote<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a><a class="btn btn--secondary" href="#services">See services</a></div>
         <p class="t-small muted">Service Channel partner for over 15 years</p>
@@ -166,7 +166,7 @@
     <div class="wrap">
       <div class="grid grid--top fill">
         <div class="span-5 stack-6">
-          <h2 id="commercial-h">Maintenance for commercial properties</h2>
+          <h2 id="commercial-h">Repairs for commercial properties</h2>
           <p class="t-lead">Facilities maintenance for offices and commercial sites, plus repairs on HUD (federal housing) properties.</p>
           <ul class="visit__rows">
             <li><span>Service Channel</span><span>Partner for over 15 years</span></li>
@@ -189,8 +189,8 @@
 
   <section class="section" id="areas" aria-labelledby="areas-h">
     <div class="wrap">
-      <div class="grid grid--middle" style="grid-auto-flow: dense">
-        <div class="span-5 start-8 stack-6">
+      <div class="grid grid--middle">
+        <div class="span-5 stack-6">
           <h2 id="areas-h">Areas we serve across central Ohio</h2>
           <p class="t-lead">Seven counties around Columbus, including German Village, the Short North and the University District.</p>
           <ul class="visit__rows">
@@ -200,7 +200,7 @@
             <li><span>Fairfield and Pickaway</span><span>South of the city</span></li>
           </ul>
         </div>
-        <div class="frame frame--photo span-6 start-1" style="--ratio: 95%">
+        <div class="frame frame--photo span-6 start-7" style="--ratio: 95%">
           <img class="frame__img" src="assets/img/photo-f59702318-960.webp" alt="A brick house with a stone front porch and steps" loading="lazy" data-source="library" data-subject="an Ohio house">
         </div>
       </div>
@@ -211,12 +211,12 @@
     <div class="wrap">
       <div class="section-head"><h2 id="faq-h">Questions homeowners ask</h2></div>
       <div class="faq grid">
-        <div class="faq__item span-6"><h3>Do you take emergency calls?</h3><p>Yes, emergency service runs 24 hours a day. Office hours are 9 AM to 5 PM on weekdays.</p></div>
-        <div class="faq__item span-6"><h3>What does an estimate cost?</h3><p>A detailed estimate on a larger project is a $50 service call.</p></div>
-        <div class="faq__item span-6"><h3>Do I pay anything up front?</h3><p>Residential jobs over $400 take up to 50% down before work starts.</p></div>
+        <div class="faq__item span-6"><h3>Do you take emergency repairs?</h3><p>Yes, emergency service runs 24 hours a day. Office hours are 9 AM to 5 PM on weekdays.</p></div>
+        <div class="faq__item span-6"><h3>What does a home repair estimate cost?</h3><p>A detailed estimate on a larger project is a $50 service call.</p></div>
+        <div class="faq__item span-6"><h3>Do I pay anything up front for repairs?</h3><p>Residential jobs over $400 take up to 50% down before work starts.</p></div>
         <div class="faq__item span-6"><h3>Which areas do you cover?</h3><p>Franklin, Delaware, Union, Licking, Madison, Fairfield and Pickaway counties around Columbus.</p></div>
-        <div class="faq__item span-6"><h3>Are you insured?</h3><p>Yes. Corporate clients can ask for a certificate of insurance.</p></div>
-        <div class="faq__item span-6"><h3>Can you come on a weekend?</h3><p>Weekend work is by appointment. Say so in the quote form.</p></div>
+        <div class="faq__item span-6"><h3>Is the handyman crew insured?</h3><p>Yes. Corporate clients can ask for a certificate of insurance.</p></div>
+        <div class="faq__item span-6"><h3>Can you do repairs on a weekend?</h3><p>Weekend work is by appointment. Say so in the quote form.</p></div>
       </div>
     </div>
   </section>
