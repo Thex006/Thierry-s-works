@@ -5,11 +5,12 @@ const path = require('path');
 const { execFile, spawn } = require('child_process');
 
 const PUB = path.join(__dirname, 'public');
+const DEMOS = path.join(__dirname, '..', '..', 'demos');
 const STATE = path.join(__dirname, '..', 'state.json');
 const STOP = path.join(__dirname, '..', 'STOP'); // emergency stop flag: sessions halt while it exists
 const KILLER = path.join(__dirname, '..', 'desktop', 'stop-claude.ps1');
 const PORT = Number(process.env.PORT) || 4747;
-const TYPES = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.woff2': 'font/woff2', '.ico': 'image/x-icon', '.webmanifest': 'application/manifest+json' };
+const TYPES = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.mjs': 'text/javascript', '.webp': 'image/webp', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.woff': 'font/woff', '.glsl': 'text/plain','.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.woff2': 'font/woff2', '.ico': 'image/x-icon', '.webmanifest': 'application/manifest+json' };
 
 const readState = () => JSON.parse(fs.readFileSync(STATE, 'utf8'));
 // Operator -> Claude messages live in their own file so the app and Claude never overwrite each other's state.json edits.
@@ -36,29 +37,7 @@ const killClaude = (done) => {
   if (process.platform === 'win32') execFile('powershell', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', KILLER], { timeout: 20000, windowsHide: true }, cb);
   else execFile('sh', ['-c', "pkill -9 -f '@anthropic-ai/claude-code'; pkill -9 -x claude; true"], { timeout: 20000 }, () => done(0));
 };
-// The worker's real status, from its files (not state.json): paused, sleeping, working or idle, plus the log's last line.
-const PRIV = path.join(__dirname, '..', 'private');
-const lastLogLine = () => {
-  try {
-    const f = path.join(PRIV, 'worker.log'), size = fs.statSync(f).size, len = Math.min(size, 8192), buf = Buffer.alloc(len);
-    const fd = fs.openSync(f, 'r'); fs.readSync(fd, buf, 0, len, size - len); fs.closeSync(fd);
-    return buf.toString('utf8').split(/\r?\n/).map((l) => l.trim()).filter(Boolean).pop() || '';
-  } catch { return ''; }
-};
-const workerStatus = (now = Date.now()) => {
-  const w = { log: lastLogLine() };
-  if (fs.existsSync(STOP)) return { ...w, state: 'paused' };
-  try {
-    const until = Date.parse(fs.readFileSync(path.join(PRIV, 'sleep-until.txt'), 'utf8').trim());
-    if (until > now) return { ...w, state: 'sleeping', until: new Date(until).toISOString() };
-  } catch {}
-  try {
-    const l = JSON.parse(fs.readFileSync(path.join(PRIV, 'worker.lock'), 'utf8').replace(/^﻿/, ''));
-    const hb = Date.parse(l.heartbeat);
-    if (now - hb < 15 * 60 * 1000) return { ...w, state: 'working', since: l.started, heartbeat: l.heartbeat, heartbeatAgo: Math.round((now - hb) / 1000) };
-  } catch {}
-  return { ...w, state: 'idle' };
-};
+const { workerStatus } = require('./worker-status'); // paused, sleeping, working or idle, plus the log's last line
 const send = (res, code, body, type = 'application/json') => {
   res.writeHead(code, { 'Content-Type': type, 'Cache-Control': 'no-store', 'X-Build': buildId() });
   res.end(typeof body === 'string' || Buffer.isBuffer(body) ? body : JSON.stringify(body));
@@ -170,8 +149,13 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  let file = path.normalize(path.join(PUB, url.pathname === '/' ? 'index.html' : decodeURIComponent(url.pathname)));
-  if (!file.startsWith(PUB)) return send(res, 403, 'forbidden', 'text/plain');
+  // /demos/<name>/ serves the repo's demos/ folder (ES modules don't load from file://)
+  const isDemo = url.pathname.startsWith('/demos/');
+  const root = isDemo ? DEMOS : PUB;
+  let rel = isDemo ? decodeURIComponent(url.pathname.slice(7)) : (url.pathname === '/' ? 'index.html' : decodeURIComponent(url.pathname));
+  if (isDemo && (rel === '' || rel.endsWith('/'))) rel += 'index.html';
+  let file = path.normalize(path.join(root, rel));
+  if (!file.startsWith(root)) return send(res, 403, 'forbidden', 'text/plain');
   fs.readFile(file, (err, data) => {
     if (err) return send(res, 404, 'not found', 'text/plain');
     send(res, 200, data, TYPES[path.extname(file)] || 'application/octet-stream');

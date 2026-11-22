@@ -5,10 +5,10 @@
     "lives":  1,
     "energy":  100,
     "activity":  {
-                     "type":  "waiting",
+                     "type":  "working",
                      "bet":  "Demo-first websites",
-                     "label":  "Run ended to save weekly usage (90%+). Demo waits in Review; next run: Algora bounties",
-                     "since":  "2026-11-22T12:15:00+01:00"
+                     "label":  "Fixed the handyman demo layout; back in Review. Updating pricing and outreach rules",
+                     "since":  "2026-11-22T11:45:00+01:00"
                  },
     "bets":  [
                  {
@@ -107,7 +107,7 @@
                   {
                       "id":  "git-staged-chrome-profile",
                       "t":  "2026-11-22T12:15:00+01:00",
-                      "text":  "I staged the design checker's temp Chrome profile by mistake and the worker can't unstage it. Please run in the repo: git reset -q -- demos/handyman-columbus/.taste-skill  (it's now in .gitignore; nothing was committed)."
+                      "text":  "I staged the design checker\u0027s temp Chrome profile by mistake and the worker can\u0027t unstage it. Please run in the repo: git reset -q -- demos/handyman-columbus/.taste-skill  (it\u0027s now in .gitignore; nothing was committed)."
                   }
               ],
     "review":  [
@@ -116,8 +116,14 @@
                        "t":  "2026-11-22T11:40:00+01:00",
                        "type":  "demo",
                        "title":  "Demo: Handyman Services in Columbus",
-                       "text":  "First demo site, built from the client's real facts (services, counties, $50 estimate, hours). Open demos/handyman-columbus/index.html. Photos are stand-ins from Wikimedia Commons; the form posts to a .example address. Design gate: OPEN with 6 layout warnings (a few sections look a bit empty at desktop). OK to pitch it, or want changes first?",
-                       "skills":  ["design-taste-frontend"]
+                       "text":  "First demo site, built from the client\u0027s real facts (services, counties, $50 estimate, hours). Layout fixed: sections now grow to fit on wide screens (at 1920 the quote form and photo spilled over the footer, causing the stray bar and overlaps). Under 1024px the Areas and Quote photos stack at 3:2. Screenshotted at 375, 768, 1280 and 1920: no overlaps. Photos are stand-ins from Wikimedia Commons; the form posts to a .example address. OK to pitch it, or want more changes? The 3D-style version comes next.",
+                       "url":  "http://localhost:4747/demos/handyman-columbus/",
+                       "skills":  [
+                                      "design-taste-frontend",
+                                      "playwright-cli (shoot.mjs screenshots)"
+                                  ],
+                       "status":  "pending",
+                       "note":  ""
                    }
                ],
     "transactions":  [
@@ -129,8 +135,16 @@
                      ],
     "log":  [
                 {
+                    "t":  "2026-11-22T11:45:00+01:00",
+                    "text":  "Fixed the handyman demo's broken footer: sections were fixed at one screen on wide displays, so the quote form spilled over the footer. Checked at 375, 768, 1280 and 1920. Back in Review with a working Open link."
+                },
+                {
+                    "t":  "2026-11-22T10:15:19.419Z",
+                    "text":  "Operator asked for changes on \"Demo: Handyman Services in Columbus\""
+                },
+                {
                     "t":  "2026-11-22T11:40:00+01:00",
-                    "text":  "Built the first demo: Handyman Services in Columbus (real facts, stand-in photos). Design gate OPEN with 6 layout warnings. Sent to Review for Thierry's OK."
+                    "text":  "Built the first demo: Handyman Services in Columbus (real facts, stand-in photos). Design gate OPEN with 6 layout warnings. Sent to Review for Thierry\u0027s OK."
                 },
                 {
                     "t":  "2026-11-22T10:47:44+01:00",
@@ -199,7 +213,7 @@
                   },
                   {
                       "bet":  "Demo-first websites",
-                      "task":  "Build first demo: Handyman Services in Columbus. Built; gate OPEN (6 FAILs: empty-area/sparse on #areas and #quote at 1440). In Review for Thierry. Next: pitch draft after his OK",
+                      "task":  "Handyman demo: layout fixed (sections grow on desktop, stacked photos 3:2), checked at 375/768/1280/1920, back in Review with localhost:4747/demos link. Next: 3D-style version, then pitch draft (email Review card) after his OK",
                       "status":  "review"
                   },
                   {
@@ -247,8 +261,8 @@
                       "Active bets: websites, open-source bounties, templates"
                   ],
     "usage":  {
-                  "percent":  33,
-                  "weekPercent":  90,
+                  "percent":  71,
+                  "weekPercent":  94,
                   "resets":  "2026-11-22T15:09:00.0000000",
                   "windowHours":  5,
                   "windowStart":  "2026-11-22T10:09:00.0000000"

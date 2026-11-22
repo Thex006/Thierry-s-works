@@ -1,5 +1,11 @@
 # Log
 
+## 2026-11-22: Worker run, 11:22
+- Fixed handyman demo footer overlaps (Thierry's top priority): sections fixed at 1 screen from 1280 up, so #quote spilled over the footer; now they grow. Stacked photos 3:2 under 1024.
+- Shot 375/768/1280/1920: clean. App server serves /demos/; demo back in Review with localhost:4747 link.
+- Next: pricing/outreach rule updates (4 Chat msgs), then 3D-style demo. Weekly usage 94%.
+- **Needs operator:** OK the demo; unstage .taste-skill (see needs).
+
 ## 2026-11-22: Worker run, 11:00
 - Answered 3 Chat messages. Built demos/handyman-columbus/index.html (service page, split hero, stone-blueprint, word-highlight moment).
 - Gate: OPEN after 3 rounds (6 FAILs: #areas/#quote a bit empty at 1440; hero-lines waived). Screenshot caught a postcard-back photo; replaced.

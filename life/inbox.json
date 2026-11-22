@@ -52,7 +52,12 @@
     "text": "Next task (from the manager, for Thierry): add an always-visible worker status badge to the Claude Life app, computed by the server from real files, not state.json alone. \"Working: <activity label> (since hh:mm, heartbeat Xs ago)\" when life/private/worker.lock has a heartbeat under 15 min; \"Idle: next check within 1 min\" when there is no fresh lock; \"Sleeping: out of usage until hh:mm\" from life/private/sleep-until.txt; \"Paused\" when life/STOP exists. Also show the last line of worker.log or the current step, live. When no worker is running, the characters should visibly idle/sleep, not move or talk. And from now on, update state.json activity at the START of every step so the label is never stale (like the 02:40 \"Waiting on Thierry\" banner that stayed up while you were working). Don't touch life/desktop/worker.ps1 or install-worker.ps1; the manager is changing those.",
     "status": "done",
     "reply": "Done. The server now adds a worker status to /api/state from the real files (STOP, sleep-until.txt, worker.lock heartbeat under 15 min), plus the last line of worker.log. The app shows it under the activity bar: Working / Idle / Sleeping / Paused, with the log line. When no worker runs, the team goes to sleep in the room instead of moving and talking. I tested it: it reported 'working, heartbeat 31s ago' from this run's lock. I'll set activity at the start of each step from now on. worker.ps1 untouched.",
-    "team": [{"who": "Critic", "text": "Status comes from files now, so a stale state.json can't fool the badge."}]
+    "team": [
+      {
+        "who": "Critic",
+        "text": "Status comes from files now, so a stale state.json can't fool the badge."
+      }
+    ]
   },
   {
     "id": "m1795342171451",
@@ -61,7 +66,12 @@
     "text": "When a task or hustle is waiting (on Thierry, a reply, a review or a check), don't stop or idle. Switch to the next task in another active bet (websites, open-source bounties, templates) and keep going. Only end the run when every active bet is truly blocked, usage is low, or there's a STOP.",
     "status": "done",
     "reply": "Understood. While the demo waits in Review I move on to the next bet instead of stopping. Note: weekly usage was about 90% this morning, so I'll stop when it gets low.",
-    "team": [{"who": "Scout", "text": "Next up: bounties on Algora now that Chrome works."}]
+    "team": [
+      {
+        "who": "Scout",
+        "text": "Next up: bounties on Algora now that Chrome works."
+      }
+    ]
   },
   {
     "id": "m1795342324535",
@@ -70,6 +80,67 @@
     "text": "Add to the status-badge task: in life/app/public/game.js, the \"waiting\" speech lines (line ~50: \"Need your OK on something!\", \"Check the Review tab\") are canned and shown whenever activity.type is \"waiting\", even when Review and \"Claude needs you\" are empty. Only use those lines when there is a pending review item or a need; otherwise show neutral lines. Also: state.json activity has said \"waiting / Waiting on Thierry: node permission... Chrome\" since 02:40 although nothing is waiting. Update activity to what you are actually doing now.",
     "status": "done",
     "reply": "Fixed both. The 'Need your OK' lines now show only when a Review item is pending or a need is open; otherwise Claude uses neutral lines. Activity in state.json now says what I'm actually doing.",
-    "team": [{"who": "Critic", "text": "No more crying wolf in the room."}]
+    "team": [
+      {
+        "who": "Critic",
+        "text": "No more crying wolf in the room."
+      }
+    ]
+  },
+  {
+    "id": "m1795342510159",
+    "t": "2026-11-22T10:15:10.159Z",
+    "from": "Thierry",
+    "text": "Add to the app task: every Review item for a demo or site must have a clickable \"Open\" link in the Review tab. Serve demos from the app server (e.g. http://localhost:4747/demos/<name>/, mapped to the repo demos/ folder; file:// will not work because the demos use ES modules) or use a hosted preview URL, and set the review item url to it. The speech bubble should name the item (\"Review the Columbus handyman demo\"). Combine this with the Review-line fix. For now the manager serves demos on http://127.0.0.1:4748/ (temporary, stops on reboot). Also put the Columbus handyman demo in Review with that link if it is ready.",
+    "status": "done",
+    "reply": "The app server now serves the repo's demos/ folder at http://localhost:4747/demos/<name>/ (it restarts itself within 5 minutes to pick this up, so it doesn't depend on the temporary 4748 server). The handyman demo is back in Review with url http://localhost:4747/demos/handyman-columbus/, and the Review tab already shows 'Open preview' for any item with a url. Not done yet: the speech bubble naming the item. That's next on the app list.",
+    "team": [
+      {
+        "who": "Critic",
+        "text": "A link that survives a reboot beats a temporary server."
+      }
+    ]
+  },
+  {
+    "id": "m1795342572490",
+    "t": "2026-11-22T10:16:12.490Z",
+    "from": "Thierry",
+    "text": "TOP PRIORITY, from Thierry (he looked at the handyman demo at ~1900px wide): the contact/footer section at the bottom is broken. (1) A full-width blue \"Request a quote\" bar (chevron, serif text) overlaps the \"North High Street, Clintonville\" heading and the Office hours table, covering \"Office hours\" and \"Mon to Fri 9 AM to 5 PM\". It looks like a sticky/mobile CTA showing on desktop. (2) Another \"Request a quote\" button sits right on top of the \"Get the repair list done\" heading with no spacing. (3) The paragraph \"We reply within a working day, and answer emergencies around the clock.\" runs under the photo on the right. (4) The photo overlaps the Office hours heading. Fix the layout (overlaps, the stray bar, text under the image, grid columns), then screenshot it at 375, 768, 1280 and 1920 widths and check them. Only then put the demo in Review, with an Open link that works (file:// does not work, because the demo uses ES modules).",
+    "status": "done",
+    "reply": "Fixed. One cause behind all four problems: from 1280px up every section was fixed at exactly one screen tall, so at 1920 the quote form and its tall photo spilled into the footer. The big 'Request a quote' button, the hours and the closing line ended up under or over them. Sections now grow to fit their content at every width. At 768 the Areas and Quote photos also ran into the next section, so when stacked they're now 3:2 instead of 4:5. I screenshotted 375, 768, 1280 and 1920 and checked each: no overlaps. It's back in Review with an Open link.",
+    "team": [
+      {
+        "who": "Critic",
+        "text": "Checked all four widths before it went back to Review."
+      }
+    ]
+  },
+  {
+    "id": "m1795342678047",
+    "t": "2026-11-22T10:17:58.047Z",
+    "from": "Thierry",
+    "text": "From Thierry: for the Columbus handyman demo, after the layout fix, also build a 3D-style version. Website-job rule (permanent, it will be in CLAUDE.md): before starting, list every skill and plugin available to you (.claude/skills, ~/.claude/skills, installed plugins, the Skill tool listing) and say which you found. Then apply ALL the relevant ones, not just taste: the elayadesign/ai-design-skills pack, design-taste-frontend, impeccable, typeui-minimal, redesign-existing-projects, imagegen-frontend-web, brandkit, playwright-cli for screenshots and testing, writing-guidelines for all copy, and the addyosmani agent-skills for code quality. Use Graphify to map the repo before reading lots of code, and never commit graphify-out/. Before each step, name which skills you are applying and why. If a skill is missing, add it to needs; the manager installs skills.",
+    "status": "new"
+  },
+  {
+    "id": "m1795342678389",
+    "t": "2026-11-22T10:17:58.389Z",
+    "from": "Thierry",
+    "text": "From Thierry, new pricing for outreach: every pitch email must say the site is just a demo that can be made to their taste, priced from $50 per page for now, more for bigger businesses (your judgment from their apparent size and revenue). This replaces the $750 + $49/mo offer. After the current Columbus job, target more US and UK companies. Update STRATEGY.md, OUTREACH.md and the state.json decisions to match.",
+    "status": "new"
+  },
+  {
+    "id": "m1795342812389",
+    "t": "2026-11-22T10:20:12.389Z",
+    "from": "Thierry",
+    "text": "From Thierry, add to the outreach rules: every pitch email must make clear the demo was built without their real materials, and that with their own photos, logo and content the final site will be noticeably better, so the demo is not the ceiling of what we can do. Add this to the email rules in OUTREACH.md too, alongside the \"$50 per page from now, more for bigger businesses; can be made to your taste\" pricing message.",
+    "status": "new"
+  },
+  {
+    "id": "m1795342934714",
+    "t": "2026-11-22T10:22:14.714Z",
+    "from": "Thierry",
+    "text": "HARD RULE from Thierry: never send a pitch or outreach email to a prospect until he has approved that exact email. Put each draft in the Review tab (kind \"email\") with recipient, subject, full body and the demo Open link. Send only after he approves it in Review, and if he edits it, send his version. Nothing goes out while you wait; switch to other work meanwhile. Add this to OUTREACH.md and to CLAUDE.md.",
+    "status": "new"
   }
 ]

@@ -217,7 +217,8 @@ p { text-wrap: pretty; }
    A layer (a full-bleed photograph or ground behind the words) is an <img class="layer" aria-hidden="true">
    beside the .wrap. Content must fit: one screen holds 708px of content at 1440x900 (900 - 120 - 72),
    two hold 1,608 (the second screen's part starts --padt under its top with .g2). From 640 to 1279 a
-   section keeps at least its screens and grows past them rather than overlap the next. */
+   section keeps at least its screens and grows past them rather than overlap the next (on desktop too:
+   a fixed height spilled the quote form and photo over the footer at 1920). */
 main > :is(section, .section), footer.closing {
   position: relative; box-sizing: border-box;
   height: calc(var(--h, 1) * 100vh); height: calc(var(--h, 1) * 100svh);
@@ -244,7 +245,7 @@ main > :is(section, .section).g2 > :is(.wrap, .container) > :is(.group, .fill) {
   main > :is(section, .section).g2 > .wrap > .group > .grid:last-child { align-self: stretch; flex: 1 1 auto; min-height: 0; }
 }
 .group > .fill { flex: 1 1 0; min-height: 0; }
-@media (min-width: 640px) and (max-width: 1279px) {
+@media (min-width: 640px) {
   main > :is(section, .section):not(.hero, .section--hero), footer.closing {
     height: auto; min-height: calc(var(--h, 1) * 100vh); min-height: calc(var(--h, 1) * 100svh);
   }

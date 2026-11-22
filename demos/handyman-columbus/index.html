@@ -38,7 +38,11 @@
   --ly-scale: 1.06;
 }
 </style>
-<style>#areas .frame, #quote .frame { aspect-ratio: 4 / 5; }</style>
+<style>
+@media (min-width: 1024px) { #areas .frame, #quote .frame { aspect-ratio: 4 / 5; } }
+/* stacked: the grid's own height counts, so the photo never runs under the next section */
+@media (max-width: 1023px) { #areas .fill, #quote .fill { flex: none; } #areas .frame, #quote .frame { aspect-ratio: 3 / 2; } }
+</style>
 <script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
 <script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
 <link rel="modulepreload" href="assets/moments/moments.js">
