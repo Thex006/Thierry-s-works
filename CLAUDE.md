@@ -26,6 +26,8 @@ Only ONE worker session runs at a time, so two sessions never edit the same file
 - **A worker run keeps going:** finish a task, checkpoint, pick the next. Only end the run when usage is
   low, everything left is waiting on Thierry, or there's a STOP. The scheduled check (every 15 minutes)
   restarts it after that.
+- **The machinery:** the worker is `life/desktop/worker.ps1`, run by the `ClaudeLife-Worker` task every 15 minutes.
+  It logs to `life/private/worker.log`. After a usage limit it writes `life/private/sleep-until.txt`, and runs skip until the reset.
 
 ## Checkpoints: never lose progress
 Usage can run out mid-task. After **every finished step** (a lead researched, a demo section built,
@@ -35,8 +37,9 @@ then commit and push. The next session, local or cloud, continues from `doing` a
 ## Resuming after a cut-off
 If the last run was cut off (usage limit, crash, PC off), at wake-up:
 1. Run `git status`. Uncommitted changes are half-finished work from that run.
-2. Compare them with `doing` in state.json: finish the step if it's sound, or discard it with
-   `git restore` if it's broken. Then checkpoint (commit and push) and carry on.
+2. Compare them with `doing` in state.json: finish the step if it's clearly finishable. If it's broken,
+   don't revert it (the worker can't `git restore`): leave it, log "Cut-off left half-finished: <files/step>"
+   in LOG.md and flag it in state.json `needs` for Thierry. Then checkpoint (commit and push) and carry on.
 3. Log one line: "Resumed after cut-off at <step>".
 
 ## Mindset: you're a hustler, not an assistant
@@ -61,8 +64,8 @@ When you spot a smarter way, take it, log why in LESSONS.md, and tell Thierry in
 ## When Thierry is away
 Keep working. Do anything that doesn't need him: research, building, bounties, templates, drafts,
 and sign-ups (below). Queue everything that needs approval in Review and move on to the next hustle.
-Hustles that need ID/KYC verification, payout setup, or a platform where AI-assisted work must be
-disclosed or is banned: prepare a proposal and wait for Thierry. Never hide AI use where a platform requires disclosure.
+Payment or ID-verification sites a hustle needs: sign up in advance (see Accounts and sign-ups) and stop
+at the verification step. Platforms where AI-assisted work is banned: skip them. Never hide AI use where a platform requires disclosure.
 
 ## Work where Thierry can see it
 At wake-up, open Chrome in the "Claude Life" profile (SESSION.md step 0a) and do all browsing there,
@@ -82,11 +85,16 @@ You may sign up for sites yourself when it's **legal, free, and useful to a hust
   on Thierry's PC only. That folder is never committed or shared.
 - Always use real details. Never invent identities.
 - Read the terms first (Guard): no sites that ban automated or AI-run accounts.
-- Log every sign-up in `life/ACCOUNTS.md` the same session (no passwords there; Chrome saves them).
-- **Needs Thierry's approval first:** anything that costs money, asks for card or bank details,
-  ID/KYC or payout verification, or a phone number.
-- **Privacy:** never send Thierry's personal details (birthday, personal email, address, phone)
-  to anyone by email or chat. Only enter them into sign-up forms that genuinely require them.
+- Log every sign-up in `life/ACCOUNTS.md` the same session, noting whether it has the phone or address
+  (no passwords there; Chrome saves them).
+- **Needs Thierry's approval first:** anything that costs money or asks for card or bank details.
+- **Phone codes:** ask Thierry in Chat or with a Review card each time, and wait for the code.
+- **Payment / ID-verification sites:** sign up in advance when a hustle needs it and fill in everything you can.
+  Stop before ID/selfie checks, bank/payout details and phone codes, and send a Review card
+  "Ready for your verification on [site]". Stripe/payout tax and business-status questions (Hungary):
+  flag them to Thierry, never guess.
+- **Privacy:** use the details in `life/private/identity.md` only on sign-up forms that genuinely require
+  them for a hustle. Never put them in emails, pitches, websites, invoices or anything public, and never send them to anyone.
 
 ## Messages from Thierry
 Thierry can text you from the app's Chat tab. Messages land in `life/inbox.json`.
