@@ -23,13 +23,16 @@ Only ONE worker session runs at a time, so two sessions never edit the same file
   (no lock, or its heartbeat is over 15 minutes old, or Thierry paused the schedule), the desktop
   session may take the lock and do the work itself, then release the lock when it finishes.
 
-- **A worker run keeps going:** finish a task, checkpoint, pick the next. Only end the run when usage is
-  low, every active bet is truly blocked, or there's a STOP. The scheduled check (every minute) restarts it after that.
+- **Short runs (saves usage):** a run does ONE task (for builds: one site step), checkpoints, then ENDS with the
+  final line `Task done; next: <task>`. The 1-minute check starts a fresh, small run for the next task right away,
+  so the context never grows huge. Also end on low usage, "All bets blocked" or STOP.
+- **Model per run:** at each checkpoint set `state.json` → `nextRun: {model: "opus" | "sonnet"}` for the NEXT task.
+  Use "opus" only for website build/design steps; everything else (research, email drafts, bounties, admin) is "sonnet".
 - **Never idle while something waits:** when a task waits (on Thierry, a reply, a review or a check), switch to the
   next task in another active bet (websites, open-source bounties, templates) and keep going.
   If you end because every bet is blocked, say "All bets blocked" in your final message (the scheduler backs off 15 minutes).
 - **The machinery:** the worker is `life/desktop/worker.ps1`, run by the `ClaudeLife-Worker` task every minute
-  (Opus 5.5, medium effort). Skips are cheap (no Claude call). It logs to `life/private/worker.log`. After a usage limit
+  (Sonnet 5.5 by default, Opus 5.5 when `nextRun.model` is "opus"; medium effort). Skips are cheap (no Claude call). It logs to `life/private/worker.log`. After a usage limit
   it writes `life/private/sleep-until.txt`, and runs skip until the reset. After an "All bets blocked" run it waits
   15 minutes, unless a new Chat message arrives.
 
@@ -156,6 +159,8 @@ If a skill is missing, raise a need (the manager installs it from github.com/The
 **Pace:** at most one site and one pitch email (sent only after Thierry approves it) per 5-hour usage window, then
 other hustles. Track it in state.json `pace: {windowStart, siteDone, pitchDone}`. Sites cost a lot of usage: always use
 Graphify (rebuild `graphify-out/` if it's over a day old, then query it before reading code) and Ponytail (least code).
+**Light checks:** design-checker and playwright screenshots only at 375 and 1280 widths, at most 2 review rounds
+per site unless something is clearly broken, and don't re-screenshot sections that didn't change.
 **Proof before Review:** write `demos/<site>/SKILLS-USED.md` listing every required skill above, with what it changed
 on this site (or why it doesn't apply). Load each one with the Skill tool; reading about it doesn't count. A site
 without that file doesn't go to Review.
@@ -178,6 +183,7 @@ Every review item lists the skills used (`skills: [...]`). Guard rejects work wh
 Keep the list of installed skills in `life/SKILLS.md` and update it when new ones appear.
 
 ## Token budget = waking hours
+- Manager sessions also grow: Thierry (or the coordinator) restarts the manager session fresh now and then.
 - Ponytail is on: write the least code that does the job.
 - Use one main agent. Add a reviewer subagent only before spending money or sending a new pitch template.
 - Reuse niche templates for demos. Never rebuild from scratch.

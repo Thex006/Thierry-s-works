@@ -22,7 +22,13 @@ function Test-NewMessage {
   try { return [bool](([IO.File]::ReadAllText((Join-Path $repo 'life\inbox.json')) | ConvertFrom-Json) | Where-Object { $_.status -eq 'new' }) } catch { return $false }
 }
 # The previous run had nothing it could do: it says every bet is blocked / waiting on Thierry, or claude failed fast.
+# Model for the next run, from state.json nextRun.model (set by the worker at checkpoint). Opus only for site builds.
+function Get-RunModel([string]$path) {
+  try { $m = ([IO.File]::ReadAllText($path) | ConvertFrom-Json).nextRun.model } catch { $m = $null }
+  if ($m -eq 'opus') { return 'claude-opus-5-5' } else { return 'claude-sonnet-5-5' }
+}
 function Test-IdleRun([string]$text, [int]$code, [double]$minutes) {
+  if ($code -eq 0 -and $text -match 'Task done; next:') { return $false }  # short-run handoff: start the next run right away
   return ($code -ne 0 -and $minutes -lt 5) -or ($text -match '(?i)(all|every) (active )?bets? (are |is )?(truly )?(blocked|waiting)|nothing (left )?(i can|to) do')
 }
 function Write-Lock($procId, $started) {
@@ -146,9 +152,10 @@ function Invoke-Worker {
       } else { Write-Log 'usage: could not parse /usage output' }
     } catch { Write-Log "usage: error $_" }
 
-    Write-Log 'start: claude -p "Wake up and continue." --model claude-opus-5-5 --effort medium --permission-mode dontAsk --chrome'
+    $model = Get-RunModel $statePath
+    Write-Log "start: claude -p 'Wake up and continue.' --model $model --effort medium --permission-mode dontAsk --chrome"
     # Permissions come from .claude/settings.json (allow/deny); dontAsk refuses everything else.
-    $p = Start-Process claude -ArgumentList '-p', '"Wake up and continue."', '--model', 'claude-opus-5-5', '--effort', 'medium', '--permission-mode', 'dontAsk', '--permission-prompts', 'none', '--chrome', '--disallowedTools', '"Edit(.claude/**)"', '"Edit(life/desktop/**)"' `
+    $p = Start-Process claude -ArgumentList '-p', '"Wake up and continue."', '--model', $model, '--effort', 'medium', '--permission-mode', 'dontAsk', '--permission-prompts', 'none', '--chrome', '--disallowedTools', '"Edit(.claude/**)"', '"Edit(life/desktop/**)"' `
          -WorkingDirectory $repo -WindowStyle Hidden -RedirectStandardOutput $out -RedirectStandardError $err -PassThru
     $null = $p.Handle  # cache the handle now, or ExitCode stays empty after the process ends
     Write-Lock $p.Id $started
