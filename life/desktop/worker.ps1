@@ -155,7 +155,7 @@ function Invoke-Worker {
     $model = Get-RunModel $statePath
     Write-Log "start: claude -p 'Wake up and continue.' --model $model --effort medium --permission-mode dontAsk --chrome"
     # Permissions come from .claude/settings.json (allow/deny); dontAsk refuses everything else.
-    $p = Start-Process claude -ArgumentList '-p', '"Wake up and continue."', '--model', $model, '--effort', 'medium', '--permission-mode', 'dontAsk', '--permission-prompts', 'none', '--chrome', '--disallowedTools', '"Edit(.claude/**)"', '"Edit(life/desktop/**)"' `
+    $p = Start-Process claude -ArgumentList '-p', '"Wake up and continue. You are the worker: worker.ps1 holds life/private/worker.lock for you (its pid is this run), so do not act as manager."', '--model', $model, '--effort', 'medium', '--permission-mode', 'dontAsk', '--permission-prompts', 'none', '--chrome', '--disallowedTools', '"Edit(.claude/**)"', '"Edit(life/desktop/**)"' `
          -WorkingDirectory $repo -WindowStyle Hidden -RedirectStandardOutput $out -RedirectStandardError $err -PassThru
     $null = $p.Handle  # cache the handle now, or ExitCode stays empty after the process ends
     Write-Lock $p.Id $started

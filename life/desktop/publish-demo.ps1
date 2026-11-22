@@ -31,7 +31,7 @@ Get-ChildItem $stage -Recurse -Filter *.html | ForEach-Object {
 
 $project = "$Site-kitebright"
 $exists = (npx wrangler pages project list 2>$null | Out-String) -match [regex]::Escape($project)
-if (-not $exists) { npx wrangler pages project create $project --production-branch main; if ($LASTEXITCODE) { throw 'project create failed (logged in? run: npx wrangler login)' } }
+if (-not $exists) { npx wrangler pages project create $project --production-branch main --force; if ($LASTEXITCODE) { throw 'project create failed (logged in? run: npx wrangler login)' } }
 npx wrangler pages deploy $stage --project-name $project --branch main --commit-dirty=true
 if ($LASTEXITCODE) { throw 'deploy failed (logged in? run: npx wrangler login)' }
 
