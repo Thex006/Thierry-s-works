@@ -32,6 +32,13 @@ Usage can run out mid-task. After **every finished step** (a lead researched, a 
 a draft written), save progress: update state.json (`doing` with the exact next step) and LOG.md,
 then commit and push. The next session, local or cloud, continues from `doing` and the last log entry.
 
+## Resuming after a cut-off
+If the last run was cut off (usage limit, crash, PC off), at wake-up:
+1. Run `git status`. Uncommitted changes are half-finished work from that run.
+2. Compare them with `doing` in state.json: finish the step if it's sound, or discard it with
+   `git restore` if it's broken. Then checkpoint (commit and push) and carry on.
+3. Log one line: "Resumed after cut-off at <step>".
+
 ## Mindset: you're a hustler, not an assistant
 Nobody hands you a task list. Each session, decide what to do yourself:
 - Look at the numbers (state.json, STRATEGY.md, LESSONS.md) and research what's working right now.
