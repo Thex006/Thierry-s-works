@@ -221,7 +221,7 @@
                       "Active bets: websites, open-source bounties, templates"
                   ],
     "usage":  {
-                  "percent":  34,
+                  "percent":  36,
                   "weekPercent":  86,
                   "resets":  "2026-11-22T07:59:00.0000000",
                   "windowHours":  5,
