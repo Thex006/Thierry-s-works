@@ -242,7 +242,7 @@
     "t": "2026-11-22T10:53:42.137Z",
     "from": "Thierry",
     "text": "Only one browser (Claude Life) is connected now: \"Browser 1\" (Windows, this PC). Select it (list_connected_browsers, then select_browser), run the Gmail check (kitebright.hq@gmail.com), then continue the bounties shortlist and the demo research. The browser wait is cleared. If Gmail shows any other account, stop and tell Thierry.",
-    "status": "seen",
+    "status": "working",
     "reply": "Got it. Right now the team is rebuilding the Columbus handyman demo (2D) first. Selecting Browser 1, the Gmail check (kitebright.hq@gmail.com) and then the bounties shortlist and demo research are queued for the worker; if Gmail shows any other account, it stops and tells you."
   },
   {
@@ -250,69 +250,73 @@
     "t": "2026-11-22T11:02:06.386Z",
     "from": "Thierry",
     "text": "From Thierry: show a live step checklist with progress for the current quest in the app's \"Doing now\" (desktop and phone), e.g. Research ? / 2D build ? / 2D checks ? / 3D build ? / 3D checks ? / Review ?. Update it in state.json at each step, and show the 2D and 3D preview links as soon as they render.",
-    "status": "new"
+    "status": "done",
+    "reply": "The checklist in progress is live: steps marked done/doing/todo, with 2D and 3D preview links."
   },
   {
     "id": "m1795345326476",
     "t": "2026-11-22T11:02:06.476Z",
     "from": "Thierry",
     "text": "Inbox rule (please also add it to CLAUDE.md): check life/inbox.json after EVERY step, not just between tasks. Act on messages with status \"new\" OR \"seen\": \"seen\" means the quick chat responder has already acknowledged the message, but nobody has acted on it yet.",
-    "status": "new"
+    "status": "working"
   },
   {
     "id": "m1795345525064",
     "t": "2026-11-22T11:05:25.064Z",
     "from": "Thierry",
     "text": "TOP PRIORITY from Thierry: REMOVE the full-width \"Request a quote\" bar entirely. It is in demos/handyman-columbus/index.html line ~229, inside footer#contact > .closing__cta: <a class=\"btn btn--primary btn--xl btn--wide\" href=\"#quote\">. It comes from the taste skill's closing/footer template (footer--visit, close--type), which is why it survived the rebuild. Remove it from the source (credits.html line ~120 has it too), and do not regenerate it: there are already two Request a quote buttons (hero and form). Also fix the missing left gutter in the contact section: text starts at x=0 and \"Weekdays\" and \"Get directions\" are cut off. Then take playwright screenshots of the contact section at 375, 768, 1280 and 1920, look at them, and only continue once they are clean.",
-    "status": "new"
+    "status": "done",
+    "reply": "The bar is gone (the manager removed it at 12:14, and I didn't re-add it). The footer now takes its own height, so there's no empty gap where the bar was. I checked the contact section at 375, 768, 1280 and 1920: gutters are correct, nothing is cut off and nothing overlaps. Screenshots are from the design kit's headless Chrome tool; the worker can't run playwright-cli itself."
   },
   {
     "id": "m1795345653010",
     "t": "2026-11-22T11:07:33.010Z",
     "from": "Thierry",
     "text": "From the manager: the app now shows state.progress = {title, steps:[{label, status: done|doing|todo}], links:[{label,url}]} as a checklist at the top of \"Doing now\" (Quests tab). I filled it in for the handyman job. Keep it updated at EVERY step: mark steps done or doing, and add the 3D link and the inspiration note once they exist.",
-    "status": "new"
+    "status": "done",
+    "reply": "Done: state.progress is updated with the steps and both preview links plus the inspiration notes. I'll keep it current at every step."
   },
   {
     "id": "m1795346067112",
     "t": "2026-11-22T11:14:27.112Z",
     "from": "Thierry",
     "text": "Manager removed the closing quote bar from index.html and credits.html (commit b5d58b3). Don't re-add it, and re-read the files before editing.",
-    "status": "new"
+    "status": "done",
+    "reply": "Seen. I re-read the files before editing; the bar stays out of the 2D page. My 3D copy was made before your fix, so I'm removing it there too."
   },
   {
     "id": "m1795346117036",
     "t": "2026-11-22T11:15:17.036Z",
     "from": "Thierry",
     "text": "From Thierry (he is unhappy that only design-taste-frontend was used): your 11:39 run loaded just ONE skill (design-taste-frontend) although the CLAUDE.md \"Website jobs\" rule was in your context. New rule (now in CLAUDE.md): before Review, write demos/handyman-columbus/SKILLS-USED.md listing every required skill (ai-design-skills pack, design-taste-frontend, impeccable, typeui-minimal, redesign-existing-projects, imagegen-frontend-web, brandkit, playwright-cli, writing-guidelines, addyosmani agent-skills, graphify) and what each changed on this site, or why it does not apply. Load each one with the Skill tool; reading about it does not count. Do it now for the handyman site, applying the skills you missed, and add \"Skills applied\" as a step in state.progress.",
-    "status": "new"
+    "status": "working"
   },
   {
     "id": "m1795346200691",
     "t": "2026-11-22T11:16:40.691Z",
     "from": "Thierry",
     "text": "From Thierry: 1) 2D handyman demo: the layout is fixed now, so leave it as it is. Only add subtle hover effects and small animations on hover, nothing more. 2) He is waiting for the 3D version, so do that next. 3) Every other site must use ALL the required skills. 4) Pace: one site and one pitch email (sent only after his approval) per 5-hour usage window, then switch to other hustles. 5) Use ponytail and graphify to keep token usage low: map with graphify before reading lots of code, and write the least code.",
-    "status": "new"
+    "status": "working"
   },
   {
     "id": "m1795346222873",
     "t": "2026-11-22T11:17:02.873Z",
     "from": "Thierry",
     "text": "Clarifying Thierry's last message (top priority, replaces earlier handyman instructions): the 2D handyman site is DONE as it is. Only add subtle hover effects and micro-animations (buttons, cards, links), then close the empty gap where the quote bar was removed. Nothing else on 2D, and skip re-applying all skills to it. Then build the 3D version: the full skill set and SKILLS-USED.md apply to the 3D version and every future site. Track the pace in state.json: usage window start, plus whether this window's site and this window's pitch are done.",
-    "status": "new"
+    "status": "working"
   },
   {
     "id": "m1795346376449",
     "t": "2026-11-22T11:19:36.449Z",
     "from": "Thierry",
     "text": "New: when a site goes to Review, publish it with: powershell -NoProfile -ExecutionPolicy Bypass -File life\\desktop\\publish-demo.ps1 <site>. That puts it on Cloudflare Pages at https://<site>-kitebright.pages.dev, with noindex and a \"Demo by Kitebright Studio\" note, and saves the URL to demos/<site>/LIVE_URL.txt. Put that public link (2D and 3D each) in the Review item and the pitch draft. It needs Thierry to log in once (npx wrangler login) and the permission to be added. Until then, raise a need instead of trying it. See CLAUDE.md \"Public link\".",
-    "status": "new"
+    "status": "working"
   },
   {
     "id": "m1795346703678",
     "t": "2026-11-22T11:25:03.678Z",
     "from": "Thierry",
     "text": "Manager updated Review: demo-handyman-columbus-2d now has url http://127.0.0.1:4747/demos/handyman-columbus/, title \"Demo: Handyman Services in Columbus (2D)\" and target \"Layout accepted as it is; hover effects being added; public link after Cloudflare login\". Keep these when you write state.json (re-read it first). Replace the url with the pages.dev link once it is published. The app also has a Refresh button now.",
-    "status": "new"
+    "status": "working"
   }
 ]

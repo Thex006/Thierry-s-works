@@ -113,24 +113,6 @@
             ],
             "status": "pending",
             "target": "Layout accepted as it is; hover effects being added; public link after Cloudflare login"
-        },
-        {
-            "id": "demo-handyman-columbus-3d",
-            "t": "2026-11-22T12:29:28+01:00",
-            "type": "demo",
-            "kind": "demo",
-            "title": "Demo: Handyman Services in Columbus (3D version)",
-            "text": "The 3D version, in its own folder with its own link. Same page as the 2D one, but the hero is a 3D tool box (hammer, wrench, screwdriver) in the page green, rendered with the design kit and shipped as still images, so it loads fast and looks the same on phones. Ideas from motionsites.ai (Virtual Store, Protein Bars: one big object on a plain ground, soft studio shadow); I skipped their particle heroes as heavy on phones and unrelated to repairs. Notes: demos/handyman-columbus-3d/INSPIRATION.md. Design gate: PASS. Checker clean at 1920, 1440, 1280, 1024 and 768. Waivers: the transparent render frame runs 14px past the hero by the kit layout (the tool box itself stays inside), and on phones the quote form is taller than one screen.",
-            "url": "http://localhost:4747/demos/handyman-columbus-3d/",
-            "skills": [
-                "design-taste-frontend (product render, layout checker, finish gate)",
-                "motionsites.ai research in the Claude Life Chrome"
-            ],
-            "checks": [
-                "GATE: PASS (4 waivers, listed in the text)",
-                "screens checked at 1440 and 390 by eye"
-            ],
-            "status": "pending"
         }
     ],
     "transactions": [
@@ -295,31 +277,43 @@
     },
     "activity": {
         "type": "build",
-        "bet": "Claude Life app",
-        "label": "Adding image upload to the Chat tab",
-        "since": "2026-11-22T11:29:28.182Z"
+        "bet": "Demo-first websites",
+        "label": "3D handyman: removing the quote bar, then the full skill pass",
+        "since": "2026-11-22T11:33:13.482Z"
     },
     "progress": {
         "title": "Columbus handyman demo",
         "steps": [
             {
                 "label": "Research inspiration (motionsites.ai + alternatives)",
-                "status": "todo"
+                "status": "done"
             },
             {
-                "label": "2D rebuild (index.html rewritten 12:01)",
+                "label": "2D rebuild",
                 "status": "done"
             },
             {
                 "label": "Remove the quote bar + fix the left edge",
-                "status": "doing"
+                "status": "done"
             },
             {
                 "label": "2D checks at 375 / 768 / 1280 / 1920",
-                "status": "todo"
+                "status": "done"
             },
             {
-                "label": "3D version",
+                "label": "2D hover effects + close the gap",
+                "status": "done"
+            },
+            {
+                "label": "3D version (tool box hero)",
+                "status": "done"
+            },
+            {
+                "label": "3D: quote bar removed",
+                "status": "doing"
+            },
+            {
+                "label": "3D: skills applied (SKILLS-USED.md)",
                 "status": "todo"
             },
             {
@@ -335,6 +329,18 @@
             {
                 "label": "2D demo",
                 "url": "http://127.0.0.1:4747/demos/handyman-columbus/"
+            },
+            {
+                "label": "3D demo (preview)",
+                "url": "http://127.0.0.1:4747/demos/handyman-columbus-3d/"
+            },
+            {
+                "label": "2D inspiration note",
+                "url": "http://127.0.0.1:4747/demos/handyman-columbus/INSPIRATION.md"
+            },
+            {
+                "label": "3D inspiration note",
+                "url": "http://127.0.0.1:4747/demos/handyman-columbus-3d/INSPIRATION.md"
             }
         ]
     }

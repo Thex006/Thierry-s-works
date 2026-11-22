@@ -45,6 +45,20 @@
   /* the quote photo keeps the rows' air above it; each field starts at its own label */
   #quote .fill { margin-top: var(--s-6); }
   #quote .form .field { align-self: start; }
+  /* the close lost its big button: the footer takes its content's height, not a whole screen */
+  footer.closing#contact { height: auto; min-height: 0; }
+  footer.closing#contact > .wrap { justify-content: flex-start; row-gap: var(--s-8); }
+  /* subtle hover: photos ease in 2.5%, service rows nudge right, the address link underlines */
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .frame--photo { overflow: hidden; }
+    .frame--photo .frame__img { transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+    .frame--photo:hover .frame__img { transform: scale(1.025); }
+    .rows li { transition: transform .25s ease, color .25s ease; }
+    .rows li:hover { transform: translateX(4px); }
+    .rows li:hover .rows__name { color: var(--p-accent); }
+    .visit__rows li { transition: background-color .25s ease; }
+    .visit__rows li:hover { background-color: color-mix(in srgb, var(--p-surface) 60%, transparent); }
+  }
 </style>
 <script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
 <script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
