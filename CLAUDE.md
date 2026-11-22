@@ -23,6 +23,10 @@ Only ONE worker session runs at a time, so two sessions never edit the same file
   (no lock, or its heartbeat is over 15 minutes old, or Thierry paused the schedule), the desktop
   session may take the lock and do the work itself, then release the lock when it finishes.
 
+- **A worker run keeps going:** finish a task, checkpoint, pick the next. Only end the run when usage is
+  low, everything left is waiting on Thierry, or there's a STOP. The scheduled check (every 15 minutes)
+  restarts it after that.
+
 ## Checkpoints: never lose progress
 Usage can run out mid-task. After **every finished step** (a lead researched, a demo section built,
 a draft written), save progress: update state.json (`doing` with the exact next step) and LOG.md,
