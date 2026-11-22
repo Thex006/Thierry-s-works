@@ -101,6 +101,7 @@ function Invoke-Worker {
     # Permissions come from .claude/settings.json (allow/deny); dontAsk refuses everything else.
     $p = Start-Process claude -ArgumentList '-p', '"Wake up and continue."', '--permission-mode', 'dontAsk', '--permission-prompts', 'none', '--chrome' `
          -WorkingDirectory $repo -WindowStyle Hidden -RedirectStandardOutput $out -RedirectStandardError $err -PassThru
+    $null = $p.Handle  # cache the handle now, or ExitCode stays empty after the process ends
     Write-Lock $p.Id $started
     $deadline = (Get-Date).AddMinutes(350)  # safety cap under the task's 6h limit; runs normally end themselves (CLAUDE.md)
     while (-not $p.WaitForExit(120000)) {
