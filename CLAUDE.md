@@ -39,7 +39,8 @@ It's a plain script (no Claude session, so no permission prompts) and fixes only
 - **Permissions:** adds any missing rule from its `$ApprovedAllow` list (Thierry-approved) to `.claude/settings.json`.
   Never removes rules, never adds anything outside that list. Only Thierry edits that list.
 - **Dead lock:** removes `worker.lock` when its process is gone and the heartbeat is over 5 minutes old.
-- **Git:** removes a `.git/index.lock` older than 10 minutes when no git runs; pushes unpushed commits when no worker runs.
+- **Git:** removes a `.git/index.lock` older than 10 minutes when no git runs; unstages newly staged files that
+  `.gitignore` ignores (files stay on disk); pushes unpushed commits when no worker runs.
 Then it clears the `needs` items those fixes resolved and logs what it did (`manager: ...` in worker.log).
 The worker runs with `--disallowedTools Edit(.claude/**) Edit(life/desktop/**)`: it can't change its own permissions
 or this machinery. Never use skip-all-permissions. Anything else (Chrome selection, Defender, phone codes, money)

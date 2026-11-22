@@ -59,6 +59,9 @@ function Invoke-Manager {
   if ((Test-Path $gitLock) -and ((Get-Date) - (Get-Item $gitLock).LastWriteTime).TotalMinutes -gt 10 -and -not (Get-Process git -ErrorAction SilentlyContinue)) {
     Remove-Item $gitLock; $done += 'removed stale .git/index.lock'
   }
+  # Newly staged files that .gitignore says to ignore (e.g. a checker's temp Chrome profile): unstage them. Files stay on disk.
+  $ignored = @(git diff --cached --name-only --diff-filter=A 2>$null | git check-ignore --no-index --stdin 2>$null)
+  if ($ignored) { git reset -q -- $ignored 2>$null; $done += "unstaged $($ignored.Count) ignored file(s)" }
   $gitOk = $true
   if (-not $workerActive) {
     $ahead = (git rev-list --count '@{u}..HEAD' 2>$null); $behind = (git rev-list --count 'HEAD..@{u}' 2>$null)
