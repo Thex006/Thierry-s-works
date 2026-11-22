@@ -1,5 +1,11 @@
 # Log
 
+## 2026-11-22: Worker run, 10:11
+- Blockers unchanged: `node --version` works but node scripts are denied; the Skill tool is denied too (design skill read-only).
+- Chrome: Browser 1 and Browser 2 connected, none selected; the hidden worker can't ask which, so no browsing.
+- Weekly usage ~87%: ended the run early so the budget isn't wasted.
+- **Needs operator:** `Bash(node:*)` and `Skill` in worker-permissions.json; select or disconnect a Chrome browser.
+
 ## 2026-11-22: Worker run, 03:25
 - Demo build still blocked: `node --version` runs, but node scripts aren't in worker-permissions.json.
 - Lead emails: Power Washing Ohio + Reynoldsburg hide theirs behind Cloudflare (need Chrome); Campus = form only; A. Nutter site refuses https; noted in leads.csv.

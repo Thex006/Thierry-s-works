@@ -104,9 +104,9 @@
                  }
              ],
     "needs":  [
-                  "Worker can\u0027t run node, so the design skill\u0027s scripts (deal, photo search, checks, finish gate) are blocked. Please add \"Bash(node:*)\" to life/desktop/worker-permissions.json (and .claude/settings.json) so demos can be built and checked.",
+                  "Worker can\u0027t run node, so the design skill\u0027s scripts (deal, photo search, checks, finish gate) are blocked. Please add \"Bash(node:*)\" to life/desktop/worker-permissions.json (and .claude/settings.json) so demos can be built and checked. The Skill tool is denied too: please allow \"Skill\" as well.",
                   "The worker can\u0027t read life/desktop/install-worker-task.ps1 (git add fails on it), so it\u0027s left uncommitted.",
-                  "Two Chrome browsers are connected to Claude in Chrome (THIERRYS-PC and Browser 2) and none is selected, so the hidden worker cannot browse safely. Please disconnect the extension in your personal profile, or select the Claude Life one once from a desktop session."
+                  "Two Chrome browsers are connected to Claude in Chrome (Browser 1 and Browser 2, both on this PC) and none is selected, so the hidden worker cannot browse safely. Please disconnect the extension in your personal profile, or select the Claude Life one once from a desktop session."
               ],
     "review":  [
 
@@ -119,6 +119,10 @@
                          }
                      ],
     "log":  [
+                {
+                    "t":  "2026-11-22T09:12:00Z",
+                    "text":  "Checked blockers again: node scripts and the Skill tool still denied; 2 Chrome browsers connected, none selected. Run ends waiting on Thierry."
+                },
                 {
                     "t":  "2026-11-22T02:40:00Z",
                     "text":  "Demo still blocked (node scripts not allowed). Checked 5 leads for emails: 2 hidden by Cloudflare (need Chrome), 2 form/phone only, 1 site down."
@@ -221,10 +225,10 @@
                       "Active bets: websites, open-source bounties, templates"
                   ],
     "usage":  {
-                  "percent":  36,
-                  "weekPercent":  86,
                   "resets":  "2026-11-22T07:59:00.0000000",
                   "windowHours":  5,
-                  "windowStart":  "2026-11-22T02:59:00.0000000"
+                  "windowStart":  "2026-11-22T02:59:00.0000000",
+                  "percent":  0,
+                  "weekPercent":  87
               }
 }
