@@ -785,18 +785,18 @@
     if (on) $('stoppedSince').textContent = s.stopped.since ? 'Since ' + new Date(s.stopped.since).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '.' : '';
   }
   $('stopBtn').addEventListener('click', async () => {
-    $('stopBtn').disabled = true; $('stopBtn').textContent = 'Stopping…';
+    $('stopBtn').disabled = true; $('stopBtn').textContent = 'Taking a break…';
     try {
       const r = await fetch('/api/stop', { method: 'POST' });
       if (!r.ok) throw new Error();
       const j = await r.json();
-      toast(`⛔ Claude stopped${j.killed ? ` · ended ${j.killed} running session${j.killed > 1 ? 's' : ''}` : ''}`);
+      toast(`☕ Claude is on a break${j.killed ? ` · ended ${j.killed} running session${j.killed > 1 ? 's' : ''}` : ''}`);
       await poll();
     } catch { toast('Could not reach the server. Run life\\desktop\\STOP-CLAUDE.bat instead.'); }
-    $('stopBtn').disabled = false; $('stopBtn').textContent = '■ STOP CLAUDE';
+    $('stopBtn').disabled = false; $('stopBtn').textContent = '☕ TAKE A BREAK';
   });
   $('resumeBtn').addEventListener('click', async () => {
-    try { const r = await fetch('/api/resume', { method: 'POST' }); if (!r.ok) throw new Error(); toast('▶ Claude may work again'); await poll(); }
+    try { const r = await fetch('/api/resume', { method: 'POST' }); if (!r.ok) throw new Error(); toast('▶ Back to work!'); await poll(); }
     catch { toast('Could not resume. Delete life\\STOP by hand.'); }
   });
 

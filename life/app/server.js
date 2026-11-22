@@ -45,7 +45,7 @@ const server = http.createServer((req, res) => {
     try {
       const s = readState(), stop = readStop();
       s.inbox = readInbox();
-      if (stop) { s.stopped = { since: stop.since || null }; s.activity = { type: 'break', bet: '', label: 'STOPPED by the operator. Claude is not allowed to work.', since: stop.since }; }
+      if (stop) { s.stopped = { since: stop.since || null }; s.activity = { type: 'break', bet: '', label: 'On a break: paused by Thierry. No work until he says so.', since: stop.since }; }
       return send(res, 200, s);
     } catch (e) { return send(res, 500, { error: e.message }); }
   }
