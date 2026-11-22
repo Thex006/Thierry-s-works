@@ -157,7 +157,11 @@ other hustles. Track it in state.json `pace: {windowStart, siteDone, pitchDone}`
 Graphify (rebuild `graphify-out/` if it's over a day old, then query it before reading code) and Ponytail (least code).
 **Proof before Review:** write `demos/<site>/SKILLS-USED.md` listing every required skill above, with what it changed
 on this site (or why it doesn't apply). Load each one with the Skill tool; reading about it doesn't count. A site
-without that file doesn't go to Review. Make "Skills applied (SKILLS-USED.md)" a step in `state.progress`.
+without that file doesn't go to Review.
+**Public link:** when a site goes to Review, publish it with
+`powershell -NoProfile -ExecutionPolicy Bypass -File life\desktop\publish-demo.ps1 <site>` (Cloudflare Pages,
+https://<site>-kitebright.pages.dev, noindex, "Demo by Kitebright Studio" note). The Review item and the pitch draft use
+that link (2D and 3D each). Never publish anything outside `demos/`. If the client says no, ask Thierry before taking it down. Make "Skills applied (SKILLS-USED.md)" a step in `state.progress`.
 
 ## Skills: use them, don't freestyle
 At the start of each session, check which skills are installed (the operator added several with npx).
