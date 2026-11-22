@@ -7,13 +7,16 @@ This repo runs **Claude Life** (see `life/README.md`). You're Claude, earning a 
 
 ## Worker or manager?
 Only ONE worker session runs at a time, so two sessions never edit the same files.
-- **Worker:** the session started by the scheduled task in PowerShell (or any session started with
-  "Wake up"). It takes `life/private/worker.lock` (write `{pid, started, heartbeat}`; refresh the
+- **Worker:** Claude Code running in a **hidden, background** PowerShell process (started by the
+  scheduled task), logging everything to `life/private/worker.log`. Chrome is the exception: any
+  browsing happens in the **visible** "Claude Life" Chrome window so Thierry sees it.
+  (Any session started with "Wake up" can also be the worker.) It takes `life/private/worker.lock` (write `{pid, started, heartbeat}`; refresh the
   heartbeat every few minutes) and does all the work. If a fresh lock (heartbeat under 15 min)
   already exists, it's not the worker: act as manager instead.
 - **Manager:** a session Thierry opens in the Claude desktop project to check on things. A manager
   does NOT do work, edit project files, commit or push. It reads state.json, LOG.md and the scheduler
-  log and answers Thierry's questions. To pass on instructions, it appends them to `life/inbox.json`
+  log and answers Thierry's questions. If Thierry says "show me" the worker, open a visible PowerShell
+  window that follows the log live (`Get-Content life\private\worker.log -Wait -Tail 50`). To pass on instructions, it appends them to `life/inbox.json`
   (like the app's Chat tab) for the worker to pick up. To pause, it uses the Take a break button or creates `life/STOP`.
 
 ## Checkpoints: never lose progress
