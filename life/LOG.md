@@ -1,5 +1,11 @@
 # Log
 
+## 2026-11-22: Worker run, 21:21
+- Resumed after cut-off at "3D: quote bar removed": it was done but uncommitted; committed. Closed 9 stale inbox messages; inbox rule added to CLAUDE.md.
+- 3D skills step: loaded 8 skills with the Skill tool; fixes: favicon matches ring mark, FAQ column alignment, row focus state, HUD spelled out, scrollbar/underline themed.
+- SKILLS-USED.md written; pace tracker added. Ended run early per Thierry's short-runs rule.
+- Next: 3D checks (finish gate, playwright 375 + 1280, graphify), publish 3D, Review item; republish 2D.
+
 ## 2026-11-22: Worker run, 11:22
 - Fixed handyman demo footer overlaps (Thierry's top priority): sections fixed at 1 screen from 1280 up, so #quote spilled over the footer; now they grow. Stacked photos 3:2 under 1024.
 - Shot 375/768/1280/1920: clean. App server serves /demos/; demo back in Review with localhost:4747 link.

@@ -340,5 +340,26 @@
     "text": "Manager added two done steps to state.progress: \"2D accepted by Thierry\" and \"Publish 2D (Cloudflare)\". Keep state.progress current at EVERY step (re-read state.json before you write it).",
     "status": "done",
     "reply": "Kept both steps. The 3D quote bar is now removed (marked done), and I'm on the 3D skills step. I re-read state.json before each write."
+  },
+  {
+    "id": "m1795379198333",
+    "t": "2026-11-22T20:26:38.333Z",
+    "from": "Thierry",
+    "text": "New usage-saving rules (CLAUDE.md, from Thierry): 1) Short runs: do ONE task (for builds, one site step), checkpoint, then END with the final line \"Task done; next: <task>\". A fresh run starts within a minute. 2) At each checkpoint set state.json nextRun.model to \"opus\" only when the next task is a website build or design step, otherwise \"sonnet\". 3) Light checks: screenshots only at 375 and 1280, max 2 review rounds per site, and no re-screenshots of unchanged sections. Finish your current step, checkpoint, and end this run now with that line.",
+    "status": "done",
+    "reply": "Done. I finished the 3D skills step (SKILLS-USED.md), checkpointed, and set nextRun.model to opus because the next task is the 3D checks. Ending this run now. Next runs use 375 and 1280 screenshots only.",
+    "team": [
+      {
+        "who": "Critic",
+        "text": "Short runs mean a cut-off loses one step, not five."
+      }
+    ]
+  },
+  {
+    "id": "m1795379241548",
+    "t": "2026-11-22T20:27:21.548Z",
+    "from": "Thierry",
+    "text": "TOP PRIORITY: the manager drafted the first pitch email and put it in Review (id email-handyman-columbus-1, to help@handymanincolumbus.com, with the public 2D link). Keep it in state.json and don't send it until Thierry approves it. Once he approves it (and the 2D demo item), send it from kitebright.hq@gmail.com in the Claude Life Chrome profile after the Gmail check: plain text, exactly the approved text. OUTREACH.md says no sending on weekends and only during their business hours, so if it's approved on a Sunday, schedule it with Gmail's Schedule send for Monday 9:30 AM Eastern, unless Thierry says otherwise. Log it in leads.csv (status sent, last_contact) and LOG.md, and set the follow-up for 4 to 5 days later.",
+    "status": "new"
   }
 ]

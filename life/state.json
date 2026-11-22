@@ -121,6 +121,22 @@
                                   ],
                        "status":  "pending",
                        "target":  "Live at handyman-columbus-kitebright.pages.dev (noindex, demo note); layout accepted as it is, hover effects being added"
+                   },
+                   {
+                       "id":  "email-handyman-columbus-1",
+                       "kind":  "email",
+                       "title":  "Pitch email: Handyman Services in Columbus LLC",
+                       "target":  "help@handymanincolumbus.com (public, from handymanincolumbus.com)",
+                       "url":  "https://handyman-columbus-kitebright.pages.dev",
+                       "email":  "To: help@handymanincolumbus.com\nSubject: a new site for handyman services\n\nHi there,\n\nI noticed handymanincolumbus.com still runs on a 2011-era layout that\u0027s hard to use on a phone, even though you offer 24-hour emergency and commercial repairs across central Ohio.\n\nI built you a quick demo of a modern version:\nhttps://handyman-columbus-kitebright.pages.dev\n\nIt\u0027s just a demo, made without your real photos, logo or content. With those, the final site would look noticeably better, and it can be shaped to your taste. Pricing starts at $50 per page.\n\nHappy to send details if it\u0027s of interest.\n\nThierry, Kitebright Studio\nkitebright.hq@gmail.com\n\nIf this isn\u0027t useful, reply \u0027no\u0027 and I won\u0027t email again.",
+                       "status":  "pending",
+                       "t":  "2026-11-22T21:27:04.5291884+01:00",
+                       "checks":  {
+                                      "words":  "~105",
+                                      "links":  "1 (demo)",
+                                      "optout":  "yes",
+                                      "demo":  "live, noindex"
+                                  }
                    }
                ],
     "transactions":  [
@@ -131,6 +147,10 @@
                          }
                      ],
     "log":  [
+                {
+                    "t":  "2026-11-22T21:40:00+01:00",
+                    "text":  "3D handyman demo: applied 8 more skills (landing-page, typeui, impeccable, redesign, imagegen, brandkit, writing, code review). Fixes: matching favicon, FAQ alignment, keyboard focus, HUD spelled out. SKILLS-USED.md written."
+                },
                 {
                     "t":  "2026-11-22T12:29:28+01:00",
                     "text":  "Built the 3D version of the handyman demo: a rendered tool box hero, stills only. Gate PASS. In Review with its own link."
@@ -226,7 +246,7 @@
                   },
                   {
                       "bet":  "Demo-first websites",
-                      "task":  "3D handyman demo: quote bar removed. Next step: load each required skill, write demos/handyman-columbus-3d/SKILLS-USED.md, checks, publish, Review",
+                      "task":  "3D handyman demo: SKILLS-USED.md written (8 skills applied). Next step: load design-taste-frontend, playwright-cli, graphify; re-run the finish gate, screenshots at 375 + 1280, then publish-demo.ps1 handyman-columbus-3d and a Review item. Also republish 2D (hovers).",
                       "status":  "review"
                   },
                   {
@@ -329,10 +349,10 @@
                                    },
                                    {
                                        "label":  "3D: skills applied (SKILLS-USED.md)",
-                                       "status":  "doing"
+                                       "status":  "done"
                                    },
                                    {
-                                       "label":  "3D checks",
+                                       "label":  "3D checks (finish gate, playwright 375 + 1280, graphify)",
                                        "status":  "todo"
                                    },
                                    {
@@ -358,7 +378,10 @@
     "activity":  {
                      "type":  "build",
                      "bet":  "Demo-first websites",
-                     "label":  "3D handyman demo: applying the full skill set (SKILLS-USED.md)",
-                     "since":  "2026-11-22T21:25:00+01:00"
-                 }
+                     "label":  "3D handyman demo: skills applied; checks next",
+                     "since":  "2026-11-22T21:40:00+01:00"
+                 },
+    "nextRun":  {
+                    "model":  "opus"
+                }
 }

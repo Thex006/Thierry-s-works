@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Handyman Services in Columbus: home and commercial repairs in central Ohio</title>
-<meta name="description" content="Plumbing, electrical, drywall, wood and outside repairs for Columbus homes and commercial properties, with 24-hour emergency service.">
+<meta name="description" content="Plumbing, electrical, drywall, wood and outside repairs for Columbus homes and commercial properties, with emergency service around the clock.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Handyman Services in Columbus">
 <meta property="og:description" content="One insured crew for repairs across Franklin County and six more central Ohio counties.">
@@ -48,13 +48,18 @@
   #quote .form .field { align-self: start; }
   /* browser surfaces in the page's own colours (impeccable craft floor) */
   ::selection { background: var(--p-accent); color: var(--p-accent-ink); }
-  :root { caret-color: var(--p-accent); accent-color: var(--p-accent); }
+  :root { caret-color: var(--p-accent); accent-color: var(--p-accent); scrollbar-color: var(--p-muted) var(--p-bg); }
+  a { text-underline-offset: .2em; }
   /* prices and hours line up digit for digit; anchors glide unless motion is reduced (redesign audit) */
   .visit__rows, .hours { font-variant-numeric: tabular-nums; }
   @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
   /* the close lost its big button: the footer takes its content's height, not a whole screen */
   footer.closing#contact { height: auto; min-height: 0; }
   footer.closing#contact > .wrap { justify-content: flex-start; row-gap: var(--s-8); }
+  /* two FAQ columns: the kit's first-child padding trim would lift only the left column's first row */
+  .faq.grid > .faq__item:first-child { padding-top: var(--s-5); }
+  /* keyboard focus on a service row shows the same accent as hover (typeui-minimal: explicit states) */
+  .rows li:focus-visible .rows__name { color: var(--p-accent); }
   /* subtle hover: photos ease in 2.5%, service rows nudge right, the address link underlines */
   @media (hover: hover) and (prefers-reduced-motion: no-preference) {
     .frame--photo { overflow: hidden; }
@@ -162,7 +167,7 @@
       <div class="grid grid--top fill">
         <div class="span-5 stack-6">
           <h2 id="commercial-h">Maintenance for commercial properties</h2>
-          <p class="t-lead">Facilities maintenance for offices and commercial sites, plus HUD property repairs.</p>
+          <p class="t-lead">Facilities maintenance for offices and commercial sites, plus repairs on HUD (federal housing) properties.</p>
           <ul class="visit__rows">
             <li><span>Service Channel</span><span>Partner for over 15 years</span></li>
             <li><span>Insurance</span><span>Certificate for corporate clients on request</span></li>
