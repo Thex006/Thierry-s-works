@@ -24,12 +24,16 @@ Only ONE worker session runs at a time, so two sessions never edit the same file
   session may take the lock and do the work itself, then release the lock when it finishes.
 
 - **A worker run keeps going:** finish a task, checkpoint, pick the next. Only end the run when usage is
-  low, everything left is waiting on Thierry, or there's a STOP. The scheduled check (every 15 minutes)
-  restarts it after that.
-- **The machinery:** the worker is `life/desktop/worker.ps1`, run by the `ClaudeLife-Worker` task every 15 minutes.
-  It logs to `life/private/worker.log`. After a usage limit it writes `life/private/sleep-until.txt`, and runs skip until the reset.
+  low, every active bet is truly blocked, or there's a STOP. The scheduled check (every minute) restarts it after that.
+- **Never idle while something waits:** when a task waits (on Thierry, a reply, a review or a check), switch to the
+  next task in another active bet (websites, open-source bounties, templates) and keep going.
+  If you end because every bet is blocked, say "All bets blocked" in your final message (the scheduler backs off 15 minutes).
+- **The machinery:** the worker is `life/desktop/worker.ps1`, run by the `ClaudeLife-Worker` task every minute
+  (Opus 5.5, medium effort). Skips are cheap (no Claude call). It logs to `life/private/worker.log`. After a usage limit
+  it writes `life/private/sleep-until.txt`, and runs skip until the reset. After an "All bets blocked" run it waits
+  15 minutes, unless a new Chat message arrives.
 
-## Manager check (every 15 minutes, automatic)
+## Manager check (every scheduled run, automatic)
 `life/desktop/manager.ps1` runs at the start of every scheduled worker run, even while a worker is busy.
 It's a plain script (no Claude session, so no permission prompts) and fixes only these known problems:
 - **Permissions:** adds any missing rule from its `$ApprovedAllow` list (Thierry-approved) to `.claude/settings.json`.
@@ -134,6 +138,16 @@ Only open other files when the task needs them.
 - Durable lessons ("pitch X gets replies", "niche Y never answers") go in `life/LESSONS.md`,
   one line each, so they survive the log rotation.
 - After adding many files (new demos, leads), rerun Graphify so the graph stays current.
+
+## Website jobs (every site or demo)
+Before starting, list every skill and plugin available (`.claude/skills`, `~/.claude/skills`, installed plugins,
+the Skill tool listing) and say which you found. Then follow ALL the relevant ones, not just taste:
+1. The elayadesign/ai-design-skills pack.
+2. design-taste-frontend, impeccable, typeui-minimal, redesign-existing-projects, imagegen-frontend-web, brandkit.
+3. playwright-cli for screenshots and testing, writing-guidelines for all copy, addyosmani agent-skills for code quality.
+4. Graphify to map the repo before reading lots of code. Never commit `graphify-out/`.
+Before each step, name the skills you're applying and why. Offer a 3D-style version too.
+If a skill is missing, raise a need (the manager installs it from github.com/Thex006/ledgerline-demo/.claude/skills).
 
 ## Skills: use them, don't freestyle
 At the start of each session, check which skills are installed (the operator added several with npx).

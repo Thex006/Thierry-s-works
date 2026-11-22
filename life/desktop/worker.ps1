@@ -1,4 +1,4 @@
-# Claude Life worker. Started every 15 min (hidden) by the "ClaudeLife-Worker" scheduled task. See CLAUDE.md "Worker or manager?".
+# Claude Life worker. Started every minute (hidden) by the "ClaudeLife-Worker" scheduled task. See CLAUDE.md "Worker or manager?".
 # Lock: life/private/worker.lock = JSON {pid, started, heartbeat} (ISO 8601), heartbeat refreshed every 2 min. Stale at >=15 min.
 # Out of usage: life/private/sleep-until.txt holds the reset time (ISO); runs before it skip without calling claude.
 $repo = 'C:\Users\Thierry\Documents\claude-life'
@@ -8,7 +8,23 @@ $lock = Join-Path $priv 'worker.lock'
 $sleepFile = Join-Path $priv 'sleep-until.txt'
 $statePath = Join-Path $repo 'life\state.json'
 
+$skipFile = Join-Path $priv 'worker-skip.txt'   # last skip reason (the task fires every minute; the log only gets reason changes)
+$lastFile = Join-Path $priv 'worker-last.json'  # {ended, exit, idle} of the previous run
+
 function Write-Log($msg) { Add-Content -Path $log -Encoding utf8 -Value "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] $msg" }
+function Write-Skip($reason) {
+  $prev = if (Test-Path $skipFile) { ((Get-Content $skipFile -Raw) -replace '^\S+ ', '').Trim() } else { '' }
+  if ($prev -ne $reason) { Write-Log "skipped: $reason" }
+  Set-Content -Path $skipFile -Value "$((Get-Date).ToString('o')) $reason"
+}
+# A Chat message the worker hasn't picked up yet (status "new" in life/inbox.json).
+function Test-NewMessage {
+  try { return [bool](([IO.File]::ReadAllText((Join-Path $repo 'life\inbox.json')) | ConvertFrom-Json) | Where-Object { $_.status -eq 'new' }) } catch { return $false }
+}
+# The previous run had nothing it could do: it says every bet is blocked / waiting on Thierry, or claude failed fast.
+function Test-IdleRun([string]$text, [int]$code, [double]$minutes) {
+  return ($code -ne 0 -and $minutes -lt 5) -or ($text -match '(?i)(all|every) (active )?bets? (are |is )?(truly )?(blocked|waiting)|nothing (left )?(i can|to) do')
+}
 function Write-Lock($procId, $started) {
   @{ pid = $procId; started = $started; heartbeat = (Get-Date).ToString('o') } | ConvertTo-Json -Compress | Set-Content -Path $lock -Encoding utf8
 }
@@ -59,25 +75,34 @@ function Set-OutOfUsage([string]$path, [datetime]$reset) {
 function Invoke-Worker {
   Set-Location $repo
   New-Item -ItemType Directory -Force $priv | Out-Null
-  if (Test-Path (Join-Path $repo 'life\STOP')) { Write-Log 'skipped: STOP'; return 0 }
+  if (Test-Path (Join-Path $repo 'life\STOP')) { Write-Skip 'STOP'; return 0 }
   & (Join-Path $PSScriptRoot 'manager.ps1')  # manager check: safe auto-fixes, every run, even while a worker is busy
 
   if (Test-Path $sleepFile) {
     $until = [datetime](Get-Content $sleepFile -Raw).Trim()
-    if ((Get-Date) -lt $until) { Write-Log "skipped: out of usage until $($until.ToString('yyyy-MM-dd HH:mm'))"; return 0 }
+    if ((Get-Date) -lt $until) { Write-Skip "out of usage until $($until.ToString('yyyy-MM-dd HH:mm'))"; return 0 }
     Remove-Item $sleepFile
   }
 
   if (Test-Path $lock) {
     try { $hb = [datetime]((Get-Content $lock -Raw | ConvertFrom-Json).heartbeat) } catch { $hb = (Get-Item $lock).LastWriteTime }
-    if (((Get-Date) - $hb).TotalMinutes -lt 15) { Write-Log 'skipped: worker active'; return 0 }
+    if (((Get-Date) - $hb).TotalMinutes -lt 15) { Write-Skip 'worker active'; return 0 }
     Write-Log "stale lock (heartbeat $hb), taking over"
   }
+
+  # Back-off: after a run where every bet was blocked, wait 15 min before the next one, unless Thierry sent a Chat message.
+  if (Test-Path $lastFile) {
+    try { $last = Get-Content $lastFile -Raw | ConvertFrom-Json } catch { $last = $null }
+    if ($last -and $last.idle -and ((Get-Date) - [datetime]$last.ended).TotalMinutes -lt 15 -and -not (Test-NewMessage)) {
+      Write-Skip 'all bets blocked last run; retrying 15 min after it ended, or sooner on a new Chat message'; return 0
+    }
+  }
+  Remove-Item $skipFile -ErrorAction SilentlyContinue
 
   $started = (Get-Date).ToString('o')
   $out = Join-Path $priv 'worker.out'
   $err = Join-Path $priv 'worker.err'
-  $code = 1
+  $code = 1; $idle = $true  # an early error counts as idle so a broken setup doesn't relaunch every minute
   try {
     Write-Lock $PID $started
 
@@ -98,9 +123,9 @@ function Invoke-Worker {
       } else { Write-Log 'usage: could not parse /usage output' }
     } catch { Write-Log "usage: error $_" }
 
-    Write-Log 'start: claude -p "Wake up and continue." --permission-mode dontAsk --chrome'
+    Write-Log 'start: claude -p "Wake up and continue." --model claude-opus-5-5 --effort medium --permission-mode dontAsk --chrome'
     # Permissions come from .claude/settings.json (allow/deny); dontAsk refuses everything else.
-    $p = Start-Process claude -ArgumentList '-p', '"Wake up and continue."', '--permission-mode', 'dontAsk', '--permission-prompts', 'none', '--chrome', '--disallowedTools', '"Edit(.claude/**)"', '"Edit(life/desktop/**)"' `
+    $p = Start-Process claude -ArgumentList '-p', '"Wake up and continue."', '--model', 'claude-opus-5-5', '--effort', 'medium', '--permission-mode', 'dontAsk', '--permission-prompts', 'none', '--chrome', '--disallowedTools', '"Edit(.claude/**)"', '"Edit(life/desktop/**)"' `
          -WorkingDirectory $repo -WindowStyle Hidden -RedirectStandardOutput $out -RedirectStandardError $err -PassThru
     $null = $p.Handle  # cache the handle now, or ExitCode stays empty after the process ends
     Write-Lock $p.Id $started
@@ -116,6 +141,7 @@ function Invoke-Worker {
     # This run's output only (worker.out/.err are recreated each run).
     $runText = (@($out, $err) | Where-Object { Test-Path $_ } | ForEach-Object { Get-Content $_ -Raw }) -join "`n"
     if ($runText) { $runText -split "`r?`n" | ForEach-Object { "  $_" } | Add-Content -Path $log -Encoding utf8 }
+    $idle = Test-IdleRun $runText $code ((Get-Date) - [datetime]$started).TotalMinutes
     if (Test-UsageLimit $runText) {
       $reset = Get-ResetTime $runText
       if (-not $reset) { $reset = (Get-Date).AddHours(1); Write-Log 'usage limit hit: reset time not found, sleeping 1h' }
@@ -128,7 +154,8 @@ function Invoke-Worker {
   } finally {
     Remove-Item $out, $err -ErrorAction SilentlyContinue
     Remove-Item $lock -ErrorAction SilentlyContinue  # shortcut: if Task Scheduler kills this process, the lock goes stale after 15 min instead
-    Write-Log "end exit=$code"
+    @{ ended = (Get-Date).ToString('o'); exit = $code; idle = $idle } | ConvertTo-Json -Compress | Set-Content -Path $lastFile -Encoding utf8
+    Write-Log "end exit=$code idle=$idle"
   }
   return $code
 }

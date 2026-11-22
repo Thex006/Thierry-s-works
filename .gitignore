@@ -6,3 +6,4 @@ life/STOP
 life/private/
 # Quarantined by Windows Defender (hidden PowerShell + scheduled task heuristic); install-worker.ps1 does the same job
 life/desktop/install-worker-task.ps1
+graphify-out/
