@@ -119,6 +119,12 @@
     { x: 228, dy: 28, kind: 'bag', c: '#c95e70' }, { x: 318, dy: 28, kind: 'bag', c: '#6c8ebf' },
   ];
   const crew = [];
+  // where the team sleeps when usage runs out (teammates 4 and 5 doze on their beanbags)
+  const SLEEP_SPOTS = [
+    { kind: 'couch', x: 270, y: 142, lx: 246, ly: 124 },
+    { kind: 'mat', x: 150, y: 168, lx: 138, ly: 171 },
+    { kind: 'mat', x: 192, y: 168, lx: 180, ly: 171 },
+  ];
 
   function current() {
     if (demo) return { type: DEMO[demoIdx][0], label: DEMO[demoIdx][1] };
@@ -353,6 +359,17 @@
     drawHead(x, Y(110) - bob, L, { ...c, face: 0 }, 'sit', a.type === 'sleep' || !!c.task?.nap);
   }
 
+  function drawLying(c, sp) {
+    const x = sp.lx, y = sp.ly, L = c.look, br = Math.sin(t * 2 + (c.phase || 0)) > 0 ? 1 : 0;
+    if (sp.kind === 'mat') { R(x - 3, y - 3, 36, 5, '#4f6f9f'); R(x - 3, y - 3, 36, 1, '#6c8ebf'); R(x - 2, y - 7, 9, 4, '#f4efe6'); }
+    R(x, y - 10, 7, 7, L.skin); R(x, y - 11, 7, 3, L.hair); R(x - 1, y - 10, 1, 6, L.hair);
+    if (L.long) R(x - 2, y - 9, 2, 8, L.hair);
+    R(x + 2, y - 6, 1, 1, '#5a3a2a'); R(x + 5, y - 6, 1, 1, '#5a3a2a');
+    const bc = sp.kind === 'couch' ? '#c95e70' : '#e0b44a';
+    R(x + 7, y - 9 - br, 22, 7 + br, bc); R(x + 7, y - 9 - br, 22, 1, '#ffffff40');
+    for (let k = x + 10; k < x + 27; k += 6) R(k, y - 6, 2, 2, '#ffffff30');
+  }
+
   // ---------- crew AI ----------
   // The team is fixed in code (5 teammates); state.json can only update a teammate's status.
   function roster(s) {
@@ -403,6 +420,7 @@
   function taskSpot(c, i) {
     const k = c.task.kind;
     if (k === 'couch') return { x: SEATS[i].x, y: 142 + SEATS[i].dy };
+    if (k === 'sleep') return SLEEP_SPOTS[i];
     if (k === 'serve') return { x: 90, y: 152 };
     if (k === 'coffee') return { x: -8, y: 148 };
     if (k === 'fridge') return { x: -46, y: 148 };
@@ -417,7 +435,9 @@
   function crewUpdate(dt, a) {
     const now = performance.now();
     crew.forEach((c, i) => {
-      if (a.type === 'meeting' || a.type === 'sleep') { if (c.task.kind !== 'couch' || c.task.dur) { c.task = { kind: 'couch' }; c.arrived = false; } }
+      if (a.type === 'sleep' && SLEEP_SPOTS[i]) { if (c.task.kind !== 'sleep') { c.task = { kind: 'sleep' }; c.arrived = false; c.mug = false; c.food = null; } }
+      else if (a.type === 'meeting' || a.type === 'sleep') { if (c.task.kind !== 'couch' || c.task.dur) { c.task = { kind: 'couch' }; c.arrived = false; } }
+      else if (c.task.kind === 'sleep') { const sp = SLEEP_SPOTS[i]; c.lying = false; c.x = sp.x; c.y = sp.y; c.task = { kind: 'couch', dur: rand(3000, 8000) }; c.arrived = false; c.until = 0; }
       else if (!c.task.dur && c.task.kind === 'couch') { c.task = { kind: 'couch', dur: rand(4000, 10000) }; c.arrived = c.sitting; c.until = now + c.task.dur; }
       else if (c.arrived && c.until && now > c.until) {
         if (c.task.kind === 'coffee') { c.mug = true; c.mugUntil = now + rand(20000, 35000); }
@@ -430,6 +450,7 @@
       if (c.food && now > (c.foodUntil || 0)) c.food = null;
       const spot = taskSpot(c, i);
       if (c.sitting && c.task.kind !== 'couch') { c.sitting = false; c.x = SEATS[i].x; c.y = 142 + SEATS[i].dy; }
+      if (c.lying) return;
       if (!c.sitting) {
         const dx = spot.x - c.x, dy = spot.y - c.y, d = Math.hypot(dx, dy);
         if (d > 1) { const sp = Math.min(40 * dt, d); c.x += dx / d * sp; c.y += dy / d * sp; c.walking = true; if (Math.abs(dx) > 0.5) c.face = Math.sign(dx); c.arrived = false; }
@@ -437,6 +458,7 @@
           c.walking = false;
           if (!c.arrived) { c.arrived = true; c.until = now + (c.task.dur || 999999); }
           if (c.task.kind === 'couch') c.sitting = true;
+          if (c.task.kind === 'sleep') c.lying = true;
           if (c.task.kind === 'serve' && !c.task.said) { c.task.said = true; c.lastLine = null; say(c, pick(SERVE_LINES)); c.mug = false; }
           if (c.task.kind === 'chat' || c.task.kind === 'highfive') c.face = c.task.second ? -1 : 1;
           if (c.task.kind === 'music' && !c.task.said) { c.task.said = true; musicUntil = now + rand(25000, 40000); c.lastLine = null; say(c, pickNew(SAY.music, c.lastLine)); }
@@ -471,6 +493,7 @@
       if (me.seated) return { x: 72, y: 108 };
       return { x: me.x, y: me.y - 28 };
     }
+    if (s.lying) { const sp = SLEEP_SPOTS[crew.indexOf(s)]; return { x: sp.lx + 3, y: sp.ly - 14 }; }
     if (s.sitting) { const st = SEATS[crew.indexOf(s)]; return { x: st.x, y: 104 + st.dy }; }
     return { x: s.x, y: s.y - 28 };
   }
@@ -514,7 +537,7 @@
       const sp = byWho(who) || me; sp.lastLine = null; say(sp, text, 3400); talkT = 3.4; return;
     }
     talkT = rand(4.5, 8);
-    if (a.type === 'sleep') { const c = pick(crew); if (c && Math.random() < 0.6) say(c, pickNew(SAY.sleep, c.lastLine)); return; }
+    if (a.type === 'sleep') { const c = pick(crew); if (c) { const p = speakerPos(c); floater(pick(['z', 'Z', 'zz']), p.x, p.y + 4, 'z'); } talkT = rand(1.2, 2.5); return; }
     const chatting = crew.filter((c) => c.task.kind === 'chat' && c.arrived && !c.task.second && c.task.partner?.arrived);
     if (chatting.length && Math.random() < 0.6) {
       const c = chatting[0], o = c.task.partner;
@@ -589,7 +612,7 @@
     // draw world
     ctx.setTransform(1, 0, 0, 1, OX, 0);
     drawRoom(a);
-    crew.forEach((c, i) => { if (c.sitting && !SEATS[i].dy) drawCouchSitter(c, i, a); });
+    crew.forEach((c, i) => { if (c.sitting && !SEATS[i].dy) drawCouchSitter(c, i, a); if (c.lying && SLEEP_SPOTS[i]?.kind === 'couch') drawLying(c, SLEEP_SPOTS[i]); });
     drawCoffeeTable(a);
     if (me.inBed) {
       R(367, 108, 8, 8, LOOK_ME.skin); R(367, 107, 8, 3, LOOK_ME.hair); R(374, 108, 1, 6, LOOK_ME.hair);
@@ -600,10 +623,11 @@
     }
     if (me.seated) drawSeatedAtDesk(me);
     const mePose = me.walking ? 'walk' : ({ meeting: 'think', research: 'read', email: 'post', think: 'think', waiting: 'wave', celebrate: 'cheer', break: me.mug ? 'sip' : 'stand' }[a.type] || 'stand');
-    const walkers = crew.filter((c) => !c.sitting).map((c) => [c, crewPose(c)]);
+    const walkers = crew.filter((c) => !c.sitting && !c.lying).map((c) => [c, crewPose(c)]);
+    crew.forEach((c, i) => { if (c.lying && SLEEP_SPOTS[i]?.kind === 'mat') walkers.push([{ y: SLEEP_SPOTS[i].ly, ref: c, i }, 'lying']); });
     SEATS.forEach((st, i) => { if (st.kind) { const c = crew[i]; walkers.push([{ y: 137 + st.dy - 0.5, seat: st }, 'prop']); if (c?.sitting) walkers.push([{ y: 137 + st.dy, ref: c, i }, 'seated']); } });
     if (!me.inBed && !me.seated) walkers.push([me, mePose]);
-    walkers.sort((p, q) => p[0].y - q[0].y).forEach(([p, pose]) => pose === 'prop' ? drawSeatProp(p.seat) : pose === 'seated' ? drawCouchSitter(p.ref, p.i, a) : drawPerson(p, pose));
+    walkers.sort((p, q) => p[0].y - q[0].y).forEach(([p, pose]) => pose === 'prop' ? drawSeatProp(p.seat) : pose === 'lying' ? drawLying(p.ref, SLEEP_SPOTS[p.i]) : pose === 'seated' ? drawCouchSitter(p.ref, p.i, a) : drawPerson(p, pose));
     stepParticles(dt);
     const h = hourNow(), night = h < 6 || h >= 20;
     if (!night || a.type === 'sleep') {} else { ctx.fillStyle = '#ffe08a22'; ctx.beginPath(); ctx.moveTo(92, 99); ctx.lineTo(100, 99); ctx.lineTo(120, 142); ctx.lineTo(60, 142); ctx.fill(); }
