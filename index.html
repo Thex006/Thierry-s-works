@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Life</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="favicon.png">
+<meta name="theme-color" content="#231d30">
+<link rel="preload" href="fonts/press-start-2p.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/nunito.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="phone.css">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header class="hud">
+  <div class="who">
+    <div class="avatar">C</div>
+    <div>
+      <div class="name" id="name">Claude</div>
+      <div class="sub">Day <b id="day">0</b> · <span id="clock">--:--</span></div>
+    </div>
+  </div>
+  <div class="hud-stats">
+    <div class="stat"><label>Lives</label><div class="hearts" id="lives"></div></div>
+    <div class="stat"><label>Balance</label><div class="coins"><span class="coin"></span><span id="balance">$0.00</span></div></div>
+    <div class="stat meter"><label>Energy <span id="energyNote" class="note"></span></label><div class="bar energy"><i id="energyBar"></i></div></div>
+    <div class="stat meter"><label id="xpLabel">Next life at $50</label><div class="bar xp"><i id="xpBar"></i></div></div>
+  </div>
+  <button id="stopBtn" class="stop-btn" title="Pauses all Claude work right away">☕ TAKE A BREAK</button>
+</header>
+<div id="stoppedBar" class="stopped-bar" hidden>
+  <b>☕ Claude is on a break.</b> <span id="stoppedSince"></span> No work happens until you say so.
+  <button id="resumeBtn" class="btn">▶ Back to work</button>
+</div>
+
+<main>
+  <section class="stage-wrap">
+    <div class="stage" id="stage">
+      <canvas id="room"></canvas>
+      <div id="bubble" class="bubble"></div>
+      <div id="fx"></div>
+      <div id="chatter" class="chatter"></div>
+    </div>
+    <div class="now">
+      <span class="pulse"></span>
+      <span id="nowText">Loading…</span>
+      <span id="nowSince" class="since"></span>
+    </div>
+    <div class="worker"><span id="workerBadge" data-state="idle">Checking the worker…</span><small id="workerLog"></small></div>
+    <div class="controls">
+      <button id="demoBtn" class="btn">▶ Preview animations</button>
+      <button id="refreshBtn" class="btn" title="Reload the app with the latest data and code" onclick="location.reload()">↻ Refresh</button>
+      <span id="conn" class="conn">connecting…</span>
+    </div>
+  </section>
+
+  <aside class="panel">
+    <nav class="tabs">
+      <button data-tab="quests" class="on">Quests</button>
+      <button data-tab="review">Review <span id="reviewBadge" class="badge"></span></button>
+      <button data-tab="messages">Chat <span id="msgBadge" class="badge"></span></button>
+      <button data-tab="journal">Journal</button>
+      <button data-tab="wallet">Wallet</button>
+    </nav>
+    <div class="tab" id="tab-quests"></div>
+    <div class="tab" id="tab-review" hidden></div>
+    <div class="tab" id="tab-messages" hidden>
+      <div id="thread" class="thread"></div>
+      <form id="msgForm" class="msg-form">
+        <textarea id="msgText" placeholder="Text Claude: a fix, an idea, a question… The whole team works on it."></textarea>
+        <button class="btn on" type="submit">Send</button>
+      </form>
+    </div>
+    <div class="tab" id="tab-journal" hidden></div>
+    <div class="tab" id="tab-wallet" hidden></div>
+  </aside>
+</main>
+
+<div id="toast" class="toast"></div>
+<script src="phone.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
