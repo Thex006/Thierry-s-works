@@ -739,6 +739,9 @@
         <div><b>${(s.bets || []).filter((b) => b.status === 'active').length}</b><span>active bets</span></div>
       </div>
       <h3>Doing now</h3>
+      ${s.progress?.steps?.length ? `<div class="card progress"><div class="title">${esc(s.progress.title || 'Current quest')}</div>
+        ${s.progress.steps.map((p) => `<div>${{ done: '✓', doing: '✱' }[p.status] || '○'} ${p.status === 'doing' ? `<b>${esc(p.label)}</b>` : esc(p.label)}</div>`).join('')}
+        ${(s.progress.links || []).map((l) => `<p><a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)} ↗</a></p>`).join('')}</div>` : ''}
       ${doing.map((d) => `<div class="doing"><span class="dot ${esc(d.status || 'working')}"></span><div><div>${esc(d.task)}</div><small>${esc(d.bet || '')}${d.status ? ' · ' + esc(d.status) : ''}</small></div></div>`).join('') || '<div class="empty">Nothing in progress.</div>'}
       <h3>Team</h3>
       <div class="team">${roster(s).map((g) => `<div class="mate"><span class="face" style="background:${esc(g.color)}">${esc((g.name || '?')[0])}</span><div>${esc(g.name)}<small>${esc(g.role)}</small></div><span class="chip ${g.status === 'active' ? 'active' : 'locked'}">${esc(g.status || 'resting')}</span></div>`).join('') || '<div class="empty">No buddies yet.</div>'}</div>
