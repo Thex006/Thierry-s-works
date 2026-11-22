@@ -29,6 +29,22 @@ Only ONE worker session runs at a time, so two sessions never edit the same file
 - **The machinery:** the worker is `life/desktop/worker.ps1`, run by the `ClaudeLife-Worker` task every 15 minutes.
   It logs to `life/private/worker.log`. After a usage limit it writes `life/private/sleep-until.txt`, and runs skip until the reset.
 
+## Manager check (every 15 minutes, automatic)
+`life/desktop/manager.ps1` runs at the start of every scheduled worker run, even while a worker is busy.
+It's a plain script (no Claude session, so no permission prompts) and fixes only these known problems:
+- **Permissions:** adds any missing rule from its `$ApprovedAllow` list (Thierry-approved) to `.claude/settings.json`.
+  Never removes rules, never adds anything outside that list. Only Thierry edits that list.
+- **Dead lock:** removes `worker.lock` when its process is gone and the heartbeat is over 5 minutes old.
+- **Git:** removes a `.git/index.lock` older than 10 minutes when no git runs; pushes unpushed commits when no worker runs.
+Then it clears the `needs` items those fixes resolved and logs what it did (`manager: ...` in worker.log).
+The worker runs with `--disallowedTools Edit(.claude/**) Edit(life/desktop/**)`: it can't change its own permissions
+or this machinery. Never use skip-all-permissions. Anything else (Chrome selection, Defender, phone codes, money)
+stays in `needs` for Thierry.
+
+**Raising a need:** add `{id, t, text, fix}` to `state.json` → `needs`, where `t` is the time now
+(ISO 8601 with offset, e.g. `2026-11-22T10:40:00+01:00`; the app shows it in Budapest time) and `fix` is
+`permissions`, `lock` or `git` when the manager check can fix it (omit otherwise). Thierry can clear items in the Review tab.
+
 ## Checkpoints: never lose progress
 Usage can run out mid-task. After **every finished step** (a lead researched, a demo section built,
 a draft written), save progress: update state.json (`doing` with the exact next step) and LOG.md,

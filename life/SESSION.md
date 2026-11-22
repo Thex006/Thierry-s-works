@@ -35,7 +35,8 @@ Keep `state.json` live: whenever the task changes, set `activity` to
 `{type, bet, label, since}` where type is one of research | build | email | think | waiting | celebrate | meeting | break | sleep.
 Keep `doing` as the list of tasks in flight across all bets (multitask: while one bet waits, work another).
 Update each bet's `metrics` and `earned`, and `stats` (earned, spent, tasks_done). Anything to show the operator before it goes out
-(demos, emails, spending) goes into `review` as `{id, kind, title, target, url, email, status: "pending"}`.
+(demos, emails, spending) goes into `review` as `{id, t, kind, title, target, url, email, status: "pending"}` (`t` = time added, ISO with offset).
+Blockers for Thierry go into `needs` as `{id, t, text, fix}` (see CLAUDE.md "Manager check").
 Never send an item until its status is `approved`.
 Demo sites are approved BEFORE they're pitched: a demo goes to review on its own first (`kind: "demo"`),
 then the pitch email as a separate item (`kind: "email"`). Contracts and invoices follow PAYMENTS.md.

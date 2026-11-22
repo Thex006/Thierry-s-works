@@ -733,14 +733,17 @@
     const pending = (s.review || []).filter((r) => (r.status || 'pending') === 'pending');
     $('reviewBadge').textContent = pending.length + (s.needs || []).length || '';
     const sorted = [...(s.review || [])].sort((a, b) => ((a.status || 'pending') === 'pending' ? -1 : 0) - ((b.status || 'pending') === 'pending' ? -1 : 0));
+    // Thierry's local time, whatever timezone the browser is in.
+    const bud = (t) => t ? new Date(t).toLocaleString('en-GB', { timeZone: 'Europe/Budapest', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : '';
+    const needText = (n) => (typeof n === 'string' ? n : n?.text || '');
     $('tab-review').innerHTML = `
-      ${(s.needs || []).length ? '<h3>Claude needs you</h3>' + s.needs.map((n) => `<div class="need"><span>🙋</span><span>${esc(n)}</span></div>`).join('') : ''}
+      ${(s.needs || []).length ? `<div class="row"><h3>Claude needs you</h3><button class="btn" data-clear-all>Clear all</button></div>` + s.needs.map((n) => `<div class="need"><span>🙋</span><span class="need-text">${esc(needText(n))}${n?.t ? `<small>${esc(bud(n.t))}</small>` : ''}</span><button class="btn clear" data-clear="${esc(needText(n))}" title="Clear" aria-label="Clear this item">✕</button></div>`).join('') : ''}
       <h3>Approval queue</h3>
       ${sorted.map((r) => {
         const st = r.status || 'pending';
         return `<div class="card" data-id="${esc(r.id)}">
           <div class="row"><span class="title">${esc(r.title)}</span><span class="chip ${esc(st)}">${esc(st)}</span></div>
-          <p>${esc(r.kind || 'item')}${r.target ? ' · ' + esc(r.target) : ''}</p>
+          <p>${esc(r.kind || 'item')}${r.target ? ' · ' + esc(r.target) : ''}${r.t ? ' · ' + esc(bud(r.t)) : ''}</p>
           ${r.checks ? `<div class="metrics">${Object.entries(r.checks).map(([k, v]) => `<span>${esc(k)}: <b>${esc(v)}</b></span>`).join('')}</div>` : ''}
           ${(r.skills || []).length ? `<p>Skills used: ${r.skills.map(esc).join(', ')}</p>` : ''}
           ${r.url ? `<p><a href="${esc(r.url)}" target="_blank" rel="noopener">Open preview ↗</a></p>` : ''}
@@ -783,6 +786,19 @@
       if (pending.length > (prev.review || []).filter((r) => (r.status || 'pending') === 'pending').length) toast('📝 New item waiting for your review');
     }
   }
+
+  document.addEventListener('click', async (e) => {
+    const c = e.target.closest('[data-clear], [data-clear-all]'); if (!c) return;
+    const all = c.hasAttribute('data-clear-all');
+    if (!live) return toast('Offline: start the server to clear');
+    if (all && !confirm('Clear every "Claude needs you" item?')) return;
+    try {
+      const res = await fetch('/api/needs/clear', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(all ? { all: true } : { text: c.dataset.clear }) });
+      if (!res.ok) throw new Error();
+      apply(await res.json());
+      toast(all ? 'Cleared all' : 'Cleared');
+    } catch { toast('Could not clear that'); }
+  });
 
   document.addEventListener('click', async (e) => {
     const b = e.target.closest('[data-d]'); if (!b) return;

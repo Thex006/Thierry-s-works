@@ -124,6 +124,28 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // Operator clears "Claude needs you" items: { text } removes that item, { all: true } removes every item.
+  // Items are strings (old) or { id, t, text, fix }; matched by text so a worker edit in between can't remove the wrong one.
+  if (url.pathname === '/api/needs/clear' && req.method === 'POST') {
+    let body = '';
+    req.on('data', (c) => { body += c; if (body.length > 1e5) req.destroy(); });
+    req.on('end', () => {
+      try {
+        const { text, all } = JSON.parse(body || '{}');
+        const s = readState(), needs = s.needs || [];
+        const textOf = (n) => (typeof n === 'string' ? n : n?.text || '');
+        const i = needs.findIndex((n) => textOf(n) === text);
+        if (!all && i < 0) return send(res, 404, { error: 'not found' });
+        const gone = all ? needs.length : 1;
+        s.needs = all ? [] : needs.filter((_, j) => j !== i);
+        s.log = [{ t: new Date().toISOString(), text: all ? `Operator cleared all ${gone} "needs you" items` : `Operator cleared: "${textOf(needs[i]).slice(0, 120)}"` }, ...(s.log || [])];
+        writeState(s);
+        send(res, 200, s);
+      } catch (e) { send(res, 400, { error: e.message }); }
+    });
+    return;
+  }
+
   let file = path.normalize(path.join(PUB, url.pathname === '/' ? 'index.html' : decodeURIComponent(url.pathname)));
   if (!file.startsWith(PUB)) return send(res, 403, 'forbidden', 'text/plain');
   fs.readFile(file, (err, data) => {

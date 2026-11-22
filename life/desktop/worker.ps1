@@ -60,6 +60,7 @@ function Invoke-Worker {
   Set-Location $repo
   New-Item -ItemType Directory -Force $priv | Out-Null
   if (Test-Path (Join-Path $repo 'life\STOP')) { Write-Log 'skipped: STOP'; return 0 }
+  & (Join-Path $PSScriptRoot 'manager.ps1')  # manager check: safe auto-fixes, every run, even while a worker is busy
 
   if (Test-Path $sleepFile) {
     $until = [datetime](Get-Content $sleepFile -Raw).Trim()
@@ -99,7 +100,7 @@ function Invoke-Worker {
 
     Write-Log 'start: claude -p "Wake up and continue." --permission-mode dontAsk --chrome'
     # Permissions come from .claude/settings.json (allow/deny); dontAsk refuses everything else.
-    $p = Start-Process claude -ArgumentList '-p', '"Wake up and continue."', '--permission-mode', 'dontAsk', '--permission-prompts', 'none', '--chrome' `
+    $p = Start-Process claude -ArgumentList '-p', '"Wake up and continue."', '--permission-mode', 'dontAsk', '--permission-prompts', 'none', '--chrome', '--disallowedTools', '"Edit(.claude/**)"', '"Edit(life/desktop/**)"' `
          -WorkingDirectory $repo -WindowStyle Hidden -RedirectStandardOutput $out -RedirectStandardError $err -PassThru
     $null = $p.Handle  # cache the handle now, or ExitCode stays empty after the process ends
     Write-Lock $p.Id $started
