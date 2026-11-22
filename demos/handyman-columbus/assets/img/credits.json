@@ -118,6 +118,35 @@
    "licenceUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
    "page": "https://commons.wikimedia.org/wiki/File:House_with_large_front_porch,_Toledo,_Ohio._-_DPLA_-_5b9b9abcb000213696e19eb70a235803_(page_2).jpg",
    "source": "Wikimedia Commons"
+  },
+  {
+   "file": "photo-f30031487.webp",
+   "files": [
+    "photo-f30031487-500.webp",
+    "photo-f30031487-960.webp",
+    "photo-f30031487.webp"
+   ],
+   "id": "f30031487",
+   "alt": "Soldier repairs a leaky sink at the Manatuto Maternity Clinic",
+   "by": "U.S. Navy photo by Steelworker 3rd Class Calvin Johnson",
+   "licence": "CC BY-SA 2.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Soldier_repairs_a_leaky_sink_at_the_Manatuto_Maternity_Clinic.jpg",
+   "source": "Wikimedia Commons"
+  },
+  {
+   "file": "photo-f38637177-960.webp",
+   "files": [
+    "photo-f38637177-500.webp",
+    "photo-f38637177-960.webp"
+   ],
+   "id": "f38637177",
+   "alt": "Feb 2015 Fence repair project shoring up weak braces adding new slats",
+   "by": "Tomwsulcer",
+   "licence": "CC0",
+   "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "page": "https://commons.wikimedia.org/wiki/File:Feb_2015_Fence_repair_project_shoring_up_weak_braces_adding_new_slats.JPG",
+   "source": "Wikimedia Commons"
   }
  ]
 }

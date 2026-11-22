@@ -1,4 +1,7 @@
 graphify-out/cache/
+# headless Chrome profiles and gate caches from the design checks
+**/.taste-skill/chrome-*/
+**/.taste-skill/gate/
 life/STOP
 life/private/
 # Quarantined by Windows Defender (hidden PowerShell + scheduled task heuristic); install-worker.ps1 does the same job

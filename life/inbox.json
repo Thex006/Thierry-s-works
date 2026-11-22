@@ -1,0 +1,69 @@
+[
+  {
+    "id": "m1795340119953",
+    "t": "2026-11-22T09:35:19.953Z",
+    "from": "Thierry",
+    "text": "Chrome: only one browser now runs the Claude extension (the one to use). It also has access to local files on the PC. Still do the Gmail profile check (kitebright.hq@gmail.com) before browsing.",
+    "status": "done",
+    "reply": "Got it. I'll use that browser and run the Gmail check (kitebright.hq@gmail.com) before any browsing. If it shows any other account I stop and tell you.",
+    "team": [
+      {
+        "who": "Critic",
+        "text": "Profile check stays mandatory every time a window connects."
+      }
+    ]
+  },
+  {
+    "id": "m1795340416399",
+    "t": "2026-11-22T09:40:16.399Z",
+    "from": "Thierry",
+    "text": "what do u need my ok for",
+    "status": "done",
+    "reply": "Only these: (1) each demo before I pitch it, (2) each pitch email before it's sent, (3) anything that costs money, (4) contracts and invoices, (5) phone codes and ID/bank verification steps. Everything else (research, building demos, bounties, templates, free sign-ups) I do without asking. Right now nothing is waiting on you. I'm building the first handyman demo.",
+    "team": [
+      {
+        "who": "Closer",
+        "text": "Nothing goes out to a client without your yes."
+      },
+      {
+        "who": "Critic",
+        "text": "Money and ID steps always wait for you."
+      }
+    ]
+  },
+  {
+    "id": "m1795341787759",
+    "t": "2026-11-22T10:03:07.759Z",
+    "from": "Thierry",
+    "text": "whatsup guys",
+    "status": "done",
+    "reply": "Hey! Node works now, so the first demo is being built: a site for Handyman Services in Columbus, made from their real facts. It's on its last design-check round. When it passes I'll put it in Review for your OK before any pitch goes out.",
+    "team": [
+      {
+        "who": "Scout",
+        "text": "8 Columbus leads are lined up for the next demos."
+      }
+    ]
+  },
+  {
+    "id": "m1795342117885",
+    "t": "2026-11-22T10:08:37.885Z",
+    "from": "Thierry",
+    "text": "Next task (from the manager, for Thierry): add an always-visible worker status badge to the Claude Life app, computed by the server from real files, not state.json alone. \"Working: <activity label> (since hh:mm, heartbeat Xs ago)\" when life/private/worker.lock has a heartbeat under 15 min; \"Idle: next check within 1 min\" when there is no fresh lock; \"Sleeping: out of usage until hh:mm\" from life/private/sleep-until.txt; \"Paused\" when life/STOP exists. Also show the last line of worker.log or the current step, live. When no worker is running, the characters should visibly idle/sleep, not move or talk. And from now on, update state.json activity at the START of every step so the label is never stale (like the 02:40 \"Waiting on Thierry\" banner that stayed up while you were working). Don't touch life/desktop/worker.ps1 or install-worker.ps1; the manager is changing those.",
+    "status": "new"
+  },
+  {
+    "id": "m1795342171451",
+    "t": "2026-11-22T10:09:31.451Z",
+    "from": "Thierry",
+    "text": "When a task or hustle is waiting (on Thierry, a reply, a review or a check), don't stop or idle. Switch to the next task in another active bet (websites, open-source bounties, templates) and keep going. Only end the run when every active bet is truly blocked, usage is low, or there's a STOP.",
+    "status": "new"
+  },
+  {
+    "id": "m1795342324535",
+    "t": "2026-11-22T10:12:04.535Z",
+    "from": "Thierry",
+    "text": "Add to the status-badge task: in life/app/public/game.js, the \"waiting\" speech lines (line ~50: \"Need your OK on something!\", \"Check the Review tab\") are canned and shown whenever activity.type is \"waiting\", even when Review and \"Claude needs you\" are empty. Only use those lines when there is a pending review item or a need; otherwise show neutral lines. Also: state.json activity has said \"waiting / Waiting on Thierry: node permission... Chrome\" since 02:40 although nothing is waiting. Update activity to what you are actually doing now.",
+    "status": "new"
+  }
+]

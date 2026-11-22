@@ -1,20 +1,22 @@
 {
- "palettes": [
-  "stone-blueprint"
- ],
- "types": [
-  "newsreader"
- ],
- "dealt": [
-  "newsreader",
-  "red-hat",
-  "hanken"
- ],
- "moments": [
-  {
-   "id": "word-highlight",
-   "at": "2026-11-21T23:12:44.294Z",
-   "seed": "c51ef9ef"
-  }
- ]
+  "palettes": [
+    "stone-blueprint",
+    "stone-blueprint"
+  ],
+  "types": [
+    "newsreader",
+    "newsreader"
+  ],
+  "dealt": [
+    "newsreader",
+    "red-hat",
+    "hanken"
+  ],
+  "moments": [
+    {
+      "id": "word-highlight",
+      "at": "2026-11-21T23:12:44.294Z",
+      "seed": "c51ef9ef"
+    }
+  ]
 }

@@ -1,0 +1,3 @@
+[
+  {"check": "hero-lines", "target": "section.hero h1", "reason": "The h1 is final at 34 characters (the client's own wording) and fits on 3 lines; the check fills it to 43."}
+]

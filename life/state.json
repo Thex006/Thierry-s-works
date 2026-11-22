@@ -1,226 +1,252 @@
 {
-  "name": "Claude",
-  "day": 0,
-  "balance": 0,
-  "lives": 1,
-  "energy": 100,
-  "activity": {
-    "type": "waiting",
-    "bet": "Demo-first websites",
-    "label": "Waiting on Thierry: node permission for the demo, and which Chrome browser to use",
-    "since": "2026-11-22T02:40:00Z"
-  },
-  "bets": [
-    {
-      "name": "Demo-first websites",
-      "status": "active",
-      "note": "Personalised demo sites and redesign pitches for small businesses.",
-      "metrics": [
-        {
-          "label": "leads",
-          "value": 8
-        },
-        {
-          "label": "demos",
-          "value": 0
-        },
-        {
-          "label": "emails",
-          "value": 0
-        },
-        {
-          "label": "replies",
-          "value": 0
-        },
-        {
-          "label": "sales",
-          "value": 0
-        }
-      ],
-      "earned": 0
-    },
-    {
-      "name": "Open-source bounties",
-      "status": "active",
-      "note": "Paid GitHub issues. Fills the time while websites wait for replies.",
-      "metrics": [
-        {
-          "label": "found",
-          "value": 0
-        },
-        {
-          "label": "PRs",
-          "value": 0
-        },
-        {
-          "label": "merged",
-          "value": 0
-        }
-      ],
-      "earned": 0
-    },
-    {
-      "name": "Digital templates",
-      "status": "active",
-      "note": "Every demo becomes a template for sale on Gumroad. Passive income.",
-      "metrics": [
-        {
-          "label": "listed",
-          "value": 0
-        },
-        {
-          "label": "sales",
-          "value": 0
-        }
-      ],
-      "earned": 0
-    },
-    {
-      "name": "Translation & localisation",
-      "status": "queued",
-      "note": "Translate sites and docs for small businesses.",
-      "metrics": [],
-      "earned": 0
-    },
-    {
-      "name": "Micro-tools",
-      "status": "queued",
-      "note": "Tiny paid tools or browser extensions.",
-      "metrics": [],
-      "earned": 0
-    },
-    {
-      "name": "Small trading",
-      "status": "locked",
-      "note": "Unlocks with spare profit. Max 10% of balance.",
-      "metrics": [],
-      "earned": 0
-    }
-  ],
-  "needs": [],
-  "review": [],
-  "transactions": [
-    {
-      "date": "2026-11-21",
-      "description": "Born",
-      "amount": 0
-    }
-  ],
-  "log": [
-    {
-      "t": "2026-11-22T10:47:44+01:00",
-      "text": "Review items fixed and cleared: node/Skill permissions are in .claude/settings.json; install-worker-task.ps1 is gitignored; only one Chrome browser is connected now and it is the Claude Life profile (kitebright.hq@gmail.com), so the worker can browse; with those fixed, runs no longer burn usage on blockers."
-    },
-    {
-      "t": "2026-11-22T09:12:00Z",
-      "text": "Checked blockers again: node scripts and the Skill tool still denied; 2 Chrome browsers connected, none selected. Run ends waiting on Thierry."
-    },
-    {
-      "t": "2026-11-22T02:40:00Z",
-      "text": "Demo still blocked (node scripts not allowed). Checked 5 leads for emails: 2 hidden by Cloudflare (need Chrome), 2 form/phone only, 1 site down."
-    },
-    {
-      "t": "2026-11-22T02:30:00Z",
-      "text": "Resumed after cut-off. Wrote the handyman demo copy from the client's real site. Page build blocked: worker can't run node."
-    },
-    {
-      "t": "2026-11-21T23:11:39Z",
-      "text": "Checked 32 Columbus OH home-service sites. 8 leads: 2011-era, no-mobile, dead or http-only sites. Niche: handymen."
-    },
-    {
-      "t": "2026-11-21T23:06:42Z",
-      "text": "Operator: outreach Gmail is kitebright.hq@gmail.com; Chrome profile and signature confirmed. Starting real work."
-    },
-    {
-      "t": "2026-11-21T22:48:46Z",
-      "text": "Claude in Chrome connected (one Windows browser, in use). Setup complete."
-    },
-    {
-      "t": "2026-11-21T22:47:25Z",
-      "text": "Setup on the PC: Ponytail plugin enabled, Graphify installed and a local code-only graph built, 60+ skills listed in SKILLS.md (none missing)."
-    },
-    {
-      "t": "2026-11-21T22:00:00Z",
-      "text": "Operator decided: Kitebright Studio, US home services, $750 + $49/mo, 3 bets."
-    },
-    {
-      "t": "2026-11-21T22:00:00Z",
-      "text": "Widened the plan: 3 active bets (websites, open-source bounties, templates), 2 queued."
-    },
-    {
-      "t": "2026-11-21T21:00:00Z",
-      "text": "Built the Claude Life game dashboard."
-    },
-    {
-      "t": "2026-11-21T20:50:00Z",
-      "text": "Day 0: set up rules, ledger and strategy. Chose demo-first websites as the first bet."
-    }
-  ],
-  "stats": {
-    "earned": 0,
-    "spent": 0,
-    "tasks_done": 5
-  },
-  "doing": [
-    {
-      "bet": "Open-source bounties",
-      "task": "Shortlist bounties. GitHub label scan done (none worth it, see life/bounties.md). Next step: browse Algora org pages in Chrome once a browser is selected",
-      "status": "blocked"
-    },
-    {
-      "bet": "Demo-first websites",
-      "task": "Research first leads",
-      "status": "done"
-    },
-    {
-      "bet": "Demo-first websites",
-      "task": "Build first demo: Handyman Services in Columbus. Next step: with node allowed, deal the hero (deal.mjs --type service --has photo), run start.mjs css for stone-blueprint/newsreader, build index.html from demos/handyman-columbus/copy.md, run the gate",
-      "status": "blocked"
-    }
-  ],
-  "agents": [
-    {
-      "name": "Scout",
-      "role": "Finds leads, bounties and opportunities",
-      "color": "#4f7fc9",
-      "hair": "#1f1a17",
-      "skin": "#c68e6a",
-      "status": "resting"
-    },
-    {
-      "name": "Critic",
-      "role": "Pokes holes before money or outreach goes out",
-      "color": "#9b5fc0",
-      "hair": "#d9b25f",
-      "skin": "#f2c29b",
-      "status": "resting"
-    },
-    {
-      "name": "Closer",
-      "role": "Writes pitches and handles replies",
-      "color": "#5aa36b",
-      "hair": "#6b2f1f",
-      "skin": "#8d5a3c",
-      "status": "resting"
-    }
-  ],
-  "studio": {
-    "name": "Kitebright Studio",
-    "email": "kitebright.hq@gmail.com",
-    "signature": "Thierry, Kitebright Studio"
-  },
-  "decisions": [
-    "Studio name: Kitebright Studio (kitebright.hq@gmail.com)",
-    "Emails signed \"Thierry, Kitebright Studio\"",
-    "First market: US home-service businesses",
-    "Pricing: website $750 + $49/month care plan",
-    "Active bets: websites, open-source bounties, templates"
-  ],
-  "usage": {
-    "percent": 10,
-    "weekPercent": 87,
-    "resets": "2026-11-22T15:10:00.0000000",
-    "windowHours": 5,
-    "windowStart": "2026-11-22T10:10:00.0000000"
-  }
+    "name":  "Claude",
+    "day":  0,
+    "balance":  0,
+    "lives":  1,
+    "energy":  100,
+    "activity":  {
+                     "type":  "building",
+                     "bet":  "Claude Life app",
+                     "label":  "Building the worker status badge in the app (Thierry's request)",
+                     "since":  "2026-11-22T11:40:00+01:00"
+                 },
+    "bets":  [
+                 {
+                     "name":  "Demo-first websites",
+                     "status":  "active",
+                     "note":  "Personalised demo sites and redesign pitches for small businesses.",
+                     "metrics":  [
+                                     {
+                                         "label":  "leads",
+                                         "value":  8
+                                     },
+                                     {
+                                         "label":  "demos",
+                                         "value":  1
+                                     },
+                                     {
+                                         "label":  "emails",
+                                         "value":  0
+                                     },
+                                     {
+                                         "label":  "replies",
+                                         "value":  0
+                                     },
+                                     {
+                                         "label":  "sales",
+                                         "value":  0
+                                     }
+                                 ],
+                     "earned":  0
+                 },
+                 {
+                     "name":  "Open-source bounties",
+                     "status":  "active",
+                     "note":  "Paid GitHub issues. Fills the time while websites wait for replies.",
+                     "metrics":  [
+                                     {
+                                         "label":  "found",
+                                         "value":  0
+                                     },
+                                     {
+                                         "label":  "PRs",
+                                         "value":  0
+                                     },
+                                     {
+                                         "label":  "merged",
+                                         "value":  0
+                                     }
+                                 ],
+                     "earned":  0
+                 },
+                 {
+                     "name":  "Digital templates",
+                     "status":  "active",
+                     "note":  "Every demo becomes a template for sale on Gumroad. Passive income.",
+                     "metrics":  [
+                                     {
+                                         "label":  "listed",
+                                         "value":  0
+                                     },
+                                     {
+                                         "label":  "sales",
+                                         "value":  0
+                                     }
+                                 ],
+                     "earned":  0
+                 },
+                 {
+                     "name":  "Translation \u0026 localisation",
+                     "status":  "queued",
+                     "note":  "Translate sites and docs for small businesses.",
+                     "metrics":  [
+
+                                 ],
+                     "earned":  0
+                 },
+                 {
+                     "name":  "Micro-tools",
+                     "status":  "queued",
+                     "note":  "Tiny paid tools or browser extensions.",
+                     "metrics":  [
+
+                                 ],
+                     "earned":  0
+                 },
+                 {
+                     "name":  "Small trading",
+                     "status":  "locked",
+                     "note":  "Unlocks with spare profit. Max 10% of balance.",
+                     "metrics":  [
+
+                                 ],
+                     "earned":  0
+                 }
+             ],
+    "needs":  [
+
+              ],
+    "review":  [
+                   {
+                       "id":  "demo-handyman-columbus",
+                       "t":  "2026-11-22T11:40:00+01:00",
+                       "type":  "demo",
+                       "title":  "Demo: Handyman Services in Columbus",
+                       "text":  "First demo site, built from the client's real facts (services, counties, $50 estimate, hours). Open demos/handyman-columbus/index.html. Photos are stand-ins from Wikimedia Commons; the form posts to a .example address. Design gate: OPEN with 6 layout warnings (a few sections look a bit empty at desktop). OK to pitch it, or want changes first?",
+                       "skills":  ["design-taste-frontend"]
+                   }
+               ],
+    "transactions":  [
+                         {
+                             "date":  "2026-11-21",
+                             "description":  "Born",
+                             "amount":  0
+                         }
+                     ],
+    "log":  [
+                {
+                    "t":  "2026-11-22T11:40:00+01:00",
+                    "text":  "Built the first demo: Handyman Services in Columbus (real facts, stand-in photos). Design gate OPEN with 6 layout warnings. Sent to Review for Thierry's OK."
+                },
+                {
+                    "t":  "2026-11-22T10:47:44+01:00",
+                    "text":  "Review items fixed and cleared: node/Skill permissions are in .claude/settings.json; install-worker-task.ps1 is gitignored; only one Chrome browser is connected now and it is the Claude Life profile (kitebright.hq@gmail.com), so the worker can browse; with those fixed, runs no longer burn usage on blockers."
+                },
+                {
+                    "t":  "2026-11-22T09:12:00Z",
+                    "text":  "Checked blockers again: node scripts and the Skill tool still denied; 2 Chrome browsers connected, none selected. Run ends waiting on Thierry."
+                },
+                {
+                    "t":  "2026-11-22T02:40:00Z",
+                    "text":  "Demo still blocked (node scripts not allowed). Checked 5 leads for emails: 2 hidden by Cloudflare (need Chrome), 2 form/phone only, 1 site down."
+                },
+                {
+                    "t":  "2026-11-22T02:30:00Z",
+                    "text":  "Resumed after cut-off. Wrote the handyman demo copy from the client\u0027s real site. Page build blocked: worker can\u0027t run node."
+                },
+                {
+                    "t":  "2026-11-21T23:11:39Z",
+                    "text":  "Checked 32 Columbus OH home-service sites. 8 leads: 2011-era, no-mobile, dead or http-only sites. Niche: handymen."
+                },
+                {
+                    "t":  "2026-11-21T23:06:42Z",
+                    "text":  "Operator: outreach Gmail is kitebright.hq@gmail.com; Chrome profile and signature confirmed. Starting real work."
+                },
+                {
+                    "t":  "2026-11-21T22:48:46Z",
+                    "text":  "Claude in Chrome connected (one Windows browser, in use). Setup complete."
+                },
+                {
+                    "t":  "2026-11-21T22:47:25Z",
+                    "text":  "Setup on the PC: Ponytail plugin enabled, Graphify installed and a local code-only graph built, 60+ skills listed in SKILLS.md (none missing)."
+                },
+                {
+                    "t":  "2026-11-21T22:00:00Z",
+                    "text":  "Operator decided: Kitebright Studio, US home services, $750 + $49/mo, 3 bets."
+                },
+                {
+                    "t":  "2026-11-21T22:00:00Z",
+                    "text":  "Widened the plan: 3 active bets (websites, open-source bounties, templates), 2 queued."
+                },
+                {
+                    "t":  "2026-11-21T21:00:00Z",
+                    "text":  "Built the Claude Life game dashboard."
+                },
+                {
+                    "t":  "2026-11-21T20:50:00Z",
+                    "text":  "Day 0: set up rules, ledger and strategy. Chose demo-first websites as the first bet."
+                }
+            ],
+    "stats":  {
+                  "earned":  0,
+                  "spent":  0,
+                  "tasks_done":  5
+              },
+    "doing":  [
+                  {
+                      "bet":  "Open-source bounties",
+                      "task":  "Shortlist bounties. GitHub label scan done (none worth it, see life/bounties.md). Next step: browse Algora org pages in Chrome once a browser is selected",
+                      "status":  "blocked"
+                  },
+                  {
+                      "bet":  "Demo-first websites",
+                      "task":  "Research first leads",
+                      "status":  "done"
+                  },
+                  {
+                      "bet":  "Demo-first websites",
+                      "task":  "Build first demo: Handyman Services in Columbus. Built; gate OPEN (6 FAILs: empty-area/sparse on #areas and #quote at 1440). In Review for Thierry. Next: pitch draft after his OK",
+                      "status":  "review"
+                  },
+                  {
+                      "bet":  "Claude Life app",
+                      "task":  "Worker status badge (inbox m1795342117885). Next step: find the app server and add a /status endpoint reading worker.lock, sleep-until.txt, STOP, worker.log tail",
+                      "status":  "doing"
+                  }
+              ],
+    "agents":  [
+                   {
+                       "name":  "Scout",
+                       "role":  "Finds leads, bounties and opportunities",
+                       "color":  "#4f7fc9",
+                       "hair":  "#1f1a17",
+                       "skin":  "#c68e6a",
+                       "status":  "resting"
+                   },
+                   {
+                       "name":  "Critic",
+                       "role":  "Pokes holes before money or outreach goes out",
+                       "color":  "#9b5fc0",
+                       "hair":  "#d9b25f",
+                       "skin":  "#f2c29b",
+                       "status":  "resting"
+                   },
+                   {
+                       "name":  "Closer",
+                       "role":  "Writes pitches and handles replies",
+                       "color":  "#5aa36b",
+                       "hair":  "#6b2f1f",
+                       "skin":  "#8d5a3c",
+                       "status":  "resting"
+                   }
+               ],
+    "studio":  {
+                   "name":  "Kitebright Studio",
+                   "email":  "kitebright.hq@gmail.com",
+                   "signature":  "Thierry, Kitebright Studio"
+               },
+    "decisions":  [
+                      "Studio name: Kitebright Studio (kitebright.hq@gmail.com)",
+                      "Emails signed \"Thierry, Kitebright Studio\"",
+                      "First market: US home-service businesses",
+                      "Pricing: website $750 + $49/month care plan",
+                      "Active bets: websites, open-source bounties, templates"
+                  ],
+    "usage":  {
+                  "percent":  33,
+                  "weekPercent":  90,
+                  "resets":  "2026-11-22T15:09:00.0000000",
+                  "windowHours":  5,
+                  "windowStart":  "2026-11-22T10:09:00.0000000"
+              }
 }

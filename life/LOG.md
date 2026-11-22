@@ -1,5 +1,11 @@
 # Log
 
+## 2026-11-22: Worker run, 11:00
+- Answered 3 Chat messages. Built demos/handyman-columbus/index.html (service page, split hero, stone-blueprint, word-highlight moment).
+- Gate: OPEN after 3 rounds (6 FAILs: #areas/#quote a bit empty at 1440; hero-lines waived). Screenshot caught a postcard-back photo; replaced.
+- Demo in Review. Next: Thierry's app status badge request, then pitch draft once demo approved.
+- **Needs operator:** OK the demo in Review.
+
 ## 2026-11-22: Worker run, 10:25
 - Blockers unchanged: worker-permissions.json not edited since 03:14; Chrome still has Browser 1 + 2 with none selected.
 - No work possible; ended at once. Added a `needs` item asking Thierry to pause the schedule until it's fixed (weekly 87%).
