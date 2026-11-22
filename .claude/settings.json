@@ -19,6 +19,9 @@
                                       "Bash(powershell -NoProfile -ExecutionPolicy Bypass -File life\\desktop\\open-chrome-profile.ps1)",
                                       "Bash(powershell -NoProfile -ExecutionPolicy Bypass -File life/desktop/open-chrome-profile.ps1)",
                                       "PowerShell(powershell -NoProfile -ExecutionPolicy Bypass -File life\\desktop\\open-chrome-profile.ps1)",
+                                      "Bash(node:*)",
+                                      "PowerShell(node:*)",
+                                      "Skill",
                                       "mcp__claude-in-chrome"
                                   ],
                         "deny":  [
