@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Handyman Services in Columbus: home and commercial repairs in central Ohio",
   description:
     "Plumbing, electrical, drywall and painting for homes, offices and commercial sites in Franklin County and six more Ohio counties. Insured crew, emergencies 24 hours a day.",
-  metadataBase: new URL("https://handyman-columbus-3d.vercel.app"),
+  metadataBase: new URL("https://handyman-columbus-3d-punctum.vercel.app"),
   icons: { icon: "/favicon.svg" },
   openGraph: {
     title: "Handyman Services in Columbus",
