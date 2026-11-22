@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+/* Design language: "Knolled workbench". Light workshop paper, graphite ink,
+   one hi-vis accent taken from the cordless drill, technical spec-sheet details. */
+@theme {
+  --color-paper: #e9e6df;
+  --color-card: #f4f2ed;
+  --color-ink: #141414;
+  --color-graphite: #2a2926;
+  --color-muted: #5f5b54;
+  --color-line: #d2cdc3;
+  --color-hivis: #e2f03d;
+  --color-hivis-deep: #c9d81f;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    background: var(--color-paper);
+    font-family: var(--font-sans);
+  }
+  h1, h2, h3, h4 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+  ::selection { background: var(--color-hivis); color: var(--color-ink); }
+  :focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; border-radius: 4px; }
+}
+
+/* Named text styles from the landing-page-design skill */
+@utility heading-1 { font-size: 3.75rem; line-height: 1; font-weight: 600; letter-spacing: -0.035em; }
+@utility heading-2 { font-size: 3rem; line-height: 1; font-weight: 600; letter-spacing: -0.03em; }
+@utility heading-3 { font-size: 2.25rem; line-height: 2.5rem; font-weight: 600; letter-spacing: -0.025em; }
+@utility heading-4 { font-size: 1.875rem; line-height: 2.25rem; font-weight: 600; letter-spacing: -0.02em; }
+@utility heading-5 { font-size: 1.5rem; line-height: 2rem; font-weight: 600; letter-spacing: -0.015em; }
+@utility heading-6 { font-size: 1.25rem; line-height: 1.75rem; font-weight: 600; }
+@utility title-1 { font-size: 1.25rem; line-height: 1.75rem; font-weight: 500; }
+@utility title-2 { font-size: 1.125rem; line-height: 1.75rem; font-weight: 500; }
+@utility title-3 { font-size: 1rem; line-height: 1.5rem; font-weight: 500; }
+@utility title-4 { font-size: 0.875rem; line-height: 1.25rem; font-weight: 500; }
+@utility body-1 { font-size: 1rem; line-height: 1.5rem; font-weight: 600; }
+@utility body-2 { font-size: 1rem; line-height: 1.5rem; font-weight: 500; }
+@utility body-3 { font-size: 1rem; line-height: 1.5rem; font-weight: 400; }
+@utility body-4 { font-size: 0.875rem; line-height: 1.25rem; font-weight: 600; }
+@utility body-6 { font-size: 0.875rem; line-height: 1.25rem; font-weight: 400; }
+@utility button-md { font-size: 1rem; line-height: 1.5rem; font-weight: 600; }
+@utility button-sm { font-size: 0.875rem; line-height: 1.25rem; font-weight: 600; }
+@utility caption-1 { font-size: 0.875rem; line-height: 1.25rem; font-weight: 500; }
+@utility caption-2 { font-size: 0.875rem; line-height: 1.25rem; font-weight: 400; }
+@utility caption-3 { font-size: 0.75rem; line-height: 1rem; font-weight: 600; }
+@utility caption-4 { font-size: 0.75rem; line-height: 1rem; font-weight: 500; }
+@utility caption-5 { font-size: 0.75rem; line-height: 1rem; font-weight: 400; }
+@utility display-9 { font-size: 8rem; line-height: 1; font-weight: 600; letter-spacing: -0.05em; }
+
+@utility ink-gradient {
+  background: linear-gradient(90deg, #000000, #666666);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Spec-sheet hairline grid, drawn with borders so it stays crisp at any DPR */
+@utility hairline { border: 1px solid var(--color-line); }
+
+@layer components {
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 12px; border-radius: 12px; min-height: 40px;
+  transition: transform 300ms var(--ease-out-soft), background-color 300ms var(--ease-out-soft), color 300ms var(--ease-out-soft);
+}
+.btn:active { transform: scale(0.98); }
+.btn-primary { background: var(--color-ink); color: var(--color-paper); }
+.btn-primary:hover { background: var(--color-graphite); transform: translateY(-2px); }
+.btn-primary .btn-chip { background: var(--color-hivis); color: var(--color-ink); border-radius: 8px; width: 24px; height: 24px; display: grid; place-items: center; transition: transform 500ms var(--ease-out-soft); }
+.btn-primary:hover .btn-chip { transform: rotate(-45deg); }
+.btn-ghost { border: 1px solid var(--color-line); color: var(--color-ink); background: color-mix(in srgb, var(--color-card) 70%, transparent); backdrop-filter: blur(8px); }
+.btn-ghost:hover { background: var(--color-card); transform: translateY(-2px); }
+
+}
+
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity 800ms var(--ease-out-soft), transform 800ms var(--ease-out-soft); }
+.reveal.is-in { opacity: 1; transform: none; }
+
+.stage-panel { will-change: opacity, transform; }
+
+/* Tape measure progress, right edge */
+.tape-ticks {
+  background-image:
+    repeating-linear-gradient(to bottom, var(--color-ink) 0 1px, transparent 1px 8px),
+    repeating-linear-gradient(to bottom, var(--color-ink) 0 1px, transparent 1px 64px);
+  background-size: 6px 100%, 14px 100%;
+  background-repeat: no-repeat;
+  background-position: right top, right top;
+}
+
+.word { color: color-mix(in srgb, var(--color-ink) 28%, transparent); transition: color 600ms var(--ease-out-soft); }
+.word.on { color: var(--color-ink); }
+.word.mark.on { background: var(--color-hivis); box-shadow: 0 0 0 4px var(--color-hivis); border-radius: 2px; }
+
+@keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+.pulse-dot { animation: pulse-dot 1600ms var(--ease-out-soft) infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: opacity 300ms linear; }
+  .word { color: var(--color-ink); transition: none; }
+  .pulse-dot { animation: none; }
+}
+
+@media (max-width: 640px) {
+  .heading-1 { font-size: 3rem; line-height: 1; }
+  .display-9 { font-size: 4.5rem; }
+}
