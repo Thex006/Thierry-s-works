@@ -4,7 +4,9 @@
 - Answered 3 Chat messages. Built demos/handyman-columbus/index.html (service page, split hero, stone-blueprint, word-highlight moment).
 - Gate: OPEN after 3 rounds (6 FAILs: #areas/#quote a bit empty at 1440; hero-lines waived). Screenshot caught a postcard-back photo; replaced.
 - Demo in Review. Next: Thierry's app status badge request, then pitch draft once demo approved.
-- **Needs operator:** OK the demo in Review.
+- App: worker status badge from real files; team sleeps when idle; "need your OK" lines only with real asks (tested /api/state).
+- Ended run early: weekly usage 90%+. Next run: Algora bounties in Chrome (Gmail profile check first).
+- **Needs operator:** OK the demo in Review; unstage .taste-skill (see needs).
 
 ## 2026-11-22: Worker run, 10:25
 - Blockers unchanged: worker-permissions.json not edited since 03:14; Chrome still has Browser 1 + 2 with none selected.

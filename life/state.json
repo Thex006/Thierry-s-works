@@ -5,9 +5,9 @@
     "lives":  1,
     "energy":  100,
     "activity":  {
-                     "type":  "research",
-                     "bet":  "Open-source bounties",
-                     "label":  "Browsing Algora for bounties in Chrome",
+                     "type":  "waiting",
+                     "bet":  "Demo-first websites",
+                     "label":  "Run ended to save weekly usage (90%+). Demo waits in Review; next run: Algora bounties",
                      "since":  "2026-11-22T12:15:00+01:00"
                  },
     "bets":  [
