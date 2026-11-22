@@ -152,6 +152,8 @@ the Skill tool listing) and say which you found. Then follow ALL the relevant on
 4. Graphify to map the repo before reading lots of code. Never commit `graphify-out/`.
 Before each step, name the skills you're applying and why. Offer a 3D-style version too.
 If a skill is missing, raise a need (the manager installs it from github.com/Thex006/ledgerline-demo/.claude/skills).
+**Pace:** at most one site and one pitch email (sent only after Thierry approves it) per 5-hour usage window, then
+other hustles. Sites cost a lot of usage: map with Graphify before reading code, and keep Ponytail on (least code).
 **Proof before Review:** write `demos/<site>/SKILLS-USED.md` listing every required skill above, with what it changed
 on this site (or why it doesn't apply). Load each one with the Skill tool; reading about it doesn't count. A site
 without that file doesn't go to Review. Make "Skills applied (SKILLS-USED.md)" a step in `state.progress`.
