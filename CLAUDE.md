@@ -19,6 +19,10 @@ Only ONE worker session runs at a time, so two sessions never edit the same file
   window that follows the log live (`Get-Content life\private\worker.log -Wait -Tail 50`). To pass on instructions, it appends them to `life/inbox.json`
   (like the app's Chat tab) for the worker to pick up. To pause, it uses the Take a break button or creates `life/STOP`.
 
+- **Why:** two sessions working at once would overwrite each other's files. If **no worker is running**
+  (no lock, or its heartbeat is over 15 minutes old, or Thierry paused the schedule), the desktop
+  session may take the lock and do the work itself, then release the lock when it finishes.
+
 ## Checkpoints: never lose progress
 Usage can run out mid-task. After **every finished step** (a lead researched, a demo section built,
 a draft written), save progress: update state.json (`doing` with the exact next step) and LOG.md,
