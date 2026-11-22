@@ -41,6 +41,9 @@ It's a plain script (no Claude session, so no permission prompts) and fixes only
 - **Dead lock:** removes `worker.lock` when its process is gone and the heartbeat is over 5 minutes old.
 - **Git:** removes a `.git/index.lock` older than 10 minutes when no git runs; unstages newly staged files that
   `.gitignore` ignores (files stay on disk); pushes unpushed commits when no worker runs.
+- **Phone app:** runs `life/mobile/publish.js`, which pushes an encrypted status snapshot (whitelisted fields only,
+  passphrase in `life/private/mobile-key.txt`) to the `mobile-data` branch and the app (`life/mobile/app`) to the
+  `mobile` branch, served by GitHub Pages. The repo is public: never add unencrypted state to those branches.
 Then it clears the `needs` items those fixes resolved and logs what it did (`manager: ...` in worker.log).
 The worker runs with `--disallowedTools Edit(.claude/**) Edit(life/desktop/**)`: it can't change its own permissions
 or this machinery. Never use skip-all-permissions. Anything else (Chrome selection, Defender, phone codes, money)

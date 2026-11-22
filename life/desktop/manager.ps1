@@ -72,7 +72,11 @@ function Invoke-Manager {
   }
   if ($gitOk -and -not (Test-Path $gitLock)) { $fixed += 'git' }
 
-  # 4) Clear the needs those fixes resolved.
+  # 4) Phone app: push the encrypted status snapshot (and app files when they change). See life/mobile/publish.js.
+  $mobile = (node (Join-Path $repo 'life\mobile\publish.js') 2>&1 | Out-String).Trim()
+  if ($mobile -and $mobile -ne 'mobile: unchanged') { $done += $mobile -replace '^mobile: ', 'phone app: ' }
+
+  # 5) Clear the needs those fixes resolved.
   $s = [IO.File]::ReadAllText($statePath) | ConvertFrom-Json
   $gone = @($s.needs | Where-Object { Test-NeedFixed $_ $allow $fixed })
   if ($gone) {
