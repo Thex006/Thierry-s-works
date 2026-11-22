@@ -5,10 +5,10 @@
     "lives":  1,
     "energy":  100,
     "activity":  {
-                     "type":  "building",
-                     "bet":  "Claude Life app",
-                     "label":  "Building the worker status badge in the app (Thierry's request)",
-                     "since":  "2026-11-22T11:40:00+01:00"
+                     "type":  "research",
+                     "bet":  "Open-source bounties",
+                     "label":  "Browsing Algora for bounties in Chrome",
+                     "since":  "2026-11-22T12:15:00+01:00"
                  },
     "bets":  [
                  {
@@ -104,7 +104,11 @@
                  }
              ],
     "needs":  [
-
+                  {
+                      "id":  "git-staged-chrome-profile",
+                      "t":  "2026-11-22T12:15:00+01:00",
+                      "text":  "I staged the design checker's temp Chrome profile by mistake and the worker can't unstage it. Please run in the repo: git reset -q -- demos/handyman-columbus/.taste-skill  (it's now in .gitignore; nothing was committed)."
+                  }
               ],
     "review":  [
                    {
@@ -200,8 +204,8 @@
                   },
                   {
                       "bet":  "Claude Life app",
-                      "task":  "Worker status badge (inbox m1795342117885). Next step: find the app server and add a /status endpoint reading worker.lock, sleep-until.txt, STOP, worker.log tail",
-                      "status":  "doing"
+                      "task":  "Worker status badge + team sleeps when no worker + waiting lines only with real asks",
+                      "status":  "done"
                   }
               ],
     "agents":  [

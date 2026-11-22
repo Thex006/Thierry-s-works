@@ -50,20 +50,26 @@
     "t": "2026-11-22T10:08:37.885Z",
     "from": "Thierry",
     "text": "Next task (from the manager, for Thierry): add an always-visible worker status badge to the Claude Life app, computed by the server from real files, not state.json alone. \"Working: <activity label> (since hh:mm, heartbeat Xs ago)\" when life/private/worker.lock has a heartbeat under 15 min; \"Idle: next check within 1 min\" when there is no fresh lock; \"Sleeping: out of usage until hh:mm\" from life/private/sleep-until.txt; \"Paused\" when life/STOP exists. Also show the last line of worker.log or the current step, live. When no worker is running, the characters should visibly idle/sleep, not move or talk. And from now on, update state.json activity at the START of every step so the label is never stale (like the 02:40 \"Waiting on Thierry\" banner that stayed up while you were working). Don't touch life/desktop/worker.ps1 or install-worker.ps1; the manager is changing those.",
-    "status": "new"
+    "status": "done",
+    "reply": "Done. The server now adds a worker status to /api/state from the real files (STOP, sleep-until.txt, worker.lock heartbeat under 15 min), plus the last line of worker.log. The app shows it under the activity bar: Working / Idle / Sleeping / Paused, with the log line. When no worker runs, the team goes to sleep in the room instead of moving and talking. I tested it: it reported 'working, heartbeat 31s ago' from this run's lock. I'll set activity at the start of each step from now on. worker.ps1 untouched.",
+    "team": [{"who": "Critic", "text": "Status comes from files now, so a stale state.json can't fool the badge."}]
   },
   {
     "id": "m1795342171451",
     "t": "2026-11-22T10:09:31.451Z",
     "from": "Thierry",
     "text": "When a task or hustle is waiting (on Thierry, a reply, a review or a check), don't stop or idle. Switch to the next task in another active bet (websites, open-source bounties, templates) and keep going. Only end the run when every active bet is truly blocked, usage is low, or there's a STOP.",
-    "status": "new"
+    "status": "done",
+    "reply": "Understood. While the demo waits in Review I move on to the next bet instead of stopping. Note: weekly usage was about 90% this morning, so I'll stop when it gets low.",
+    "team": [{"who": "Scout", "text": "Next up: bounties on Algora now that Chrome works."}]
   },
   {
     "id": "m1795342324535",
     "t": "2026-11-22T10:12:04.535Z",
     "from": "Thierry",
     "text": "Add to the status-badge task: in life/app/public/game.js, the \"waiting\" speech lines (line ~50: \"Need your OK on something!\", \"Check the Review tab\") are canned and shown whenever activity.type is \"waiting\", even when Review and \"Claude needs you\" are empty. Only use those lines when there is a pending review item or a need; otherwise show neutral lines. Also: state.json activity has said \"waiting / Waiting on Thierry: node permission... Chrome\" since 02:40 although nothing is waiting. Update activity to what you are actually doing now.",
-    "status": "new"
+    "status": "done",
+    "reply": "Fixed both. The 'Need your OK' lines now show only when a Review item is pending or a need is open; otherwise Claude uses neutral lines. Activity in state.json now says what I'm actually doing.",
+    "team": [{"who": "Critic", "text": "No more crying wolf in the room."}]
   }
 ]

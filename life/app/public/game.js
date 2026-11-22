@@ -129,7 +129,9 @@
   function current() {
     if (demo) return { type: DEMO[demoIdx][0], label: DEMO[demoIdx][1] };
     if (override && performance.now() < override.until) return override;
-    const a = state?.activity || {};
+    const a = state?.activity || {}, w = state?.worker;
+    // No worker running: the team rests, whatever state.json last said.
+    if (w && w.state !== 'working') return { type: 'sleep', label: workerText(w), since: a.since };
     return { type: norm(a.type), label: a.label || '', since: a.since };
   }
 
@@ -543,7 +545,10 @@
       const c = chatting[0], o = c.task.partner;
       const [l1, l2] = c.task.lines; c.lastLine = o.lastLine = null; say(c, l1, 3200); setTimeout(() => say(o, l2, 3200), 2600); talkT = 6.5; return;
     }
-    if (Math.random() < 0.4 && !me.walking) { say(me, pickNew(SAY_ME[a.type] || SAY_ME.idle, me.lastLine)); return; }
+    // "Need your OK" lines only when something really waits in Review or needs
+    const asks = (state?.review || []).some((r) => (r.status || 'pending') === 'pending') || (state?.needs || []).length > 0;
+    const myType = a.type === 'waiting' && !asks && !demo ? 'idle' : a.type;
+    if (Math.random() < 0.4 && !me.walking) { say(me, pickNew(SAY_ME[myType] || SAY_ME.idle, me.lastLine)); return; }
     const c = pick(crew.filter((x) => !x.walking)); if (!c) return;
     const k = c.food ? 'food' : c.task.nap ? 'nap' : c.task.phone ? 'phone' : c.task.kind, mine = SAYN[c.name] || {};
     const pool = mine[k] || (Math.random() < 0.5 && mine.couch) || SAY[k] || mine.couch || SAY.couch;
@@ -701,7 +706,19 @@
   });
 
   // ---------- panels ----------
+  const hhmm = (iso) => new Date(iso).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  function workerText(w) {
+    if (w.state === 'paused') return 'Paused';
+    if (w.state === 'sleeping') return 'Sleeping: out of usage until ' + hhmm(w.until);
+    if (w.state === 'working') return `Working: ${state?.activity?.label || 'on a task'} (since ${hhmm(w.since)}, heartbeat ${w.heartbeatAgo}s ago)`;
+    return 'Idle: next check within 1 min';
+  }
   function render(s, prev) {
+    if (s.worker) {
+      $('workerBadge').textContent = workerText(s.worker);
+      $('workerBadge').dataset.state = s.worker.state;
+      $('workerLog').textContent = s.worker.log || '';
+    }
     $('name').textContent = s.name || 'Claude';
     $('day').textContent = s.day ?? 0;
     const lives = Math.max(0, s.lives | 0);

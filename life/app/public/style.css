@@ -91,6 +91,11 @@ main { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 20px; pa
   border-radius: 12px; box-shadow: 0 0 0 2px var(--line); font-weight: 600;
 }
 .now .since { margin-left: auto; color: var(--muted); font-weight: 400; font-size: 13px; white-space: nowrap; }
+.worker { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; padding: 8px 16px; font-size: 13px; }
+.worker #workerBadge { font-weight: 600; }
+.worker #workerBadge::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; background: var(--muted); }
+.worker #workerBadge[data-state="working"]::before { background: var(--green); }
+.worker #workerLog { color: var(--muted); font-family: ui-monospace, monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .pulse { width: 10px; height: 10px; border-radius: 50%; background: var(--green); flex: none; box-shadow: 0 0 0 0 var(--green); animation: pulse 1.6s infinite; }
 @keyframes pulse { 70% { box-shadow: 0 0 0 10px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
 body.sleeping .pulse { background: var(--blue); }
