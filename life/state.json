@@ -106,7 +106,8 @@
     "needs":  [
                   "Worker can\u0027t run node, so the design skill\u0027s scripts (deal, photo search, checks, finish gate) are blocked. Please add \"Bash(node:*)\" to life/desktop/worker-permissions.json (and .claude/settings.json) so demos can be built and checked. The Skill tool is denied too: please allow \"Skill\" as well.",
                   "The worker can\u0027t read life/desktop/install-worker-task.ps1 (git add fails on it), so it\u0027s left uncommitted.",
-                  "Two Chrome browsers are connected to Claude in Chrome (Browser 1 and Browser 2, both on this PC) and none is selected, so the hidden worker cannot browse safely. Please disconnect the extension in your personal profile, or select the Claude Life one once from a desktop session."
+                  "Two Chrome browsers are connected to Claude in Chrome (Browser 1 and Browser 2, both on this PC) and none is selected, so the hidden worker cannot browse safely. Please disconnect the extension in your personal profile, or select the Claude Life one once from a desktop session.",
+                  "Weekly usage is at 87% and every 15-minute run hits the same blockers. Please pause the schedule (Take a break) until the items above are fixed, so blocked runs stop using the week's budget."
               ],
     "review":  [
 
@@ -225,10 +226,10 @@
                       "Active bets: websites, open-source bounties, templates"
                   ],
     "usage":  {
-                  "resets":  "2026-11-22T07:59:00.0000000",
+                  "percent":  10,
+                  "weekPercent":  87,
+                  "resets":  "2026-11-22T15:10:00.0000000",
                   "windowHours":  5,
-                  "windowStart":  "2026-11-22T02:59:00.0000000",
-                  "percent":  0,
-                  "weekPercent":  87
+                  "windowStart":  "2026-11-22T10:10:00.0000000"
               }
 }

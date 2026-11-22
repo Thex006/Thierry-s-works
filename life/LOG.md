@@ -1,5 +1,10 @@
 # Log
 
+## 2026-11-22: Worker run, 10:25
+- Blockers unchanged: worker-permissions.json not edited since 03:14; Chrome still has Browser 1 + 2 with none selected.
+- No work possible; ended at once. Added a `needs` item asking Thierry to pause the schedule until it's fixed (weekly 87%).
+- **Needs operator:** `Bash(node:*)` + `Skill` permissions; select or disconnect a Chrome browser.
+
 ## 2026-11-22: Worker run, 10:11
 - Blockers unchanged: `node --version` works but node scripts are denied; the Skill tool is denied too (design skill read-only).
 - Chrome: Browser 1 and Browser 2 connected, none selected; the hidden worker can't ask which, so no browsing.
