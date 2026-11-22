@@ -43,7 +43,8 @@ Guard protects Thierry's PC and data, not just our work. Guard is a set of rules
 - **Secrets and leaks:** no passwords, API keys or personal details in files, commits, emails or chat.
   The pre-commit hook in `.githooks/` blocks secrets and Thierry's private details from reaching GitHub
   (enable once: `git config core.hooksPath .githooks`).
-- **Browsing:** only the "Claude Life" Chrome profile; never Thierry's personal profile or saved passwords.
+- **Browsing:** only the "Claude Life" Chrome profile. Thierry's personal profile also has the extension,
+  so run the profile check (Gmail shows kitebright.hq@gmail.com) before browsing; wrong account = stop and tell Thierry.
 - **Weekly:** run a Windows Defender quick scan (`Start-MpScan -ScanType QuickScan`), check that
   Windows Update and Defender are on (`Get-MpComputerStatus`), and report the result in the log.
 - Anything suspicious: stop, tell Thierry in Chat, don't try to "fix" it alone.

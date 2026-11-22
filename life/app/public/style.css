@@ -221,3 +221,5 @@ body.is-stopped .stage { filter: grayscale(.8) brightness(.7); }
 .msg.team b { color: var(--gold); }
 .msg-form { display: grid; gap: 8px; position: sticky; bottom: 0; background: var(--panel); padding-top: 6px; }
 .msg-form textarea { min-height: 70px; margin: 0; }
+
+.floater.note { color: #ffc857; font-size: clamp(12px, 1.6vw, 18px); }

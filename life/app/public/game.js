@@ -60,6 +60,13 @@
     fridge: ['Who ate my sandwich?', 'Snack break.', 'We\'re out of milk. Again.'],
     sleep: ['Shh… Claude\'s recharging.', 'zzz… no, I\'m awake.', 'Tomorrow we grind.'],
     watch: ['Claude types SO fast.', 'Is that a bug or a feature?', 'Go Claude go!'],
+    food: ['Sandwich break 🥪', 'Leftover pizza hits different 🍕', 'An apple a day keeps the bugs away 🍎', 'Brain food.'],
+    music: ['Turn it up! 🎵', 'Focus playlist: on.', 'This one\'s a banger.'],
+    dance: ['Office dance-off!', 'Look at these moves 🕺', 'Can\'t stop, won\'t stop.', 'This is research. Rhythm research.'],
+    stretch: ['Stretch break. Backs matter.', 'Reach for the sky… and the revenue.', 'Deep breath in…'],
+    phone: ['Checking the bounty board…', 'Market\'s looking good today.', 'Replying to the group chat.', 'One more scroll…'],
+    nap: ['zzz…', 'Power nap. Back in 5.'],
+    plant: ['Watering our little plant 🌱', 'Grow, buddy, grow.'],
   };
   const SAYN = { // personality lines by teammate
     Scout: { coffee: ['Coffee is research fuel.', 'Found 3 leads while it brewed.'], couch: ['Scrolling job boards for Claude…', 'Bounty alert! …false alarm.', 'Plumbers in Ohio: 0 websites. Hmm.'], window: ['Every shop out there needs something.'] },
@@ -69,7 +76,11 @@
     Dominika: { coffee: ['Making a fresh pot for everyone ☕'], couch: ['Everyone take a breath. Then decide.', 'What if we offer a payment plan?', 'Thierry, you good? Snacks are in the fridge 💛'], window: ['Such a pretty day. Short break, team?'], fridge: ['Healthy snacks only. Okay, one cookie.'], watch: ['Proud of you, Claude. Stretch those fingers!'] },
   };
   const SERVE_LINES = ['Coffee for the hardest worker 💛', 'Take a sip, then ship it.', 'Hydrate! …with coffee.'];
+  const HIGHFIVES = [['Up top! ✋', 'Nice work today!'], ['Team effort! ✋', 'Teamwork makes the dream work.'], ['We\'re getting there ✋', 'One client at a time.']];
   const CHATS = [
+    ['Want half my sandwich?', 'Always. Thanks!'],
+    ['Who picked this song?', 'Me. You\'re welcome.'],
+    ['Lunch after this task?', 'Only if it\'s pizza.'],
     ['Think we hit $50 this week?', 'Only if the pitch is tight.'],
     ['Claude\'s been coding for hours.', 'Let\'s not distract them.'],
     ['Bet you a coffee the bounty pays.', 'You\'re on.'],
@@ -94,7 +105,7 @@
   let override = null; // {type,label,until}
   const LOOK_ME = { skin: '#f2c29b', hair: '#4a3426', shirt: '#e07a55', pants: '#3d4a6b' };
   const me = { x: 165, y: 163, face: 1, walking: false, inBed: false, seated: false, mug: false, look: LOOK_ME, name: 'Claude', color: '#e07a55' };
-  let wander = null, wanderT = 0, fxT = 1, t = 0, particles = [], talkT = 3, meetIdx = 0, lastAct = '';
+  let musicUntil = 0, wander = null, wanderT = 0, fxT = 1, t = 0, particles = [], talkT = 3, meetIdx = 0, lastAct = '';
   const DEFAULT_AGENTS = [
     { name: 'Scout', role: 'Research & opportunities', color: '#4f7fc9', hair: '#1f1a17', skin: '#c68e6a' },
     { name: 'Closer', role: 'Sales, pricing & copy', color: '#5aa36b', hair: '#6b2f1f', skin: '#8d5a3c' },
@@ -165,6 +176,10 @@
     BOOKS.forEach((b) => { R(b.x, b.y, b.w, b.h, b.c); R(b.x, b.y + 2, b.w, 1, '#00000030'); });
     for (const y of [79, 99, 119, 139]) R(130, y, 36, 2, '#6b4226');
     R(150, 54, 10, 4, '#5aa36b'); R(153, 50, 4, 4, '#5aa36b');
+    const on = performance.now() < musicUntil, beat = on && Math.floor(t * 4) % 2;
+    R(131, 50, 15, 8, '#2b2b33'); R(134, 48, 9, 1, '#2b2b33'); R(133, 51, 4, 4, '#4a4a55'); R(140, 51, 4, 4, '#4a4a55');
+    R(134 - beat * 0, 52, 2, 2, on ? (beat ? '#ffc857' : '#e07a55') : '#333'); R(141, 52, 2, 2, on ? (beat ? '#ffc857' : '#e07a55') : '#333');
+    R(138, 56, 1, 1, on ? '#6fdc8c' : '#e04f4f');
     // coin jar
     const p = progress();
     R(174, 126, 14, 16, '#cfe8ff55'); R(173, 126, 1, 16, '#ffffff88'); R(188, 126, 1, 16, '#ffffff88'); R(173, 141, 16, 1, '#ffffff88');
@@ -265,15 +280,27 @@
   function drawPerson(p, pose) {
     const L = p.look, shirt = L.shirt, shirtD = shade(L.shirt, 0.8), x = Math.round(p.x);
     let y = Math.round(p.y);
+    if (pose === 'dance') y -= Math.floor(t * 4 + (p.phase || 0)) % 2;
     if (pose === 'cheer') y -= Math.abs(Math.sin(t * 7)) * 6 | 0;
     ctx.fillStyle = '#00000035'; ctx.beginPath(); ctx.ellipse(p.x, p.y, 6, 2, 0, 0, Math.PI * 2); ctx.fill();
     const f = Math.floor(t * 8 + (p.phase || 0)) % 2;
-    const lL = pose === 'walk' && f ? 2 : 0, lR = pose === 'walk' && !f ? 2 : 0;
+    const legs = pose === 'walk' || pose === 'dance';
+    const lL = legs && f ? 2 : 0, lR = legs && !f ? 2 : 0;
     R(x - 3, y - 6, 2, 6 - lL, L.pants); R(x + 1, y - 6, 2, 6 - lR, L.pants);
     R(x - 3, y - 1 - lL, 2, 1, '#26222e'); R(x + 1, y - 1 - lR, 2, 1, '#26222e');
     R(x - 4, y - 14, 8, 8, shirt); R(x - 4, y - 8, 8, 1, shirtD);
     const arm = (ax, ay, w, h) => R(ax, ay, w, h, shirt);
-    if (pose === 'cheer') { arm(x - 6, y - 20, 2, 7); arm(x + 4, y - 20, 2, 7); R(x - 6, y - 21, 2, 1, L.skin); R(x + 4, y - 21, 2, 1, L.skin); }
+    if (pose === 'dance') {
+      const g = Math.floor(t * 4 + (p.phase || 0)) % 2;
+      arm(x - 6, y - (g ? 20 : 14), 2, g ? 7 : 6); arm(x + 4, y - (g ? 14 : 20), 2, g ? 6 : 7);
+      R(x - 6, y - (g ? 21 : 8), 2, 1, L.skin); R(x + 4, y - (g ? 8 : 21), 2, 1, L.skin);
+    }
+    else if (pose === 'stretch') { const up = Math.sin(t * 1.5 + (p.phase || 0)) > 0 ? 1 : 0; arm(x - 5, y - 20 - up, 2, 7); arm(x + 3, y - 20 - up, 2, 7); R(x - 4, y - 22 - up, 8, 1, L.skin); }
+    else if (pose === 'phone') { arm(x - 6, y - 14, 2, 4); arm(x + 4, y - 14, 2, 4); R(x - 2, y - 13, 4, 5, '#1f2a44'); R(x - 1, y - 12, 2, 3, '#6cb4ff'); }
+    else if (pose === 'water') { arm(x - 6, y - 14, 2, 6); arm(x + 4, y - 13, 5, 2); R(x + 8, y - 15, 5, 4, '#4f9a6a'); R(x + 13, y - 15, 2, 1, '#4f9a6a'); if (Math.floor(t * 6) % 2) R(x + 15, y - 13 + (Math.floor(t * 12) % 4), 1, 1, '#6cb4ff'); }
+    else if (pose === 'highfive') { const s2 = p.face > 0 ? 1 : -1; arm(x - 6, y - 14, 2, 6); arm(s2 > 0 ? x + 4 : x - 6, y - 21, 2, 8); R(s2 > 0 ? x + 4 : x - 6, y - 23, 3, 2, L.skin); }
+    else if (pose === 'eat') { const up = ((t + (p.phase || 0)) % 2.5) < 0.9; arm(x - 6, y - 14, 2, 6); if (up) { arm(x + 4, y - 16, 2, 4); R(x + 2, y - 19, 4, 3, p.food); } else { arm(x + 4, y - 14, 2, 5); R(x + 4, y - 10, 5, 3, p.food); R(x + 3, y - 8, 7, 1, '#f4efe6'); } }
+    else if (pose === 'cheer') { arm(x - 6, y - 20, 2, 7); arm(x + 4, y - 20, 2, 7); R(x - 6, y - 21, 2, 1, L.skin); R(x + 4, y - 21, 2, 1, L.skin); }
     else if (pose === 'wave') { arm(x - 6, y - 14, 2, 6); const k = Math.floor(t * 4) % 2; arm(x + 4 + k, y - 20, 2, 7); R(x + 4 + k, y - 21, 2, 2, L.skin); }
     else if (pose === 'post') { arm(x - 6, y - 14, 2, 6); arm(x + 4, y - 15, 6, 2); R(x + 10, y - 15, 2, 2, L.skin); }
     else if (pose === 'think') { arm(x - 6, y - 14, 2, 6); arm(x + 2, y - 13, 3, 2); R(x + 1, y - 15, 2, 2, L.skin); }
@@ -287,6 +314,7 @@
       const sw = pose === 'walk' ? (f ? 1 : -1) : 0;
       arm(x - 6, y - 14 + sw, 2, 6); arm(x + 4, y - 14 - sw, 2, 6); R(x - 6, y - 8 + sw, 2, 1, L.skin); R(x + 4, y - 8 - sw, 2, 1, L.skin);
       if (p.mug) { R(x + 4, y - 8 - sw, 4, 4, '#fdf8ee'); R(x + 8, y - 7 - sw, 1, 2, '#fdf8ee'); }
+      else if (p.food) { R(x + 4, y - 8 - sw, 5, 3, p.food); R(x + 3, y - 6 - sw, 7, 1, '#f4efe6'); }
     }
     drawHead(x, y - 22, L, p, pose);
   }
@@ -318,8 +346,11 @@
     R(x - 3, Y(128), 7, 3, L.pants); R(x - 3, Y(131), 2, 6, L.pants); R(x + 2, Y(131), 2, 6, L.pants); R(x - 3, Y(136), 2, 1, '#26222e'); R(x + 2, Y(136), 2, 1, '#26222e');
     R(x - 4, Y(119) - bob, 8, 10 + bob, L.shirt);
     if (c.talking) { R(x - 6, Y(117), 2, 5, L.shirt); R(x - 6, Y(116), 2, 1, L.skin); } else R(x - 6, Y(120), 2, 6, L.shirt);
-    if (c.mug) { R(x + 4, Y(121), 2, 4, L.shirt); R(x + 4, Y(118), 4, 4, '#fdf8ee'); } else R(x + 4, Y(120), 2, 6, L.shirt);
-    drawHead(x, Y(110) - bob, L, { ...c, face: 0 }, 'sit', a.type === 'sleep');
+    if (c.mug) { R(x + 4, Y(121), 2, 4, L.shirt); R(x + 4, Y(118), 4, 4, '#fdf8ee'); }
+    else if (c.food) { R(x + 4, Y(121), 2, 4, L.shirt); R(x + 3, Y(119), 5, 3, c.food); }
+    else R(x + 4, Y(120), 2, 6, L.shirt);
+    if (c.task?.phone && !c.talking) { R(x - 2, Y(122), 4, 5, '#1f2a44'); R(x - 1, Y(123), 2, 3, '#6cb4ff'); }
+    drawHead(x, Y(110) - bob, L, { ...c, face: 0 }, 'sit', a.type === 'sleep' || !!c.task?.nap);
   }
 
   // ---------- crew AI ----------
@@ -337,25 +368,37 @@
     crew.length = list.length;
   }
   function pickTask(c, i) {
-    const now = performance.now();
+    const now = performance.now(), act = current().type;
     const coffeeBusy = crew.some((o) => o !== c && o.task?.kind === 'coffee');
-    const others = crew.filter((o) => o !== c && !o.task?.partner && o.task?.kind !== 'coffee');
-    const roll = Math.random();
-    if (c.name === 'Dominika' && roll < 0.3 && !coffeeBusy && !c.mug && current().type === 'build') return { kind: 'coffee', dur: 3200, serve: true };
-    if (roll < 0.28 && !coffeeBusy && !c.mug) return { kind: 'coffee', dur: 3200 };
-    if (roll < 0.40 && others.length && current().type !== 'build') {
-      const o = pick(others), spots = [{ x: 112, y: 166 }, { x: 128, y: 166 }];
-      const dur = rand(9000, 13000), lines = pick(CHATS);
-      o.task = { kind: 'chat', spot: spots[1], partner: c, dur, lines, second: true }; o.arrived = false;
+    const free = crew.filter((o) => o !== c && !o.task?.partner && !['coffee', 'serve', 'music', 'fridge'].includes(o.task?.kind));
+    const music = now < musicUntil, opts = [];
+    const add = (w, f) => opts.push([w, f]);
+    const pair = (kind) => {
+      const o = pick(free), hf = kind === 'highfive';
+      const taken = crew.filter((q) => q.task?.spot).map((q) => q.task.spot);
+      let bx = 0, by = 0;
+      for (let tries = 0; tries < 12; tries++) { bx = rand(100, 210); by = rand(157, 170); if (!taken.some((sp) => Math.abs(sp.x - bx) < 26 && Math.abs(sp.y - by) < 8)) break; }
+      const spots = [{ x: bx, y: by }, { x: bx + (hf ? 12 : 16), y: by }];
+      const dur = hf ? 3000 : rand(9000, 13000), lines = pick(hf ? HIGHFIVES : CHATS);
+      o.task = { kind, spot: spots[1], partner: c, dur, lines, second: true }; o.arrived = false; o.until = 0;
       if (o.sitting) { const so = SEATS[crew.indexOf(o)]; o.sitting = false; o.x = so.x; o.y = 142 + so.dy; }
-      return { kind: 'chat', spot: spots[0], partner: o, dur, lines };
-    }
-    if (roll < 0.47) return { kind: 'fridge', dur: 2500 };
-    if (roll < 0.57) return { kind: 'window', dur: rand(5000, 9000) };
-    if (roll < 0.64 && current().type !== 'research') return { kind: 'shelf', dur: rand(5000, 8000) };
-    if (roll < 0.72 && current().type === 'build') return { kind: 'watch', dur: rand(5000, 8000) };
-    void now; void i;
-    return { kind: 'couch', dur: rand(10000, 22000) };
+      return { kind, spot: spots[0], partner: o, dur, lines };
+    };
+    if (c.name === 'Dominika' && act === 'build' && !coffeeBusy && !c.mug) add(3, () => ({ kind: 'coffee', dur: 3200, serve: true }));
+    if (!coffeeBusy && !c.mug && !c.food) add(3, () => ({ kind: 'coffee', dur: 3200 }));
+    if (!c.food && !c.mug) add(2.5, () => ({ kind: 'fridge', dur: 2600 }));
+    if (!music && !crew.some((o) => o.task?.kind === 'music')) add(1.2, () => ({ kind: 'music', dur: 2200 }));
+    if (music) add(5, () => ({ kind: 'dance', dur: rand(6000, 10000), spot: { x: rand(135, 195), y: rand(158, 169) } }));
+    add(1, () => ({ kind: 'stretch', dur: rand(5000, 8000), spot: { x: rand(130, 200), y: rand(156, 168) } }));
+    add(0.8, () => ({ kind: 'plant', dur: 3500 }));
+    add(1.5, () => ({ kind: 'window', dur: rand(5000, 9000) }));
+    if (act !== 'research') add(1.2, () => ({ kind: 'shelf', dur: rand(5000, 8000) }));
+    if (act === 'build') add(1.5, () => ({ kind: 'watch', dur: rand(5000, 8000) }));
+    if (free.length) { add(act === 'build' ? 1 : 3, () => pair('chat')); add(1.3, () => pair('highfive')); }
+    add(4, () => ({ kind: 'couch', dur: rand(10000, 22000), phone: Math.random() < 0.4, nap: Math.random() < 0.15 }));
+    let r = Math.random() * opts.reduce((n, o) => n + o[0], 0);
+    for (const [w, f] of opts) { if ((r -= w) <= 0) return f(); }
+    void i; return opts[opts.length - 1][1]();
   }
   function taskSpot(c, i) {
     const k = c.task.kind;
@@ -366,7 +409,9 @@
     if (k === 'window') return { x: 200 + i * 9, y: 151 };
     if (k === 'shelf') return { x: 150, y: 153 };
     if (k === 'watch') return { x: 92, y: 152 };
-    if (k === 'chat') return c.task.spot;
+    if (k === 'chat' || k === 'highfive' || k === 'dance' || k === 'stretch') return c.task.spot;
+    if (k === 'music') return { x: 140, y: 153 };
+    if (k === 'plant') return { x: 103, y: 150 };
     return { x: 165, y: 160 };
   }
   function crewUpdate(dt, a) {
@@ -376,11 +421,13 @@
       else if (!c.task.dur && c.task.kind === 'couch') { c.task = { kind: 'couch', dur: rand(4000, 10000) }; c.arrived = c.sitting; c.until = now + c.task.dur; }
       else if (c.arrived && c.until && now > c.until) {
         if (c.task.kind === 'coffee') { c.mug = true; c.mugUntil = now + rand(20000, 35000); }
+        if (c.task.kind === 'fridge') { c.food = pick(['#e8b86a', '#e0563b', '#d94c4c', '#8fd36b']); c.foodUntil = now + rand(15000, 25000); }
         if (c.task.serve) { c.task = { kind: 'serve', dur: 3500 }; c.arrived = false; c.until = 0; return; }
         if (c.task.partner && c.task.partner.task?.partner === c) { const o = c.task.partner; o.task = pickTask(o, crew.indexOf(o)); o.arrived = false; o.until = 0; }
         c.task = pickTask(c, i); c.arrived = false; c.until = 0;
       }
       if (c.mug && now > (c.mugUntil || 0)) c.mug = false;
+      if (c.food && now > (c.foodUntil || 0)) c.food = null;
       const spot = taskSpot(c, i);
       if (c.sitting && c.task.kind !== 'couch') { c.sitting = false; c.x = SEATS[i].x; c.y = 142 + SEATS[i].dy; }
       if (!c.sitting) {
@@ -391,7 +438,12 @@
           if (!c.arrived) { c.arrived = true; c.until = now + (c.task.dur || 999999); }
           if (c.task.kind === 'couch') c.sitting = true;
           if (c.task.kind === 'serve' && !c.task.said) { c.task.said = true; c.lastLine = null; say(c, pick(SERVE_LINES)); c.mug = false; }
-          if (c.task.kind === 'chat') c.face = c.task.second ? -1 : 1;
+          if (c.task.kind === 'chat' || c.task.kind === 'highfive') c.face = c.task.second ? -1 : 1;
+          if (c.task.kind === 'music' && !c.task.said) { c.task.said = true; musicUntil = now + rand(25000, 40000); c.lastLine = null; say(c, pickNew(SAY.music, c.lastLine)); }
+          if (c.task.kind === 'highfive' && !c.task.second && !c.task.said && c.task.partner?.arrived && c.task.partner.task?.partner === c) {
+            c.task.said = true; const o = c.task.partner, [l1, l2] = c.task.lines;
+            c.lastLine = o.lastLine = null; floater('✋', (c.x + o.x) / 2, c.y - 26); say(c, l1, 2400); setTimeout(() => say(o, l2, 2400), 900);
+          }
         }
       }
     });
@@ -400,6 +452,12 @@
     if (c.walking) return 'walk';
     const k = c.task.kind;
     if (k === 'shelf') return 'read';
+    if (k === 'dance') return 'dance';
+    if (k === 'stretch') return 'stretch';
+    if (k === 'plant') return 'water';
+    if (k === 'highfive' && c.task.said) return 'highfive';
+    if (c.food) return 'eat';
+    if (k === 'window' && Math.floor((t + (c.phase || 0)) / 6) % 2) return 'phone';
     if (k === 'coffee') return c.mug ? 'sip' : 'stand';
     if (k === 'window' || k === 'watch') return c.mug ? 'sip' : 'stand';
     return c.mug ? 'sip' : 'stand';
@@ -464,7 +522,7 @@
     }
     if (Math.random() < 0.4 && !me.walking) { say(me, pickNew(SAY_ME[a.type] || SAY_ME.idle, me.lastLine)); return; }
     const c = pick(crew.filter((x) => !x.walking)); if (!c) return;
-    const k = c.task.kind, mine = SAYN[c.name] || {};
+    const k = c.food ? 'food' : c.task.nap ? 'nap' : c.task.phone ? 'phone' : c.task.kind, mine = SAYN[c.name] || {};
     const pool = mine[k] || (Math.random() < 0.5 && mine.couch) || SAY[k] || mine.couch || SAY.couch;
     say(c, pickNew(pool, c.lastLine));
   }
@@ -484,6 +542,7 @@
   function envelope() { particles.push({ k: 'e', x: 210, y: 98, vx: rand(-25, -10), vy: rand(-28, -18), life: 2.4 }); }
   function spawnFx(a) {
     const def = ACT[a.type];
+    if (performance.now() < musicUntil && a.type !== 'sleep') floater(pick(['♪', '♫', '♬']), rand(132, 146), 44, 'note');
     if (crew.some((c) => c.task.kind === 'coffee' && c.arrived && !c.mug) || (a.type === 'break' && !me.walking)) particles.push({ k: 's', x: -10 + rand(-1, 1), y: 90, vx: rand(-2, 2), vy: -10, life: 1.6 });
     if (!def.fx.length || me.walking) return;
     const txt = pick(def.fx);
@@ -523,6 +582,7 @@
       else { me.walking = false; if (a.type === 'sleep') me.inBed = true; if (a.type === 'build') me.seated = true; }
     }
     me.mug = a.type === 'break' && !me.walking && (t % 10) > 3;
+    if (a.type === 'sleep' || a.type === 'meeting') musicUntil = 0;
     crewUpdate(dt, a);
     talkTick(dt, a);
 
