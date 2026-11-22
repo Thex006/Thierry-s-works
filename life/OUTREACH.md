@@ -47,15 +47,27 @@ never in bursts, nothing on weekends, every email individually written.
 - Sender account: kitebright.hq@gmail.com (warm-up rules above apply).
 - Last line: "If this isn't useful, reply 'no' and I won't email again." Honour it immediately; log it in leads.csv.
 - One follow-up after 4–5 days, then stop forever.
-- Say the site is **just a demo that can be made to their taste**, priced **from $50 per page for now**,
-  more for bigger businesses (judge from their apparent size and revenue). Quote in their currency.
+- Say the site is **just a demo that can be made to their taste**, priced **from $50 per page (2D) or
+  $85 per page (3D)**, more for bigger businesses (judge from their apparent size and revenue). Quote in their currency.
 - Say the demo was **built without their real materials**: with their own photos, logo and content the
   final site will be noticeably better, so the demo is not the ceiling of what we can do.
+
+## Two-step email flow (Thierry, 2026-11-22)
+1. **First email:** short. Demo links (2D + 3D), "just a demo, made to your taste", better with their
+   materials, pricing from $50 / $85 per page, opt-out line. The 2D + 3D links may both go in it.
+2. **If they reply positively:** use the Review template `template-reply-interested`. They send logo, photos,
+   services and wording → we build the real site with their materials → show it on a Zoom call or a preview
+   link → revise until it fits their taste → pricing recap → the optional $20/month maintenance (hosting and
+   uptime checks, security updates, small edits) → ask for a call time.
+3. **Every reply still needs Thierry's OK** at that time. Before any send, show him the final text with both links.
 
 ## Approval order (HARD RULE)
 1. Demo site → Thierry approves it in Review. 2. Pitch email → Thierry approves that exact email. 3. Then send.
 - Each draft goes in Review as kind "email" with recipient, subject, full body and the demo Open link.
 - Send only after he approves it. If he edits it, send his version, word for word.
+- **Handyman Columbus pitch (Thierry, 2026-11-22):** once Thierry confirms in Chat that BOTH demo sites work for him,
+  send the approved pitch to help@handymanincolumbus.com right away (his decision overrides the weekend/business-hours
+  rule for this email). Not before that confirmation.
 - Nothing goes out while you wait; switch to other work meanwhile.
 Both go through the Guard gate (TEAM.md) first.
 

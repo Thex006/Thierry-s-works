@@ -32,8 +32,9 @@ function snapshot() {
     worker: { ...pick(w, ['state', 'since', 'heartbeat', 'until']), log: cut(w.log, 200) },
     bets: (s.bets || []).map((b) => pick(b, ['name', 'status', 'note', 'metrics', 'earned'])),
     doing: (s.doing || []).map((d) => pick(d, ['bet', 'task', 'status'])),
+    progress: s.progress ? { title: s.progress.title, steps: (s.progress.steps || []).map((p) => pick(p, ['label', 'status'])), links: (s.progress.links || []).filter((l) => /^https:\/\//.test(l.url || '')).map((l) => pick(l, ['label', 'url'])) } : undefined, // public https links only
     needs: (s.needs || []).map((n) => (typeof n === 'string' ? { text: cut(n, 500) } : { t: n.t, text: cut(n.text, 500) })),
-    review: (s.review || []).map((r) => ({ ...pick(r, ['id', 't', 'type', 'kind', 'target', 'title', 'status', 'decidedAt', 'checks', 'skills']), text: cut(r.text, 600), details: cut(r.details, 3000), email: cut(r.email, 3000), note: cut(r.note, 300) })),
+    review: (s.review || []).map((r) => ({ ...pick(r, ['id', 't', 'type', 'kind', 'target', 'title', 'status', 'decidedAt', 'checks', 'skills']), url: /^https:\/\//.test(r.url || '') ? r.url : undefined, text: cut(r.text, 600), details: cut(r.details, 3000), email: cut(r.email, 3000), note: cut(r.note, 300) })),
     log: (s.log || []).slice(0, 20).map((l) => ({ t: l.t, text: cut(l.text, 300) })),
     transactions: (s.transactions || []).slice(-10),
     agents: (s.agents || []).map((a) => pick(a, ['name', 'role', 'color', 'hair', 'skin', 'status'])),

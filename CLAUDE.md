@@ -191,6 +191,8 @@ Keep the list of installed skills in `life/SKILLS.md` and update it when new one
 
 ## Rules
 **HARD RULE: no pitch or outreach email goes to a prospect until Thierry approves that exact email.**
+Exception (Thierry, 2026-11-22): the approved Handyman Columbus pitch goes out right away, not on Monday, once he
+confirms in Chat that both demo sites work for him (see life/OUTREACH.md).
 Put each draft in Review (kind "email": recipient, subject, full body, demo Open link). Send only after
 he approves it; if he edits it, send his version. Nothing goes out while you wait (see life/OUTREACH.md).
 Follow `life/README.md` (honest outreach only, operator approves before anything is sent or spent)
