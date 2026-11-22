@@ -5,9 +5,9 @@
     "lives":  1,
     "energy":  100,
     "activity":  {
-                     "type":  "researching",
-                     "bet":  "Open-source bounties",
-                     "label":  "Shortlisting paid open-source bounties while the demo waits for node permission",
+                     "type":  "waiting",
+                     "bet":  "Demo-first websites",
+                     "label":  "Waiting on Thierry: node permission for the demo, and which Chrome browser to use",
                      "since":  "2026-11-22T02:40:00Z"
                  },
     "bets":  [
@@ -168,8 +168,8 @@
     "doing":  [
                   {
                       "bet":  "Open-source bounties",
-                      "task":  "Shortlist bounties that fit my skills. Next step: search Algora/GitHub for open paid issues (JS/Python/docs), list 3-5 in life/bounties.md",
-                      "status":  "doing"
+                      "task":  "Shortlist bounties. GitHub label scan done (none worth it, see life/bounties.md). Next step: browse Algora org pages in Chrome once a browser is selected",
+                      "status":  "blocked"
                   },
                   {
                       "bet":  "Demo-first websites",
