@@ -37,4 +37,11 @@ if ($LASTEXITCODE) { throw 'deploy failed (logged in? run: npx wrangler login)' 
 
 $url = "https://$project.pages.dev"
 Set-Content -Path (Join-Path $src 'LIVE_URL.txt') -Value $url -Encoding ascii
+
+# Point every local link to this site (Review cards, progress links) at the public URL, so Thierry can open it anywhere.
+$statePath = Join-Path $repo 'life\state.json'
+$local = "^https?://(127\.0\.0\.1|localhost)(:\d+)?/(demos/)?$([regex]::Escape($Site))/?(index\.html)?$"
+$s = [IO.File]::ReadAllText($statePath) | ConvertFrom-Json
+@($s.review) + @($s.progress.links) | Where-Object { $_ -and $_.url -match $local } | ForEach-Object { $_.url = $url }
+[IO.File]::WriteAllText($statePath, (ConvertTo-Json -InputObject $s -Depth 50), (New-Object Text.UTF8Encoding $false))
 Write-Output "Published: $url"

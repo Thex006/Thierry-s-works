@@ -167,7 +167,8 @@ without that file doesn't go to Review.
 **Public link:** when a site goes to Review, publish it with
 `powershell -NoProfile -ExecutionPolicy Bypass -File life\desktop\publish-demo.ps1 <site>` (Cloudflare Pages,
 https://<site>-kitebright.pages.dev, noindex, "Demo by Kitebright Studio" note). The Review item and the pitch draft use
-that link (2D and 3D each). Never publish anything outside `demos/`. If the client says no, ask Thierry before taking it down. Make "Skills applied (SKILLS-USED.md)" a step in `state.progress`.
+that link (2D and 3D each). Review and progress links always use `demos/<site>/LIVE_URL.txt`, never 127.0.0.1 or
+localhost (Thierry checks on his phone); the script rewrites local links to it. Never publish anything outside `demos/`. If the client says no, ask Thierry before taking it down. Make "Skills applied (SKILLS-USED.md)" a step in `state.progress`.
 
 ## Skills: use them, don't freestyle
 At the start of each session, check which skills are installed (the operator added several with npx).
