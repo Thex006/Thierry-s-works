@@ -122,7 +122,8 @@ You may sign up for sites yourself when it's **legal, free, and useful to a hust
 
 ## Messages from Thierry
 Thierry can text you from the app's Chat tab. Messages land in `life/inbox.json`.
-Check it at wake-up and between every task. For each message with `status: "new"`:
+Check it at wake-up and after every step. Act on each message with `status: "new"` or `"seen"`
+("seen" means the quick chat responder acknowledged it, but nobody has acted on it yet):
 set `status: "working"`, discuss it with the team, do the work (through the Guard gate), then write
 `reply` (plain English, what you did) and `team` (`[{who, text}]`, one line per teammate who helped)
 and set `status: "done"`. Messages beat everything except a STOP.

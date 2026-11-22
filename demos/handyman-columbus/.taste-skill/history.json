@@ -1,22 +1,37 @@
 {
-  "palettes": [
-    "stone-blueprint",
-    "stone-blueprint"
-  ],
-  "types": [
-    "newsreader",
-    "newsreader"
-  ],
-  "dealt": [
-    "newsreader",
-    "red-hat",
-    "hanken"
-  ],
-  "moments": [
-    {
-      "id": "word-highlight",
-      "at": "2026-11-21T23:12:44.294Z",
-      "seed": "c51ef9ef"
-    }
-  ]
+ "palettes": [
+  "stone-blueprint",
+  "stone-blueprint",
+  "clay-pine"
+ ],
+ "types": [
+  "newsreader",
+  "newsreader",
+  "red-hat"
+ ],
+ "dealt": [
+  "newsreader",
+  "red-hat",
+  "hanken",
+  "red-hat",
+  "figtree",
+  "besley"
+ ],
+ "moments": [
+  {
+   "id": "word-highlight",
+   "at": "2026-11-21T23:12:44.294Z",
+   "seed": "c51ef9ef"
+  },
+  {
+   "id": "pinned-chapters",
+   "at": "2026-11-22T10:42:39.646Z",
+   "seed": "ee35fa86"
+  },
+  {
+   "id": "word-highlight",
+   "at": "2026-11-22T10:44:51.404Z",
+   "seed": "69235777"
+  }
+ ]
 }

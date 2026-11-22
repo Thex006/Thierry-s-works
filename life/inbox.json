@@ -258,7 +258,8 @@
     "t": "2026-11-22T11:02:06.476Z",
     "from": "Thierry",
     "text": "Inbox rule (please also add it to CLAUDE.md): check life/inbox.json after EVERY step, not just between tasks. Act on messages with status \"new\" OR \"seen\": \"seen\" means the quick chat responder has already acknowledged the message, but nobody has acted on it yet.",
-    "status": "working"
+    "status": "done",
+    "reply": "Added to CLAUDE.md under Messages from Thierry: check after every step, and act on \"new\" and \"seen\" messages."
   },
   {
     "id": "m1795345525064",
@@ -289,34 +290,55 @@
     "t": "2026-11-22T11:15:17.036Z",
     "from": "Thierry",
     "text": "From Thierry (he is unhappy that only design-taste-frontend was used): your 11:39 run loaded just ONE skill (design-taste-frontend) although the CLAUDE.md \"Website jobs\" rule was in your context. New rule (now in CLAUDE.md): before Review, write demos/handyman-columbus/SKILLS-USED.md listing every required skill (ai-design-skills pack, design-taste-frontend, impeccable, typeui-minimal, redesign-existing-projects, imagegen-frontend-web, brandkit, playwright-cli, writing-guidelines, addyosmani agent-skills, graphify) and what each changed on this site, or why it does not apply. Load each one with the Skill tool; reading about it does not count. Do it now for the handyman site, applying the skills you missed, and add \"Skills applied\" as a step in state.progress.",
-    "status": "working"
+    "status": "done",
+    "reply": "Per your later message, 2D stays as it is (its SKILLS-USED.md notes that). The full skill set and SKILLS-USED.md are being done on the 3D version now, with \"3D: skills applied\" as a checklist step."
   },
   {
     "id": "m1795346200691",
     "t": "2026-11-22T11:16:40.691Z",
     "from": "Thierry",
     "text": "From Thierry: 1) 2D handyman demo: the layout is fixed now, so leave it as it is. Only add subtle hover effects and small animations on hover, nothing more. 2) He is waiting for the 3D version, so do that next. 3) Every other site must use ALL the required skills. 4) Pace: one site and one pitch email (sent only after his approval) per 5-hour usage window, then switch to other hustles. 5) Use ponytail and graphify to keep token usage low: map with graphify before reading lots of code, and write the least code.",
-    "status": "working"
+    "status": "done",
+    "reply": "2D got only subtle hovers. 3D is being finished with all skills. Pace is tracked in state.json (pace). Ponytail is on and I use the graphify map."
   },
   {
     "id": "m1795346222873",
     "t": "2026-11-22T11:17:02.873Z",
     "from": "Thierry",
     "text": "Clarifying Thierry's last message (top priority, replaces earlier handyman instructions): the 2D handyman site is DONE as it is. Only add subtle hover effects and micro-animations (buttons, cards, links), then close the empty gap where the quote bar was removed. Nothing else on 2D, and skip re-applying all skills to it. Then build the 3D version: the full skill set and SKILLS-USED.md apply to the 3D version and every future site. Track the pace in state.json: usage window start, plus whether this window's site and this window's pitch are done.",
-    "status": "working"
+    "status": "done",
+    "reply": "Done: 2D hovers added and the gap closed. 3D is in its skills and checks step. state.json now has pace: {windowStart, siteDone, pitchDone}."
   },
   {
     "id": "m1795346376449",
     "t": "2026-11-22T11:19:36.449Z",
     "from": "Thierry",
     "text": "New: when a site goes to Review, publish it with: powershell -NoProfile -ExecutionPolicy Bypass -File life\\desktop\\publish-demo.ps1 <site>. That puts it on Cloudflare Pages at https://<site>-kitebright.pages.dev, with noindex and a \"Demo by Kitebright Studio\" note, and saves the URL to demos/<site>/LIVE_URL.txt. Put that public link (2D and 3D each) in the Review item and the pitch draft. It needs Thierry to log in once (npx wrangler login) and the permission to be added. Until then, raise a need instead of trying it. See CLAUDE.md \"Public link\".",
-    "status": "working"
+    "status": "done",
+    "reply": "The login and permission are in place. 2D is live; 3D gets published when it goes to Review."
   },
   {
     "id": "m1795346703678",
     "t": "2026-11-22T11:25:03.678Z",
     "from": "Thierry",
     "text": "Manager updated Review: demo-handyman-columbus-2d now has url http://127.0.0.1:4747/demos/handyman-columbus/, title \"Demo: Handyman Services in Columbus (2D)\" and target \"Layout accepted as it is; hover effects being added; public link after Cloudflare login\". Keep these when you write state.json (re-read it first). Replace the url with the pages.dev link once it is published. The app also has a Refresh button now.",
-    "status": "working"
+    "status": "done",
+    "reply": "Kept. The Review item now uses the pages.dev link."
+  },
+  {
+    "id": "m1795347278151",
+    "t": "2026-11-22T11:34:38.151Z",
+    "from": "Thierry",
+    "text": "Manager published the 2D handyman demo: https://handyman-columbus-kitebright.pages.dev (LIVE_URL.txt saved). The Review item and state.progress now use it; keep them when you write state.json. After adding hover effects, republish with publish-demo.ps1 (the permission is in place).",
+    "status": "done",
+    "reply": "Kept: the Review item and the checklist use https://handyman-columbus-kitebright.pages.dev. I'm republishing the 2D site now that the hover effects are in."
+  },
+  {
+    "id": "m1795347299095",
+    "t": "2026-11-22T11:34:59.095Z",
+    "from": "Thierry",
+    "text": "Manager added two done steps to state.progress: \"2D accepted by Thierry\" and \"Publish 2D (Cloudflare)\". Keep state.progress current at EVERY step (re-read state.json before you write it).",
+    "status": "done",
+    "reply": "Kept both steps. The 3D quote bar is now removed (marked done), and I'm on the 3D skills step. I re-read state.json before each write."
   }
 ]
