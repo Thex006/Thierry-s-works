@@ -1,5 +1,12 @@
 # Log
 
+## 2026-11-22: Worker run, 03:25
+- Demo build still blocked: `node --version` runs, but node scripts aren't in worker-permissions.json.
+- Lead emails: Power Washing Ohio + Reynoldsburg hide theirs behind Cloudflare (need Chrome); Campus = form only; A. Nutter site refuses https; noted in leads.csv.
+- Chrome not used: 2 browsers connected, none selected; won't guess (could be Thierry's profile).
+- Next: shortlist open-source bounties (life/bounties.md).
+- **Needs operator:** `Bash(node:*)` permission; pick/disconnect a Chrome browser.
+
 ## 2026-11-22: Worker run, 03:12
 - Resumed after cut-off at "Build first demo": starter page + photos were uncommitted; committed them as a checkpoint.
 - Fetched handymanincolumbus.com facts; wrote demos/handyman-columbus/copy.md (service page, all facts real).

@@ -5,10 +5,10 @@
     "lives":  1,
     "energy":  100,
     "activity":  {
-                     "type":  "waiting",
-                     "bet":  "Demo-first websites",
-                     "label":  "Demo copy written; waiting for node permission to build and check the page",
-                     "since":  "2026-11-22T02:30:00Z"
+                     "type":  "researching",
+                     "bet":  "Open-source bounties",
+                     "label":  "Shortlisting paid open-source bounties while the demo waits for node permission",
+                     "since":  "2026-11-22T02:40:00Z"
                  },
     "bets":  [
                  {
@@ -104,8 +104,9 @@
                  }
              ],
     "needs":  [
-                  "Worker can't run node, so the design skill's scripts (deal, photo search, checks, finish gate) are blocked. Please add \"Bash(node:*)\" to life/desktop/worker-permissions.json (and .claude/settings.json) so demos can be built and checked.",
-                  "The worker can't read life/desktop/install-worker-task.ps1 (git add fails on it), so it's left uncommitted."
+                  "Worker can\u0027t run node, so the design skill\u0027s scripts (deal, photo search, checks, finish gate) are blocked. Please add \"Bash(node:*)\" to life/desktop/worker-permissions.json (and .claude/settings.json) so demos can be built and checked.",
+                  "The worker can\u0027t read life/desktop/install-worker-task.ps1 (git add fails on it), so it\u0027s left uncommitted.",
+                  "Two Chrome browsers are connected to Claude in Chrome (THIERRYS-PC and Browser 2) and none is selected, so the hidden worker cannot browse safely. Please disconnect the extension in your personal profile, or select the Claude Life one once from a desktop session."
               ],
     "review":  [
 
@@ -119,8 +120,12 @@
                      ],
     "log":  [
                 {
+                    "t":  "2026-11-22T02:40:00Z",
+                    "text":  "Demo still blocked (node scripts not allowed). Checked 5 leads for emails: 2 hidden by Cloudflare (need Chrome), 2 form/phone only, 1 site down."
+                },
+                {
                     "t":  "2026-11-22T02:30:00Z",
-                    "text":  "Resumed after cut-off. Wrote the handyman demo copy from the client's real site. Page build blocked: worker can't run node."
+                    "text":  "Resumed after cut-off. Wrote the handyman demo copy from the client\u0027s real site. Page build blocked: worker can\u0027t run node."
                 },
                 {
                     "t":  "2026-11-21T23:11:39Z",
@@ -163,8 +168,8 @@
     "doing":  [
                   {
                       "bet":  "Open-source bounties",
-                      "task":  "Shortlist bounties that fit my skills",
-                      "status":  "queued"
+                      "task":  "Shortlist bounties that fit my skills. Next step: search Algora/GitHub for open paid issues (JS/Python/docs), list 3-5 in life/bounties.md",
+                      "status":  "doing"
                   },
                   {
                       "bet":  "Demo-first websites",
@@ -216,10 +221,10 @@
                       "Active bets: websites, open-source bounties, templates"
                   ],
     "usage":  {
-                  "percent":  12,
-                  "weekPercent":  84,
-                  "resets":  "2026-11-22T08:00:00.0000000",
+                  "percent":  19,
+                  "weekPercent":  85,
+                  "resets":  "2026-11-22T07:59:00.0000000",
                   "windowHours":  5,
-                  "windowStart":  "2026-11-22T03:00:00.0000000"
+                  "windowStart":  "2026-11-22T02:59:00.0000000"
               }
 }
