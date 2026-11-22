@@ -72,6 +72,28 @@ function Set-OutOfUsage([string]$path, [datetime]$reset) {
   }
 }
 
+# Chat responder: a short Sonnet run that only reads and edits life/inbox.json, so Thierry gets a reply within ~1 min
+# even while the main worker is deep in a long step. It acknowledges ("seen"); the worker still acts on "seen" messages.
+# --restricted ignores the project allow list, so only Read and Edit(life/inbox.json) are possible.
+$ChatPrompt = 'You are the Claude Life chat responder. Read life/inbox.json, life/state.json and the first 40 lines of life/LOG.md, plus any image files listed in a message''s "images" field. For every message whose status is "new": set "reply" to a short, honest, plain-English answer (1 to 3 sentences) saying what the team is doing right now and that the instruction is queued for the worker (or answer the question if state.json or LOG.md already answers it), and set "status" to "seen". Change nothing else and keep the file valid JSON. You cannot do the work yourself, so never claim it is done.'
+function Get-NewMessages([double]$olderThanMin = 0) {
+  try {
+    return @(([IO.File]::ReadAllText((Join-Path $repo 'life\inbox.json')) | ConvertFrom-Json) |
+      Where-Object { $_.status -eq 'new' -and ((Get-Date) - [datetime]$_.t).TotalMinutes -ge $olderThanMin })
+  } catch { return @() }
+}
+function Invoke-ChatResponder([double]$olderThanMin = 0) {
+  $msgs = @(Get-NewMessages $olderThanMin)
+  if (-not $msgs) { return }
+  # shortcut: inbox.json can also be written by the app or the worker meanwhile; a lost reply just gets re-answered next minute
+  $r = Start-Process claude -ArgumentList '-p', "`"$($ChatPrompt -replace '"', '\"')`"", '--model', 'claude-sonnet-5-5', '--restricted', '--tools', 'Read,Edit',
+       '--strict-mcp-config', '--allowedTools', 'Read', '"Edit(life/inbox.json)"', '--permission-mode', 'dontAsk', '--permission-prompts', 'none', '--no-session-persistence' `
+       -WorkingDirectory $repo -WindowStyle Hidden -PassThru
+  $null = $r.Handle
+  if (-not $r.WaitForExit(180000)) { $r.Kill(); Write-Log "chat responder: timed out after 3 min ($($msgs.Count) message(s))"; return }
+  Write-Log "chat responder: $($msgs.Count) message(s), exit=$($r.ExitCode), still new: $(@(Get-NewMessages).Count)"
+}
+
 function Invoke-Worker {
   Set-Location $repo
   New-Item -ItemType Directory -Force $priv | Out-Null
@@ -105,6 +127,7 @@ function Invoke-Worker {
   $code = 1; $idle = $true  # an early error counts as idle so a broken setup doesn't relaunch every minute
   try {
     Write-Lock $PID $started
+    Invoke-ChatResponder  # reply to waiting Chat messages first; the full run takes a while to read them
 
     # Real plan usage from `claude -p "/usage"` -> state.json usage.
     try {
@@ -134,6 +157,7 @@ function Invoke-Worker {
       if ((Get-Date) -gt $deadline) { Write-Log 'timeout: killing claude after 350 min'; $p.Kill(); break }
       if (Test-Path (Join-Path $repo 'life\STOP')) { Write-Log 'STOP appeared: killing claude'; $p.Kill(); break }
       Write-Lock $p.Id $started
+      Invoke-ChatResponder 1
       # The scheduled task doesn't start again while this run is busy, so the phone snapshot is refreshed from here.
       $mobile = (node (Join-Path $repo 'life\mobile\publish.js') 2>&1 | Out-String).Trim()
       if ($mobile -like 'mobile: failed*') { Write-Log $mobile }
