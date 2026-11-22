@@ -5,10 +5,10 @@
     "lives":  1,
     "energy":  100,
     "activity":  {
-                     "type":  "build",
+                     "type":  "waiting",
                      "bet":  "Demo-first websites",
-                     "label":  "Building first demo: Columbus handyman redesign",
-                     "since":  "2026-11-21T23:11:39Z"
+                     "label":  "Demo copy written; waiting for node permission to build and check the page",
+                     "since":  "2026-11-22T02:30:00Z"
                  },
     "bets":  [
                  {
@@ -104,7 +104,8 @@
                  }
              ],
     "needs":  [
-
+                  "Worker can't run node, so the design skill's scripts (deal, photo search, checks, finish gate) are blocked. Please add \"Bash(node:*)\" to life/desktop/worker-permissions.json (and .claude/settings.json) so demos can be built and checked.",
+                  "The worker can't read life/desktop/install-worker-task.ps1 (git add fails on it), so it's left uncommitted."
               ],
     "review":  [
 
@@ -117,6 +118,10 @@
                          }
                      ],
     "log":  [
+                {
+                    "t":  "2026-11-22T02:30:00Z",
+                    "text":  "Resumed after cut-off. Wrote the handyman demo copy from the client's real site. Page build blocked: worker can't run node."
+                },
                 {
                     "t":  "2026-11-21T23:11:39Z",
                     "text":  "Checked 32 Columbus OH home-service sites. 8 leads: 2011-era, no-mobile, dead or http-only sites. Niche: handymen."
@@ -168,8 +173,8 @@
                   },
                   {
                       "bet":  "Demo-first websites",
-                      "task":  "Build first demo: Handyman Services in Columbus",
-                      "status":  "active"
+                      "task":  "Build first demo: Handyman Services in Columbus. Next step: with node allowed, deal the hero (deal.mjs --type service --has photo), run start.mjs css for stone-blueprint/newsreader, build index.html from demos/handyman-columbus/copy.md, run the gate",
+                      "status":  "blocked"
                   }
               ],
     "agents":  [
