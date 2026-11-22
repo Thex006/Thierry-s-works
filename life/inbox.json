@@ -120,27 +120,55 @@
     "t": "2026-11-22T10:17:58.047Z",
     "from": "Thierry",
     "text": "From Thierry: for the Columbus handyman demo, after the layout fix, also build a 3D-style version. Website-job rule (permanent, it will be in CLAUDE.md): before starting, list every skill and plugin available to you (.claude/skills, ~/.claude/skills, installed plugins, the Skill tool listing) and say which you found. Then apply ALL the relevant ones, not just taste: the elayadesign/ai-design-skills pack, design-taste-frontend, impeccable, typeui-minimal, redesign-existing-projects, imagegen-frontend-web, brandkit, playwright-cli for screenshots and testing, writing-guidelines for all copy, and the addyosmani agent-skills for code quality. Use Graphify to map the repo before reading lots of code, and never commit graphify-out/. Before each step, name which skills you are applying and why. If a skill is missing, add it to needs; the manager installs skills.",
-    "status": "new"
+    "status": "working",
+    "reply": "The layout fix is done; the 3D-style version is next. Weekly usage is at 94%, so I'm starting it at the next run rather than leaving a half-built version. That run will begin by listing every skill and plugin found and naming the ones applied at each step. The website-job rule is already in CLAUDE.md.",
+    "team": [
+      {
+        "who": "Critic",
+        "text": "Better a whole 3D version next run than half of one now."
+      }
+    ]
   },
   {
     "id": "m1795342678389",
     "t": "2026-11-22T10:17:58.389Z",
     "from": "Thierry",
     "text": "From Thierry, new pricing for outreach: every pitch email must say the site is just a demo that can be made to their taste, priced from $50 per page for now, more for bigger businesses (your judgment from their apparent size and revenue). This replaces the $750 + $49/mo offer. After the current Columbus job, target more US and UK companies. Update STRATEGY.md, OUTREACH.md and the state.json decisions to match.",
-    "status": "new"
+    "status": "done",
+    "reply": "Updated. STRATEGY.md: from $50 per page, up to about $100-200 per page for bigger businesses (sized from team, reviews, locations and job value), quoted in their currency; the $750 + $49/mo offer is gone. After Columbus: more US and UK companies. OUTREACH.md's email rules now require the 'just a demo, made to your taste, from $50 per page' line. The state.json decisions match.",
+    "team": [
+      {
+        "who": "Closer",
+        "text": "$50 a page is an easy yes for a small trade business."
+      }
+    ]
   },
   {
     "id": "m1795342812389",
     "t": "2026-11-22T10:20:12.389Z",
     "from": "Thierry",
     "text": "From Thierry, add to the outreach rules: every pitch email must make clear the demo was built without their real materials, and that with their own photos, logo and content the final site will be noticeably better, so the demo is not the ceiling of what we can do. Add this to the email rules in OUTREACH.md too, alongside the \"$50 per page from now, more for bigger businesses; can be made to your taste\" pricing message.",
-    "status": "new"
+    "status": "done",
+    "reply": "Added to OUTREACH.md's email rules, next to the pricing line: every pitch says the demo was built without their real materials, and that their own photos, logo and content will make the final site noticeably better.",
+    "team": [
+      {
+        "who": "Closer",
+        "text": "It also explains the stand-in photos honestly."
+      }
+    ]
   },
   {
     "id": "m1795342934714",
     "t": "2026-11-22T10:22:14.714Z",
     "from": "Thierry",
     "text": "HARD RULE from Thierry: never send a pitch or outreach email to a prospect until he has approved that exact email. Put each draft in the Review tab (kind \"email\") with recipient, subject, full body and the demo Open link. Send only after he approves it in Review, and if he edits it, send his version. Nothing goes out while you wait; switch to other work meanwhile. Add this to OUTREACH.md and to CLAUDE.md.",
-    "status": "new"
+    "status": "done",
+    "reply": "Added to both. OUTREACH.md's approval order is now a hard rule, and CLAUDE.md has it under Rules. Each draft goes to Review as kind 'email' with recipient, subject, full body and the demo Open link. Nothing is sent until you approve that exact email, and if you edit it I send your version. No emails have been sent so far.",
+    "team": [
+      {
+        "who": "Critic",
+        "text": "No send without your yes on the exact words."
+      }
+    ]
   }
 ]

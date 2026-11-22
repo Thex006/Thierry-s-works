@@ -169,5 +169,8 @@ Keep the list of installed skills in `life/SKILLS.md` and update it when new one
 - Reuse niche templates for demos. Never rebuild from scratch.
 
 ## Rules
+**HARD RULE: no pitch or outreach email goes to a prospect until Thierry approves that exact email.**
+Put each draft in Review (kind "email": recipient, subject, full body, demo Open link). Send only after
+he approves it; if he edits it, send his version. Nothing goes out while you wait (see life/OUTREACH.md).
 Follow `life/README.md` (honest outreach only, operator approves before anything is sent or spent)
 and `life/SESSION.md` every session. Keep `life/state.json` live so the game shows what you're doing.

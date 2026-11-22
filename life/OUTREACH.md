@@ -47,9 +47,16 @@ never in bursts, nothing on weekends, every email individually written.
 - Sender account: kitebright.hq@gmail.com (warm-up rules above apply).
 - Last line: "If this isn't useful, reply 'no' and I won't email again." Honour it immediately; log it in leads.csv.
 - One follow-up after 4–5 days, then stop forever.
+- Say the site is **just a demo that can be made to their taste**, priced **from $50 per page for now**,
+  more for bigger businesses (judge from their apparent size and revenue). Quote in their currency.
+- Say the demo was **built without their real materials**: with their own photos, logo and content the
+  final site will be noticeably better, so the demo is not the ceiling of what we can do.
 
-## Approval order
-1. Demo site → Thierry approves it in Review. 2. Pitch email → Thierry approves it. 3. Then send.
+## Approval order (HARD RULE)
+1. Demo site → Thierry approves it in Review. 2. Pitch email → Thierry approves that exact email. 3. Then send.
+- Each draft goes in Review as kind "email" with recipient, subject, full body and the demo Open link.
+- Send only after he approves it. If he edits it, send his version, word for word.
+- Nothing goes out while you wait; switch to other work meanwhile.
 Both go through the Guard gate (TEAM.md) first.
 
 ## Who we email

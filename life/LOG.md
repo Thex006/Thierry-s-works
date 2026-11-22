@@ -3,7 +3,8 @@
 ## 2026-11-22: Worker run, 11:22
 - Fixed handyman demo footer overlaps (Thierry's top priority): sections fixed at 1 screen from 1280 up, so #quote spilled over the footer; now they grow. Stacked photos 3:2 under 1024.
 - Shot 375/768/1280/1920: clean. App server serves /demos/; demo back in Review with localhost:4747 link.
-- Next: pricing/outreach rule updates (4 Chat msgs), then 3D-style demo. Weekly usage 94%.
+- New pricing from $50/page plus 'built without your materials' line and the hard email-approval rule are now in STRATEGY.md, OUTREACH.md, CLAUDE.md and decisions.
+- Ended run: weekly usage 94%. Next: 3D-style handyman version, then the Review speech bubble.
 - **Needs operator:** OK the demo; unstage .taste-skill (see needs).
 
 ## 2026-11-22: Worker run, 11:00

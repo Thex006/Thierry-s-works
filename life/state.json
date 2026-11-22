@@ -5,9 +5,9 @@
     "lives":  1,
     "energy":  100,
     "activity":  {
-                     "type":  "working",
+                     "type":  "waiting",
                      "bet":  "Demo-first websites",
-                     "label":  "Fixed the handyman demo layout; back in Review. Updating pricing and outreach rules",
+                     "label":  "Run ended to save weekly usage (94%). Demo in Review; next run: 3D-style handyman version",
                      "since":  "2026-11-22T11:45:00+01:00"
                  },
     "bets":  [
@@ -213,7 +213,7 @@
                   },
                   {
                       "bet":  "Demo-first websites",
-                      "task":  "Handyman demo: layout fixed (sections grow on desktop, stacked photos 3:2), checked at 375/768/1280/1920, back in Review with localhost:4747/demos link. Next: 3D-style version, then pitch draft (email Review card) after his OK",
+                      "task":  "Handyman demo: layout fixed (sections grow on desktop, stacked photos 3:2), checked at 375/768/1280/1920, back in Review with localhost:4747/demos link. Next step: list all skills/plugins, then build demos/handyman-columbus-3d (3D-style hero) per inbox m1795342678047; then the Review speech bubble naming the item (m1795342510159 leftover); pitch draft (email Review card, $50/page wording) after his OK",
                       "status":  "review"
                   },
                   {
@@ -257,7 +257,10 @@
                       "Studio name: Kitebright Studio (kitebright.hq@gmail.com)",
                       "Emails signed \"Thierry, Kitebright Studio\"",
                       "First market: US home-service businesses",
-                      "Pricing: website $750 + $49/month care plan",
+                      "Pricing: from $50 per page for now, more for bigger businesses; pitch says it's a demo made to their taste (replaces $750 + $49/mo)",
+                      "Every pitch says the demo was built without their real materials; their photos, logo and content will make it noticeably better",
+                      "HARD RULE: no pitch email goes out until Thierry approves that exact email in Review (kind email); send his edited version if he edits",
+                      "After the Columbus job: target more US and UK companies",
                       "Active bets: websites, open-source bounties, templates"
                   ],
     "usage":  {

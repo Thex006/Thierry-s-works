@@ -11,7 +11,7 @@ Review every bet each session against its kill rule. Kill fast, double down on w
 
 ### 1. Demo-first websites for small businesses
 - Find businesses with no site or a bad one → build a personalised demo from a niche template →
-  operator approves → email the live link with a fixed price (+ optional monthly care plan).
+  operator approves the demo and the exact email → email the live link, priced from $50 per page.
 - Includes "redesign" pitches for businesses whose site is outdated or broken on phones.
 - Skills: design-taste-frontend, redesign-existing-projects, imagegen-frontend-web.
 - Kill rule: 100 emails with <3 replies → change niche/pitch. 200 emails with 0 sales → pause.
@@ -31,16 +31,17 @@ Review every bet each session against its kill rule. Kill fast, double down on w
 - **Start:** US home-service businesses (roofers, plumbers, HVAC, cleaners, landscapers) in mid-size
   cities (Tampa, Charlotte, Columbus…). One new customer is worth $500–$5,000 to them, so a site pays
   for itself fast, and they get less agency spam than NYC/LA.
-- **Next (after 100 emails):** UK and Canada, then Germany/Netherlands written in their language.
-- **Prices: per page, scaled to the client, in their currency.** (Thierry's model)
-  - **Base: ~$100 per page.** A landing page = everything on one page (1 page). More pages = more money.
-  - **Scale by the company's size**, which Scout researches before every quote (team size, reviews,
-    locations, typical job value, visible revenue signals):
-    | Client | Multiplier | 1-page | 5-page |
+- **Next (after the Columbus job):** more US and UK companies; later Canada, then Germany/Netherlands in their language.
+- **Prices: per page, scaled to the client, in their currency.** (Thierry, 2026-11-22: replaces $750 + $49/mo)
+  - **From $50 per page for now.** A landing page = everything on one page (1 page). More pages = more money.
+    Every pitch says it's a demo that can be made to their taste.
+  - **More for bigger businesses**, judged from apparent size and revenue (team size, reviews,
+    locations, typical job value):
+    | Client | Per page | 1-page | 5-page |
     |---|---|---|---|
-    | Solo / micro business | ×0.7–1 | $70–100 | $350–500 |
-    | Small established business | ×1–1.5 | $100–150 | $500–750 |
-    | Larger / multi-location / high ticket | ×1.5–3 | $150–300 | $750–1,500 |
+    | Solo / micro business | $50 | $50 | $250 |
+    | Small established business | $50–100 | $50–100 | $250–500 |
+    | Larger / multi-location / high ticket | $100–200 | $100–200 | $500–1,000 |
   - **Add-ons** (also scaled): online booking, extra language (our edge), 2D motion/3D hero, SEO basics,
     care plan $19–79/month.
   - **Local currency:** quote and invoice in the client's currency where Stripe supports it
