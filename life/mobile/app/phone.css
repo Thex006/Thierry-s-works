@@ -1,0 +1,22 @@
+/* Phone layout on top of the desktop game's style.css. Writes happen on the PC, so their controls are hidden here. */
+#stopBtn, #msgForm, .review-actions, #tab-review textarea, [data-clear-all], .btn.clear, #conn { display: none !important; }
+body { padding-bottom: env(safe-area-inset-bottom); }
+@media (max-width: 700px) {
+  .hud { gap: 10px 16px; padding: calc(env(safe-area-inset-top) + 10px) 14px 12px; }
+  .hud-stats { gap: 10px 16px; width: 100%; }
+  .meter { min-width: 0; flex: 1 1 40%; }
+  main { padding: 12px; gap: 14px; }
+  .stage-wrap, .panel { min-width: 0; }
+  .tabs { overflow-x: auto; scrollbar-width: none; }
+  .tabs button { flex: 0 0 auto; }
+}
+.unlock {
+  position: fixed; inset: 0; z-index: 50; display: grid; align-content: center; gap: 10px; padding: 24px;
+  background: var(--bg); font-size: 16px;
+}
+.unlock h2 { font-family: var(--pixel); font-size: 14px; color: var(--gold); margin: 0; }
+.unlock input { font: inherit; padding: 12px; border-radius: 10px; background: #120e19; color: var(--text); border: 1px solid var(--line); }
+.unlock button { padding: 12px; }
+.unlock .err { color: var(--red); min-height: 1.4em; margin: 0; }
+.unlock code { color: var(--gold); word-break: break-all; }
+.forget { display: block; margin: 4px auto 24px; background: none; border: 0; color: var(--muted); text-decoration: underline; font-size: 13px; padding: 10px; }

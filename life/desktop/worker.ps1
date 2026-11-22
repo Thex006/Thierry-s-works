@@ -130,10 +130,13 @@ function Invoke-Worker {
     $null = $p.Handle  # cache the handle now, or ExitCode stays empty after the process ends
     Write-Lock $p.Id $started
     $deadline = (Get-Date).AddMinutes(350)  # safety cap under the task's 6h limit; runs normally end themselves (CLAUDE.md)
-    while (-not $p.WaitForExit(120000)) {
+    while (-not $p.WaitForExit(60000)) {
       if ((Get-Date) -gt $deadline) { Write-Log 'timeout: killing claude after 350 min'; $p.Kill(); break }
       if (Test-Path (Join-Path $repo 'life\STOP')) { Write-Log 'STOP appeared: killing claude'; $p.Kill(); break }
       Write-Lock $p.Id $started
+      # The scheduled task doesn't start again while this run is busy, so the phone snapshot is refreshed from here.
+      $mobile = (node (Join-Path $repo 'life\mobile\publish.js') 2>&1 | Out-String).Trim()
+      if ($mobile -like 'mobile: failed*') { Write-Log $mobile }
     }
     $p.WaitForExit()
     $code = $p.ExitCode
