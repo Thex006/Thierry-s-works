@@ -22,6 +22,11 @@ end the session. Only the operator resumes (the "Let Claude work again" button, 
 - At wake-up: if `state.usage.windowStart` is missing or more than 5 hours old, set it to now
   (`usage: {windowStart, windowHours: 5}`). The app drains the Energy bar across the window.
 - If Claude Code can show real usage (e.g. a usage/status command), also write `usage.percent` (0–100 used).
+- Real numbers: if you can read them, POST them to the app (`/api/usage`: percent, resetsAt,
+  weeklyPercent, weeklyResetsAt). Thierry can also click the Energy bar and type them in.
+- **Pace by the weekly limit:** the weekly limit is shared by everything Thierry does with Claude.
+  Under 25% weekly left: only the highest-value tasks (replies, approvals, things close to money),
+  no exploring or polishing. Under 10%: stop and leave the rest for Thierry until the weekly reset.
 - When usage runs low or a limit warning appears: finish the current step, commit and push, set activity
   `sleep` with the reset time in the label, and stop. The scheduled wake-up continues after the reset.
 

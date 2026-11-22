@@ -656,26 +656,49 @@
   }
   function toast(msg) { const el = $('toast'); el.textContent = msg; el.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove('show'), 3500); }
 
-  // Energy = what's left of the 5-hour Claude usage window.
-  // Claude writes state.usage = { windowStart, windowHours: 5, percent? } (percent = usage used, if known).
-  // With a real percent it shows that; otherwise it estimates from time left in the window.
+  // Energy = what's left of Claude usage: the tighter of the 5-hour and weekly limits.
+  // Real numbers come from usage.percent / weeklyPercent (typed in by Thierry or written by the worker);
+  // without them it estimates from time left in the 5-hour window.
   function renderEnergy(s) {
-    const u = s?.usage || {}, hrs = u.windowHours || 5;
-    let energy = s?.energy ?? 100, note = '';
-    if (u.windowStart) {
-      const start = new Date(u.windowStart).getTime(), reset = start + hrs * 3600e3, left = reset - Date.now();
-      if (left <= 0) { energy = 100; note = 'refilled'; }
-      else {
-        energy = typeof u.percent === 'number' ? 100 - u.percent : Math.max(0, Math.min(100, left / (hrs * 3600e3) * 100));
-        const h = Math.floor(left / 3600e3), m = Math.floor(left % 3600e3 / 60000);
-        note = `· resets ${new Date(reset).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} (${h ? h + 'h ' : ''}${m}m)`;
-      }
-    }
-    if (s?.activity?.type === 'sleep' && !u.windowStart) note = '· sleeping';
+    const u = s?.usage || {}, hrs = u.windowHours || 5, now = Date.now();
+    const fmt = (d) => new Date(d).toLocaleString([], { weekday: new Date(d) - now > 864e5 ? 'short' : undefined, hour: '2-digit', minute: '2-digit' });
+    let five = null, reset = u.resetsAt ? new Date(u.resetsAt).getTime() : null;
+    if (reset && reset <= now) five = 100;
+    else if (typeof u.percent === 'number') five = 100 - u.percent;
+    else if (u.windowStart) { reset = new Date(u.windowStart).getTime() + hrs * 3600e3; five = reset <= now ? 100 : Math.max(0, (reset - now) / (hrs * 3600e3) * 100); }
+    let week = null; const wReset = u.weeklyResetsAt ? new Date(u.weeklyResetsAt).getTime() : null;
+    if (typeof u.weeklyPercent === 'number') week = wReset && wReset <= now ? 100 : 100 - u.weeklyPercent;
+    const parts = [five, week].filter((v) => v !== null), energy = parts.length ? Math.min(...parts) : (s?.energy ?? 100);
+    const notes = [];
+    if (five !== null && reset && reset > now) notes.push(`5h: ${Math.round(five)}% left, resets ${fmt(reset)}`);
+    if (week !== null) notes.push(`week: ${Math.round(week)}% left${wReset && wReset > now ? `, resets ${fmt(wReset)}` : ''}`);
+    if (!parts.length) notes.push('click to set');
     $('energyBar').style.width = Math.max(0, Math.min(100, energy)) + '%';
     $('energyBar').style.backgroundColor = energy < 15 ? 'var(--red)' : energy < 40 ? 'var(--gold)' : '';
-    $('energyNote').textContent = note;
+    $('energyNote').textContent = '· ' + notes.join(' · ');
   }
+  // Click the Energy bar to type in the numbers from Claude's usage panel.
+  function nextTime(str, weekly) {
+    if (!str) return '';
+    const m = String(str).trim().match(/^(?:(mon|tue|wed|thu|fri|sat|sun)\w*\s+)?(\d{1,2})(?::(\d{2}))?\s*(am|pm)?$/i);
+    if (!m) return '';
+    let h = +m[2] % 12; if ((m[4] || '').toLowerCase() === 'pm') h += 12; if (!m[4] && +m[2] === 12) h = 12;
+    const d = new Date(); d.setSeconds(0, 0); d.setHours(h, +(m[3] || 0));
+    if (m[1]) { const want = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'].indexOf(m[1].toLowerCase().slice(0, 3)); while (d.getDay() !== want || d <= new Date()) d.setDate(d.getDate() + 1); }
+    else while (d <= new Date()) d.setDate(d.getDate() + 1);
+    void weekly; return d.toISOString();
+  }
+  document.querySelector('.bar.energy').closest('.stat').addEventListener('click', async () => {
+    if (!live) return toast('Start the app first');
+    const p5 = prompt('5-hour limit: % used (from Claude\'s usage panel)', state?.usage?.percent ?? ''); if (p5 === null) return;
+    const r5 = prompt('5-hour limit resets at (e.g. 3:00 AM)', ''); if (r5 === null) return;
+    const pw = prompt('Weekly limit: % used', state?.usage?.weeklyPercent ?? ''); if (pw === null) return;
+    const rw = prompt('Weekly limit resets (e.g. Tue 4:00 AM)', ''); if (rw === null) return;
+    try {
+      const r = await fetch('/api/usage', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ percent: p5, resetsAt: nextTime(r5), weeklyPercent: pw, weeklyResetsAt: nextTime(rw, true) }) });
+      if (!r.ok) throw new Error(); lastJSON = ''; await poll(); toast('⚡ Energy updated');
+    } catch { toast('Could not save usage'); }
+  });
 
   // ---------- panels ----------
   function render(s, prev) {

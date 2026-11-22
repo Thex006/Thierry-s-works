@@ -14,6 +14,9 @@ const TYPES = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascrip
 const readState = () => JSON.parse(fs.readFileSync(STATE, 'utf8'));
 // Operator -> Claude messages live in their own file so the app and Claude never overwrite each other's state.json edits.
 const INBOX = path.join(__dirname, '..', 'inbox.json');
+// Real usage numbers (from Claude's usage panel), kept private and out of git.
+const USAGE = path.join(__dirname, '..', 'private', 'usage.json');
+const readUsage = () => { try { return JSON.parse(fs.readFileSync(USAGE, 'utf8')); } catch { return {}; } };
 const readInbox = () => { try { return JSON.parse(fs.readFileSync(INBOX, 'utf8')); } catch { return []; } };
 const writeState = (s) => {
   const tmp = STATE + '.tmp';
@@ -45,6 +48,7 @@ const server = http.createServer((req, res) => {
     try {
       const s = readState(), stop = readStop();
       s.inbox = readInbox();
+      s.usage = { ...(s.usage || {}), ...readUsage() };
       if (stop) { s.stopped = { since: stop.since || null }; s.activity = { type: 'break', bet: '', label: 'On a break: paused by Thierry. No work until he says so.', since: stop.since }; }
       return send(res, 200, s);
     } catch (e) { return send(res, 500, { error: e.message }); }
@@ -60,6 +64,24 @@ const server = http.createServer((req, res) => {
   if (url.pathname === '/api/resume' && req.method === 'POST') {
     try { fs.rmSync(STOP, { force: true }); } catch (e) { return send(res, 500, { error: e.message }); }
     return send(res, 200, { stopped: false });
+  }
+
+  // Operator (or worker) records real usage: { percent, resetsAt, weeklyPercent, weeklyResetsAt }
+  if (url.pathname === '/api/usage' && req.method === 'POST') {
+    let body = '';
+    req.on('data', (c) => { body += c; if (body.length > 1e4) req.destroy(); });
+    req.on('end', () => {
+      try {
+        const j = JSON.parse(body || '{}'), u = readUsage();
+        for (const k of ['percent', 'weeklyPercent']) if (j[k] !== undefined && j[k] !== '') u[k] = Math.max(0, Math.min(100, Number(j[k])));
+        for (const k of ['resetsAt', 'weeklyResetsAt']) if (j[k]) u[k] = String(j[k]);
+        u.updated = new Date().toISOString();
+        fs.mkdirSync(path.dirname(USAGE), { recursive: true });
+        fs.writeFileSync(USAGE, JSON.stringify(u, null, 2) + '\n');
+        send(res, 200, u);
+      } catch (e) { send(res, 400, { error: e.message }); }
+    });
+    return;
   }
 
   // Operator texts Claude: { text }. Claude picks it up, the team works on it, and Claude replies in inbox.json.
