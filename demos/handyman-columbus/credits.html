@@ -11,13 +11,13 @@
 <meta property="og:image" content="share.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<meta name="theme-color" content="#dfdedb">
+<meta name="theme-color" content="#efe9e0">
 <!-- <link rel="canonical" href="https://[the client's domain]/"> -->
 <meta name="site-kind" content="other">
 <meta name="page-type" content="service">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400..700&family=Hanken+Grotesk:wght@400..600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400..700&family=Red+Hat+Text:wght@400..600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/system.css">
 <link rel="stylesheet" href="assets/ui/cards.css">
 <link rel="stylesheet" href="assets/motion/motion.css">
@@ -26,19 +26,21 @@
 <link rel="stylesheet" href="assets/icons/icon.css">
 <style>
 :root {
-  --p-bg: #dfdedb; --p-surface: #d3d2ce; --p-ink: #26251e; --p-muted: #5a5850;
-  --p-accent: #2456d6; --p-accent-ink: #ffffff; --p-action: #2456d6; --p-action-ink: #ffffff;
-  --p-inv-bg: #26251e; --p-inv-surface: #313029; --p-inv-ink: #dfdedb; --p-inv-muted: #9e9d99;
-  --p-inv-accent: #dfdedb; --p-inv-accent-ink: #26251e; --p-inv-action: #dfdedb; --p-inv-action-ink: #26251e;
-  --font-display: "Newsreader", Georgia, serif;
-  --font-text: "Hanken Grotesk", system-ui, sans-serif;
+  --p-bg: #efe9e0; --p-surface: #e2d9cb; --p-ink: #22261f; --p-muted: #5a5c53;
+  --p-accent: #2e5b44; --p-accent-ink: #ffffff; --p-action: #2e5b44; --p-action-ink: #ffffff;
+  --p-inv-bg: #22261f; --p-inv-surface: #2e322a; --p-inv-ink: #efe9e0; --p-inv-muted: #a19e96;
+  --p-inv-accent: #efe9e0; --p-inv-accent-ink: #22261f; --p-inv-action: #efe9e0; --p-inv-action-ink: #22261f;
+  --font-display: "Red Hat Display", system-ui, sans-serif;
+  --font-text: "Red Hat Text", system-ui, sans-serif;
   --display-weight: 400;
-  --display-tracking: -0.018em;
-  --display-tracking-xl: -0.025em;
-  --ly-scale: 1.06;
+  --display-tracking: -0.025em;
+  --display-tracking-xl: -0.035em;
 }
 </style>
-<style>#areas .frame, #quote .frame { aspect-ratio: 4 / 5; }</style>
+<style>
+  /* the full name does not fit the phone bar beside the button (system.css: 17 characters or more) */
+  @media (max-width: 639px) { .logo-tail { display: none; } }
+</style>
 <script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
 <script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
 <link rel="modulepreload" href="assets/moments/moments.js">
@@ -47,14 +49,14 @@
 </head>
 <body>
 <!-- type: service
-     deal: hero split, nav nav-mega, close close-type, footer footer-visit, rhythm space, buttons solid, mark wordmark, grounds none
-     palette stone-blueprint (a builder's grey with blueprint blue: plain and trade-like), type newsreader
-     moments: word-highlight in #promise -->
+     deal: hero split, nav nav-centre, close close-type (close-photo dealt first, re-dealt: no photograph left for it), footer footer-visit, rhythm space, buttons solid, mark ring, grounds none
+     palette clay-pine (warm stone like plaster and sawn timber, a pine green accent: plain and trade-like), type red-hat
+     moments: word-highlight in #promise (pinned-chapters was dealt first and re-dealt: the page lacks three more photographs) -->
 
-<header class="nav">
+<header class="nav nav--centre">
   <div class="wrap nav__bar">
     <a class="skip-link" href="#top">Skip to content</a>
-    <a class="nav__logo" href="#top">Handyman Services in Columbus</a>
+    <a class="nav__logo" href="#top"><span class="mark" data-mark="ring" aria-hidden="true"></span>Handyman<span class="logo-tail"> Services in Columbus</span></a>
     <nav class="nav__links" aria-label="Main">
       <div class="nav__item">
         <a class="nav__link" href="#services">Services <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
@@ -63,8 +65,7 @@
             <div class="menu-col span-3">
               <p class="t-label">Inside</p>
               <a href="#services">Plumbing and electrical<span>Leaks, fixtures, outlets, appliances</span></a>
-              <a href="#services">Drywall and ceilings<span>Holes, cracks, textured ceilings</span></a>
-              <a href="#services">Tile and flooring<span>Bathrooms, kitchens and hallways</span></a>
+              <a href="#services">Walls, ceilings and floors<span>Drywall, textured ceilings, tile</span></a>
             </div>
             <div class="menu-col span-3">
               <p class="t-label">Outside</p>
@@ -72,7 +73,7 @@
               <a href="#services">Gutters, fences and gates<span>Vents and concrete repairs too</span></a>
             </div>
             <a class="menu-card span-3 start-10" href="#commercial">
-              <div class="panel"><img class="frame__img" src="assets/img/photo-f49507475-500.webp" alt="Two workers in canvas jackets setting a fence rail on a work site" loading="lazy"></div>
+              <div class="panel"><img class="frame__img" src="assets/img/photo-f49507475-500.webp" alt="Two workers in canvas jackets setting a fence rail on a work site"></div>
               <span class="t-card">Commercial maintenance</span>
               <span class="t-small muted">Offices, sites and HUD properties</span>
             </a>
@@ -101,11 +102,10 @@
       <li><a href="https://commons.wikimedia.org/wiki/File:Carpenters_repair_a_door_arp.jpg">Adrian Pingstone ( Arpingstone )</a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/">Public domain</a></li>
       <li><a href="https://commons.wikimedia.org/wiki/File:Carpenter_measuring_a_piece_of_wood_in_his_workshop.jpg">Shixart1985</a>, <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a></li>
       <li><a href="https://commons.wikimedia.org/wiki/File:Front_porch_-_James_Bell_House_(34314947584).jpg">Tim Evanson from Cleveland Heights, Ohio, USA</a>, <a href="https://creativecommons.org/licenses/by-sa/2.0">CC BY-SA 2.0</a></li>
-      <li><a href="https://commons.wikimedia.org/wiki/File:NMCB_4_Seabees_Rennovate_Office_Spaces,_Osan,_South_Korea_(9391397).jpg">U.S. Navy NMCB4 by Petty Officer 1st Class Justin Rayburn</a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/">Public domain</a></li>
       <li><a href="https://commons.wikimedia.org/wiki/File:USS_Nimitz_Sailors_participate_in_community_build_150117-N-JY507-003.jpg">Petty Officer 3rd Class Seth Coulter</a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/">Public domain</a></li>
       <li><a href="https://commons.wikimedia.org/wiki/File:Assembly_required_150106-F-MJ664-080.jpg">Senior Airman Joshua Eikren</a>, <a href="https://creativecommons.org/publicdomain/mark/1.0/">Public domain</a></li>
-      <li><a href="https://commons.wikimedia.org/wiki/File:Soldier_repairs_a_leaky_sink_at_the_Manatuto_Maternity_Clinic.jpg">U.S. Navy photo by Steelworker 3rd Class Calvin Johnson</a>, <a href="https://creativecommons.org/licenses/by-sa/2.0">CC BY-SA 2.0</a></li>
       <li><a href="https://commons.wikimedia.org/wiki/File:Feb_2015_Fence_repair_project_shoring_up_weak_braces_adding_new_slats.JPG">Tomwsulcer</a>, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a></li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:Plumber_at_work_2010_USA.jpg">ocean yamaha</a>, <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a></li>
     </ul>
   </section>
 </main>
@@ -115,7 +115,7 @@
     <div class="closing__cta close--type">
       <div class="section-head">
         <h2 id="close-h">Get the repair list done</h2>
-        <p>We reply within a working day, and answer emergencies around the clock.</p>
+        <p>Weekdays 9 AM to 5 PM, emergencies around the clock.</p>
       </div>
       <a class="btn btn--primary btn--xl btn--wide" href="#quote">Request a quote<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
     </div>
@@ -137,10 +137,6 @@
     </div>
   </div>
 </footer>
-
-<nav class="actionbar" aria-label="Quick actions">
-  <a class="btn btn--primary" href="#quote">Request a quote</a>
-</nav>
 
 <script type="module" src="assets/system.js"></script>
 <script type="module" src="assets/motion/motion.js"></script>

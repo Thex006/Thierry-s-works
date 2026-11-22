@@ -147,6 +147,51 @@
    "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
    "page": "https://commons.wikimedia.org/wiki/File:Feb_2015_Fence_repair_project_shoring_up_weak_braces_adding_new_slats.JPG",
    "source": "Wikimedia Commons"
+  },
+  {
+   "file": "photo-f101123508.webp",
+   "files": [
+    "photo-f101123508-500.webp",
+    "photo-f101123508-960.webp",
+    "photo-f101123508.webp"
+   ],
+   "id": "f101123508",
+   "alt": "Mid-City New Orleans Bathroom - De-Floored",
+   "by": "Bart Everson",
+   "licence": "CC BY 2.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by/2.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Mid-City_New_Orleans_Bathroom_-_De-Floored.jpg",
+   "source": "Wikimedia Commons"
+  },
+  {
+   "file": "photo-f142516128.webp",
+   "files": [
+    "photo-f142516128-500.webp",
+    "photo-f142516128-960.webp",
+    "photo-f142516128.webp"
+   ],
+   "id": "f142516128",
+   "alt": "Plumber at work 2010 USA",
+   "by": "ocean yamaha",
+   "licence": "CC BY 2.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by/2.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Plumber_at_work_2010_USA.jpg",
+   "source": "Wikimedia Commons"
+  },
+  {
+   "file": "photo-f50708061.webp",
+   "files": [
+    "photo-f50708061-500.webp",
+    "photo-f50708061-960.webp",
+    "photo-f50708061.webp"
+   ],
+   "id": "f50708061",
+   "alt": "Electrician installing socket",
+   "by": "Santeri Viinamäki",
+   "licence": "CC BY-SA 4.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Electrician_installing_socket.jpg",
+   "source": "Wikimedia Commons"
   }
  ]
 }

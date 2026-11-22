@@ -124,11 +124,11 @@
    "consoleErrors": []
   },
   "mobile": {
-   "width": 390,
-   "height": 844,
+   "width": 375,
+   "height": 812,
    "navH": 56,
-   "scrollHeight": 9284,
-   "screens": 11,
+   "scrollHeight": 6348,
+   "screens": 7.82,
    "sections": [
     {
      "n": 1,
@@ -136,7 +136,7 @@
      "id": "",
      "cls": "hero hero--split is-still is-entered",
      "top": 0,
-     "h": 844,
+     "h": 812,
      "hScreens": 1,
      "offGrid": 0,
      "tiles": [
@@ -151,18 +151,18 @@
      "tag": "section",
      "id": "services",
      "cls": "section",
-     "top": 844,
-     "h": 1688,
-     "hScreens": 2,
-     "offGrid": 0,
+     "top": 812,
+     "h": 904,
+     "hScreens": 1.11,
+     "offGrid": 92,
      "tiles": [
       {
        "file": "mobile-sec-02-a.jpg",
-       "scrollY": 844
+       "scrollY": 812
       },
       {
        "file": "mobile-sec-02-b.jpg",
-       "scrollY": 1688
+       "scrollY": 904
       }
      ]
     },
@@ -171,18 +171,14 @@
      "tag": "section",
      "id": "commercial",
      "cls": "section",
-     "top": 2532,
-     "h": 1688,
-     "hScreens": 2,
+     "top": 1716,
+     "h": 812,
+     "hScreens": 1,
      "offGrid": 0,
      "tiles": [
       {
        "file": "mobile-sec-03-a.jpg",
-       "scrollY": 2532
-      },
-      {
-       "file": "mobile-sec-03-b.jpg",
-       "scrollY": 3376
+       "scrollY": 1716
       }
      ]
     },
@@ -191,14 +187,14 @@
      "tag": "section",
      "id": "promise",
      "cls": "section statement mo-wh",
-     "top": 4220,
-     "h": 844,
+     "top": 2528,
+     "h": 812,
      "hScreens": 1,
      "offGrid": 0,
      "tiles": [
       {
        "file": "mobile-sec-04-a.jpg",
-       "scrollY": 4220
+       "scrollY": 2528
       }
      ]
     },
@@ -207,18 +203,18 @@
      "tag": "section",
      "id": "areas",
      "cls": "section",
-     "top": 5064,
-     "h": 1688,
-     "hScreens": 2,
-     "offGrid": 0,
+     "top": 3340,
+     "h": 944,
+     "hScreens": 1.16,
+     "offGrid": 132,
      "tiles": [
       {
        "file": "mobile-sec-05-a.jpg",
-       "scrollY": 5064
+       "scrollY": 3340
       },
       {
        "file": "mobile-sec-05-b.jpg",
-       "scrollY": 5908
+       "scrollY": 3472
       }
      ]
     },
@@ -227,18 +223,18 @@
      "tag": "section",
      "id": "quote",
      "cls": "section",
-     "top": 6752,
-     "h": 1688,
-     "hScreens": 2,
-     "offGrid": 0,
+     "top": 4284,
+     "h": 1253,
+     "hScreens": 1.54,
+     "offGrid": 441,
      "tiles": [
       {
        "file": "mobile-sec-06-a.jpg",
-       "scrollY": 6752
+       "scrollY": 4284
       },
       {
        "file": "mobile-sec-06-b.jpg",
-       "scrollY": 7596
+       "scrollY": 4725
       }
      ]
     },
@@ -247,14 +243,14 @@
      "tag": "footer",
      "id": "contact",
      "cls": "footer closing footer--visit",
-     "top": 8440,
-     "h": 844,
+     "top": 5536,
+     "h": 812,
      "hScreens": 1,
      "offGrid": 0,
      "tiles": [
       {
        "file": "mobile-sec-07-a.jpg",
-       "scrollY": 8440
+       "scrollY": 5536
       }
      ]
     }
@@ -262,5 +258,5 @@
    "consoleErrors": []
   }
  },
- "at": "2026-11-22T10:10:52.858Z"
+ "at": "2026-11-22T11:04:30.553Z"
 }

@@ -4,20 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Handyman Services in Columbus: home and commercial repairs in central Ohio</title>
-<meta name="description" content="Plumbing, electrical, drywall, wood and tile repairs for Columbus homes and commercial properties, with 24-hour emergency service.">
+<meta name="description" content="Plumbing, electrical, drywall, wood and outside repairs for Columbus homes and commercial properties, with 24-hour emergency service.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Handyman Services in Columbus">
 <meta property="og:description" content="One insured crew for repairs across Franklin County and six more central Ohio counties.">
 <meta property="og:image" content="share.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<meta name="theme-color" content="#dfdedb">
+<meta name="theme-color" content="#efe9e0">
 <!-- <link rel="canonical" href="https://[the client's domain]/"> -->
 <meta name="site-kind" content="other">
 <meta name="page-type" content="service">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400..700&family=Hanken+Grotesk:wght@400..600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400..700&family=Red+Hat+Text:wght@400..600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/system.css">
 <link rel="stylesheet" href="assets/ui/cards.css">
 <link rel="stylesheet" href="assets/motion/motion.css">
@@ -26,22 +26,25 @@
 <link rel="stylesheet" href="assets/icons/icon.css">
 <style>
 :root {
-  --p-bg: #dfdedb; --p-surface: #d3d2ce; --p-ink: #26251e; --p-muted: #5a5850;
-  --p-accent: #2456d6; --p-accent-ink: #ffffff; --p-action: #2456d6; --p-action-ink: #ffffff;
-  --p-inv-bg: #26251e; --p-inv-surface: #313029; --p-inv-ink: #dfdedb; --p-inv-muted: #9e9d99;
-  --p-inv-accent: #dfdedb; --p-inv-accent-ink: #26251e; --p-inv-action: #dfdedb; --p-inv-action-ink: #26251e;
-  --font-display: "Newsreader", Georgia, serif;
-  --font-text: "Hanken Grotesk", system-ui, sans-serif;
+  --p-bg: #efe9e0; --p-surface: #e2d9cb; --p-ink: #22261f; --p-muted: #5a5c53;
+  --p-accent: #2e5b44; --p-accent-ink: #ffffff; --p-action: #2e5b44; --p-action-ink: #ffffff;
+  --p-inv-bg: #22261f; --p-inv-surface: #2e322a; --p-inv-ink: #efe9e0; --p-inv-muted: #a19e96;
+  --p-inv-accent: #efe9e0; --p-inv-accent-ink: #22261f; --p-inv-action: #efe9e0; --p-inv-action-ink: #22261f;
+  --font-display: "Red Hat Display", system-ui, sans-serif;
+  --font-text: "Red Hat Text", system-ui, sans-serif;
   --display-weight: 400;
-  --display-tracking: -0.018em;
-  --display-tracking-xl: -0.025em;
-  --ly-scale: 1.06;
+  --display-tracking: -0.025em;
+  --display-tracking-xl: -0.035em;
 }
 </style>
 <style>
-@media (min-width: 1024px) { #areas .frame, #quote .frame { aspect-ratio: 4 / 5; } }
-/* stacked: the grid's own height counts, so the photo never runs under the next section */
-@media (max-width: 1023px) { #areas .fill, #quote .fill { flex: none; } #areas .frame, #quote .frame { aspect-ratio: 3 / 2; } }
+  /* the full name does not fit the bar under 1200px beside the button (system.css: 17 characters or more) */
+  @media (max-width: 1199px) { .logo-tail { display: none; } }
+  /* stacked on a phone the photograph keeps its own 3:2 height, so it never runs into the next section */
+  @media (max-width: 639px) { #services .fill, #commercial .fill, #quote .fill { flex: none; } #services .frame--fill, #commercial .frame--fill, #quote .frame { height: auto; aspect-ratio: 3 / 2; } }
+  /* the quote photo keeps the rows' air above it; each field starts at its own label */
+  #quote .fill { margin-top: var(--s-6); }
+  #quote .form .field { align-self: start; }
 </style>
 <script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
 <script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
@@ -51,14 +54,14 @@
 </head>
 <body>
 <!-- type: service
-     deal: hero split, nav nav-mega, close close-type, footer footer-visit, rhythm space, buttons solid, mark wordmark, grounds none
-     palette stone-blueprint (a builder's grey with blueprint blue: plain and trade-like), type newsreader
-     moments: word-highlight in #promise -->
+     deal: hero split, nav nav-centre, close close-type (close-photo dealt first, re-dealt: no photograph left for it), footer footer-visit, rhythm space, buttons solid, mark ring, grounds none
+     palette clay-pine (warm stone like plaster and sawn timber, a pine green accent: plain and trade-like), type red-hat
+     moments: word-highlight in #promise (pinned-chapters was dealt first and re-dealt: the page lacks three more photographs) -->
 
-<header class="nav">
+<header class="nav nav--centre">
   <div class="wrap nav__bar">
     <a class="skip-link" href="#top">Skip to content</a>
-    <a class="nav__logo" href="#top">Handyman Services in Columbus</a>
+    <a class="nav__logo" href="#top"><span class="mark" data-mark="ring" aria-hidden="true"></span><span>Handyman<span class="logo-tail"> in Columbus</span></span></a>
     <nav class="nav__links" aria-label="Main">
       <div class="nav__item">
         <a class="nav__link" href="#services">Services <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
@@ -67,8 +70,7 @@
             <div class="menu-col span-3">
               <p class="t-label">Inside</p>
               <a href="#services">Plumbing and electrical<span>Leaks, fixtures, outlets, appliances</span></a>
-              <a href="#services">Drywall and ceilings<span>Holes, cracks, textured ceilings</span></a>
-              <a href="#services">Tile and flooring<span>Bathrooms, kitchens and hallways</span></a>
+              <a href="#services">Walls, ceilings and floors<span>Drywall, textured ceilings, tile</span></a>
             </div>
             <div class="menu-col span-3">
               <p class="t-label">Outside</p>
@@ -76,7 +78,7 @@
               <a href="#services">Gutters, fences and gates<span>Vents and concrete repairs too</span></a>
             </div>
             <a class="menu-card span-3 start-10" href="#commercial">
-              <div class="panel"><img class="frame__img" src="assets/img/photo-f49507475-500.webp" alt="Two workers in canvas jackets setting a fence rail on a work site" loading="lazy"></div>
+              <div class="panel"><img class="frame__img" src="assets/img/photo-f49507475-500.webp" alt="Two workers in canvas jackets setting a fence rail on a work site"></div>
               <span class="t-card">Commercial maintenance</span>
               <span class="t-small muted">Offices, sites and HUD properties</span>
             </a>
@@ -102,7 +104,7 @@
       <div class="hero__text span-5">
         <p class="hero__kicker"><span class="dot" aria-hidden="true"></span>Emergency repairs 24 hours a day</p>
         <h1 id="hero-h">Handyman service in Columbus, Ohio</h1>
-        <p class="hero__lead">Plumbing, electrical, drywall and painting for homes, small offices and commercial properties across Franklin County. One insured crew, one call.</p>
+        <p class="hero__lead">Plumbing, electrical, drywall and painting for homes, offices and commercial sites in Franklin County. One insured crew.</p>
         <div class="btn-row"><a class="btn btn--primary" href="#quote">Request a quote<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a><a class="btn btn--secondary" href="#services">See services</a></div>
       </div>
       <div class="hero__media span-6 start-7">
@@ -115,29 +117,27 @@
     </div></div>
   </section>
 
-  <section class="section" id="services" style="--hm: 2" aria-labelledby="services-h">
+  <section class="section" id="services" aria-labelledby="services-h">
     <div class="wrap">
       <div class="section-head"><h2 id="services-h">Repairs we handle. <span class="muted">One call for most of the house.</span></h2></div>
       <div class="grid grid--top fill" data-peek>
         <ul class="rows span-6">
           <li data-peek-to="plumb" tabindex="0"><span class="rows__name">Plumbing and electrical</span><p>Leaks, fixtures, outlets and switches, plus appliance installation.</p></li>
-          <li data-peek-to="drywall" tabindex="0"><span class="rows__name">Drywall and ceilings</span><p>Holes, cracks, acoustic and textured ceilings, then paint to match.</p></li>
+          <li data-peek-to="walls" tabindex="0"><span class="rows__name">Walls, ceilings and floors</span><p>Drywall holes, textured ceilings, tile and flooring, then paint to match.</p></li>
           <li data-peek-to="wood" tabindex="0"><span class="rows__name">Wood, siding and windows</span><p>Rotten wood, siding panels and window glazing before winter.</p></li>
-          <li data-peek-to="tile" tabindex="0"><span class="rows__name">Tile and flooring</span><p>Bathrooms, kitchens and hallways, with cabinetry and door hardware.</p></li>
-          <li data-peek-to="outside" tabindex="0"><span class="rows__name">Outside work</span><p>Gutter cleaning, dryer vents, fences, gates and concrete repairs.</p></li>
+          <li data-peek-to="outside" tabindex="0"><span class="rows__name">Gutters, fences and gates</span><p>Gutter cleaning, dryer vents and concrete repairs.</p></li>
         </ul>
         <div class="frame frame--photo frame--fill span-6 start-7">
-          <img class="frame__img" data-peek-for="plumb" src="assets/img/photo-f30031487-960.webp" alt="A plumber fixing the pipes under a leaking sink" loading="lazy" data-source="stand-in" data-subject="sink repair">
-          <img class="frame__img" data-peek-for="drywall" src="assets/img/photo-f162956923-960.webp" alt="A man patching a drywall wall beside a taped window" loading="lazy" hidden data-source="library" data-subject="drywall repair">
+          <img class="frame__img" data-peek-for="plumb" src="assets/img/photo-f142516128-960.webp" alt="A plumber in a cap working on the drain pipes under a sink" loading="lazy" data-source="stand-in" data-subject="sink repair">
+          <img class="frame__img" data-peek-for="walls" src="assets/img/photo-f162956923-960.webp" alt="A man patching a drywall wall beside a taped window" loading="lazy" hidden data-source="library" data-subject="drywall repair">
           <img class="frame__img" data-peek-for="wood" src="assets/img/photo-f201834420-960.webp" alt="A carpenter measuring a length of wood in a workshop" loading="lazy" hidden data-source="library" data-subject="carpentry">
-          <img class="frame__img" data-peek-for="tile" src="assets/img/photo-f179903215-960.webp" alt="A crew renovating an office room" loading="lazy" hidden data-source="library" data-subject="interior renovation">
           <img class="frame__img" data-peek-for="outside" src="assets/img/photo-f38637177-960.webp" alt="A backyard wooden fence with new slats and braces fitted" loading="lazy" hidden data-source="stand-in" data-subject="fence repair">
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section" id="commercial" style="--hm: 2" aria-labelledby="commercial-h">
+  <section class="section" id="commercial" aria-labelledby="commercial-h">
     <div class="wrap">
       <div class="grid grid--top fill">
         <div class="span-5 stack-6">
@@ -148,7 +148,6 @@
             <li><span>Insurance</span><span>Certificate for corporate clients on request</span></li>
             <li><span>Emergencies</span><span>24 hours, every day</span></li>
           </ul>
-          <div class="btn-row"><a class="btn btn--secondary" href="#quote">Ask about a maintenance contract</a></div>
         </div>
         <div class="frame frame--photo frame--fill span-6 start-7">
           <img class="frame__img" src="assets/img/photo-f49507475.webp" alt="Two workers in canvas jackets setting a fence rail on a work site" loading="lazy" data-source="library" data-subject="a crew on a commercial site">
@@ -160,13 +159,13 @@
   <section class="section statement" id="promise" data-moment="word-highlight" aria-label="How we work">
     <div class="wrap">
       <p class="t-label">How we work</p>
-      <p class="mo-wh__text">Tell us what broke and where. We quote the job before we start, bring the tools for the whole list, and a pipe that bursts on a Sunday night still gets <strong>an answer</strong>.</p>
+      <p class="mo-wh__text">Tell us what broke and where. We price the bigger jobs before we start, bring the tools for the whole list, and a pipe that bursts on a Sunday night still gets <strong>an answer</strong>.</p>
     </div>
   </section>
 
-  <section class="section" id="areas" style="--hm: 2" aria-labelledby="areas-h">
+  <section class="section" id="areas" aria-labelledby="areas-h">
     <div class="wrap">
-      <div class="grid grid--top fill">
+      <div class="grid grid--middle">
         <div class="span-5 stack-6">
           <h2 id="areas-h">Areas we serve across central Ohio</h2>
           <p class="t-lead">Seven counties around Columbus, including German Village, the Short North and the University District.</p>
@@ -177,42 +176,44 @@
             <li><span>Fairfield and Pickaway</span><span>South of the city</span></li>
           </ul>
         </div>
-        <div class="frame frame--photo span-6 start-7">
-          <img class="frame__img" src="assets/img/photo-f59702318-960.webp" alt="A painted wooden front porch on an Ohio house" loading="lazy" data-source="library" data-subject="an Ohio house">
+        <div class="frame frame--photo span-6 start-7" style="--ratio: 95%">
+          <img class="frame__img" src="assets/img/photo-f59702318-960.webp" alt="A brick house with a stone front porch and steps" loading="lazy" data-source="library" data-subject="an Ohio house">
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section" id="quote" style="--hm: 2" aria-labelledby="quote-h">
+  <section class="section" id="quote" aria-labelledby="quote-h">
     <div class="wrap">
-      <div class="grid grid--top fill">
+      <div class="grid grid--top">
         <div class="span-5 stack-6">
           <h2 id="quote-h">Request a quote for your repair</h2>
+          <p class="t-lead">Write a line about the job and where it is. We reply within a working day.</p>
           <ul class="visit__rows">
             <li><span>Detailed estimate</span><span>$50 service call</span></li>
             <li><span>Jobs over $400</span><span>Up to 50% down</span></li>
+            <li><span>Emergencies</span><span>24 hours</span></li>
           </ul>
-          <form class="form" action="mailto:quotes@handymanincolumbus.example" method="post" enctype="text/plain" data-endpoint="" data-sent="Your quote request is in. We reply within a working day." novalidate>
-            <div class="field"><label for="f-name">Name</label>
-              <input id="f-name" name="name" type="text" autocomplete="name" required aria-describedby="f-name-err">
-              <p class="field__error" id="f-name-err" hidden>Write the name we should ask for.</p></div>
-            <div class="field"><label for="f-email">Email</label>
-              <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="f-email-err">
-              <p class="field__error" id="f-email-err" hidden>Write an email address with an @, like name@example.com.</p></div>
-            <div class="field"><label for="f-where">Address or neighbourhood</label>
-              <input id="f-where" name="where" type="text" autocomplete="street-address" required aria-describedby="f-where-err">
-              <p class="field__error" id="f-where-err" hidden>Write where the job is, a street or a neighbourhood.</p></div>
-            <div class="field"><label for="f-job">What needs fixing</label>
-              <textarea id="f-job" name="job" rows="3" required aria-describedby="f-job-err"></textarea>
-              <p class="field__error" id="f-job-err" hidden>Write a line about the repair.</p></div>
-            <div class="btn-row"><button class="btn btn--primary" type="submit">Request a quote</button></div>
-            <p class="form__status" role="status" data-form-status></p>
-          </form>
         </div>
-        <div class="frame frame--photo span-6 start-7">
-          <img class="frame__img" src="assets/img/photo-f41143464.webp" alt="A worker kneeling at a wall with a power screwdriver" loading="lazy" data-source="library" data-subject="repair work at a wall">
-        </div>
+        <form class="form span-6 start-7" action="mailto:quotes@handymanincolumbus.example" method="post" enctype="text/plain" data-endpoint="" data-sent="Your quote request is in. We reply within a working day." novalidate>
+          <div class="field"><label for="f-name">Name</label>
+            <input id="f-name" name="name" type="text" autocomplete="name" required aria-describedby="f-name-err">
+            <p class="field__error" id="f-name-err" hidden>Write the name we should ask for.</p></div>
+          <div class="field"><label for="f-email">Email</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="f-email-err">
+            <p class="field__error" id="f-email-err" hidden>Write an email address with an @, like name@example.com.</p></div>
+          <div class="field"><label for="f-where">Address or neighbourhood</label>
+            <input id="f-where" name="where" type="text" autocomplete="street-address" required aria-describedby="f-where-err">
+            <p class="field__error" id="f-where-err" hidden>Write where the job is, a street or a neighbourhood.</p></div>
+          <div class="field"><label for="f-job">What needs fixing</label>
+            <textarea id="f-job" name="job" rows="3" required aria-describedby="f-job-err"></textarea>
+            <p class="field__error" id="f-job-err" hidden>Write a line about the repair.</p></div>
+          <div class="btn-row"><button class="btn btn--primary" type="submit">Request a quote</button></div>
+          <p class="form__status" role="status" data-form-status></p>
+        </form>
+      </div>
+      <div class="frame frame--photo fill">
+        <img class="frame__img" src="assets/img/photo-f41143464.webp" alt="A worker kneeling at a wall with a power screwdriver" style="object-position: 70% 60%" loading="lazy" data-source="library" data-subject="repair work at a wall">
       </div>
     </div>
   </section>
@@ -223,7 +224,7 @@
     <div class="closing__cta close--type">
       <div class="section-head">
         <h2 id="close-h">Get the repair list done</h2>
-        <p>We reply within a working day, and answer emergencies around the clock.</p>
+        <p>Weekdays 9 AM to 5 PM, emergencies around the clock.</p>
       </div>
       <a class="btn btn--primary btn--xl btn--wide" href="#quote">Request a quote<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
     </div>
@@ -245,10 +246,6 @@
     </div>
   </div>
 </footer>
-
-<nav class="actionbar" aria-label="Quick actions">
-  <a class="btn btn--primary" href="#quote">Request a quote</a>
-</nav>
 
 <script type="module" src="assets/system.js"></script>
 <script type="module" src="assets/motion/motion.js"></script>
