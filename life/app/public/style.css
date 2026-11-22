@@ -223,3 +223,5 @@ body.is-stopped .stage { filter: grayscale(.8) brightness(.7); }
 .msg-form textarea { min-height: 70px; margin: 0; }
 
 .floater.note { color: #ffc857; font-size: clamp(12px, 1.6vw, 18px); }
+
+.stat label .note { font-family: Nunito, sans-serif; font-size: 11px; text-transform: none; color: var(--muted); }

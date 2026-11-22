@@ -632,6 +632,27 @@
   }
   function toast(msg) { const el = $('toast'); el.textContent = msg; el.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove('show'), 3500); }
 
+  // Energy = what's left of the 5-hour Claude usage window.
+  // Claude writes state.usage = { windowStart, windowHours: 5, percent? } (percent = usage used, if known).
+  // With a real percent it shows that; otherwise it estimates from time left in the window.
+  function renderEnergy(s) {
+    const u = s?.usage || {}, hrs = u.windowHours || 5;
+    let energy = s?.energy ?? 100, note = '';
+    if (u.windowStart) {
+      const start = new Date(u.windowStart).getTime(), reset = start + hrs * 3600e3, left = reset - Date.now();
+      if (left <= 0) { energy = 100; note = 'refilled'; }
+      else {
+        energy = typeof u.percent === 'number' ? 100 - u.percent : Math.max(0, Math.min(100, left / (hrs * 3600e3) * 100));
+        const h = Math.floor(left / 3600e3), m = Math.floor(left % 3600e3 / 60000);
+        note = `· resets ${new Date(reset).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} (${h ? h + 'h ' : ''}${m}m)`;
+      }
+    }
+    if (s?.activity?.type === 'sleep' && !u.windowStart) note = '· sleeping';
+    $('energyBar').style.width = Math.max(0, Math.min(100, energy)) + '%';
+    $('energyBar').style.backgroundColor = energy < 15 ? 'var(--red)' : energy < 40 ? 'var(--gold)' : '';
+    $('energyNote').textContent = note;
+  }
+
   // ---------- panels ----------
   function render(s, prev) {
     $('name').textContent = s.name || 'Claude';
@@ -639,7 +660,7 @@
     const lives = Math.max(0, s.lives | 0);
     $('lives').innerHTML = Array.from({ length: lives }, () => '<span class="h">❤️</span>').join('') + '<span class="h empty" title="Next life">❤️</span>';
     $('balance').textContent = money(s.balance);
-    $('energyBar').style.width = Math.max(0, Math.min(100, s.energy ?? 100)) + '%';
+    renderEnergy(s);
     const { next } = milestones(s.balance || 0);
     $('xpLabel').textContent = `Next life at ${money(next).replace('.00', '')}`;
     $('xpBar').style.width = progress() * 100 + '%';
@@ -805,7 +826,7 @@
     }
   }
   setInterval(() => { const d = new Date(); $('clock').textContent = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }, 1000);
-  setInterval(poll, 3000); setInterval(() => state && ($('nowSince').textContent = state.activity?.since ? 'since ' + ago(state.activity.since) : ''), 30000);
+  setInterval(poll, 3000); setInterval(() => state && renderEnergy(state), 30000); setInterval(() => state && ($('nowSince').textContent = state.activity?.since ? 'since ' + ago(state.activity.since) : ''), 30000);
   poll();
   requestAnimationFrame(frame);
 })();

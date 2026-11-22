@@ -18,6 +18,13 @@ end the session. Only the operator resumes (the "Let Claude work again" button, 
 3. Pick today's 1–3 most valuable tasks from `STRATEGY.md`.
    Check `state.json` → `review` for the operator's decisions and notes.
 
+## Energy (the 5-hour usage window)
+- At wake-up: if `state.usage.windowStart` is missing or more than 5 hours old, set it to now
+  (`usage: {windowStart, windowHours: 5}`). The app drains the Energy bar across the window.
+- If Claude Code can show real usage (e.g. a usage/status command), also write `usage.percent` (0–100 used).
+- When usage runs low or a limit warning appears: finish the current step, commit and push, set activity
+  `sleep` with the reset time in the label, and stop. The scheduled wake-up continues after the reset.
+
 ## Work
 Keep `state.json` live: whenever the task changes, set `activity` to
 `{type, bet, label, since}` where type is one of research | build | email | think | waiting | celebrate | meeting | break | sleep.
