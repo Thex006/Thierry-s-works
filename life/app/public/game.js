@@ -8,6 +8,19 @@
   const rand = (a, b) => a + Math.random() * (b - a);
   const pick = (a) => a[Math.floor(Math.random() * a.length)];
   const pickNew = (a, prev) => { const f = a.filter((x) => x !== prev); return pick(f.length ? f : a); };
+  // Re-render without losing what Thierry has open: <details> open/closed, typed notes, and focus survive the 3s refresh.
+  const keepOpen = (el, html) => {
+    const key = (n) => (n.closest('[data-id]')?.dataset.id || '') + '|' + (n.querySelector('summary')?.textContent || n.tagName);
+    const open = new Map([...el.querySelectorAll('details')].map((d) => [key(d), d.open]));
+    const typed = new Map([...el.querySelectorAll('textarea')].map((t) => [key(t), t.value]));
+    const f = document.activeElement, fk = el.contains(f) && f.tagName === 'TEXTAREA' ? [key(f), f.selectionStart, f.selectionEnd] : null;
+    el.innerHTML = html;
+    el.querySelectorAll('details').forEach((d) => { if (open.has(key(d))) d.open = open.get(key(d)); });
+    el.querySelectorAll('textarea').forEach((t) => {
+      if (typed.has(key(t))) t.value = typed.get(key(t));
+      if (fk && key(t) === fk[0]) { t.focus(); t.setSelectionRange(fk[1], fk[2]); }
+    });
+  };
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const place = (el, lx, ly) => { el.style.left = Math.max(6, Math.min(94, (lx + OX) / W * 100)) + '%'; el.style.top = (ly / H * 100) + '%'; };
   const shade = (hex, f) => { const n = parseInt(hex.slice(1), 16); const c = [n >> 16, (n >> 8) & 255, n & 255].map((v) => Math.min(255, Math.round(v * f))); return '#' + c.map((v) => v.toString(16).padStart(2, '0')).join(''); };
@@ -756,7 +769,7 @@
     // Thierry's local time, whatever timezone the browser is in.
     const bud = (t) => t ? new Date(t).toLocaleString('en-GB', { timeZone: 'Europe/Budapest', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : '';
     const needText = (n) => (typeof n === 'string' ? n : n?.text || '');
-    $('tab-review').innerHTML = `
+    keepOpen($('tab-review'), `
       ${(s.needs || []).length ? `<div class="row"><h3>Claude needs you</h3><button class="btn" data-clear-all>Clear all</button></div>` + s.needs.map((n) => `<div class="need"><span>🙋</span><span class="need-text">${esc(needText(n))}${n?.t ? `<small>${esc(bud(n.t))}</small>` : ''}</span><button class="btn clear" data-clear="${esc(needText(n))}" title="Clear" aria-label="Clear this item">✕</button></div>`).join('') : ''}
       <h3>Approval queue</h3>
       ${sorted.map((r) => {
@@ -773,7 +786,7 @@
           <div class="review-actions"><button class="btn ok" data-d="approved">✓ Approve</button><button class="btn warn" data-d="changes">✎ Changes</button><button class="btn no" data-d="rejected">✕ Reject</button></div>`
           : r.note ? `<p>Your note: ${esc(r.note)}</p>` : ''}
         </div>`;
-      }).join('') || '<div class="empty">Nothing to approve yet. Demos and emails show up here before they go out.</div>'}`;
+      }).join('') || '<div class="empty">Nothing to approve yet. Demos and emails show up here before they go out.</div>'}`);
 
     const inbox = s.inbox || [];
     $('msgBadge').textContent = inbox.filter((m) => m.status !== 'done').length || '';
