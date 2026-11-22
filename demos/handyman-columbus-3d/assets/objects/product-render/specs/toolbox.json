@@ -1,0 +1,28 @@
+{
+  "id": "toolbox", "name": "Tool box", "label": "An open green steel tool box with a hammer, a wrench and a screwdriver standing in it",
+  "units": "m", "angle": -30, "turn": { "mode": "sway", "amp": 18, "period": 24 }, "camera": { "elev": 14 },
+  "materials": {
+    "box": { "kind": "paint", "color": "#2e5b44", "finish": "satin" },
+    "grip": { "kind": "rubber", "color": "#1d1f1c" },
+    "yellow": { "kind": "plastic", "color": "#d9a21f", "finish": "gloss" }
+  },
+  "make": { "variants": ["three-quarter", "side"], "grounds": ["light"] },
+  "parts": [
+    { "name": "body", "type": "basket", "at": [0, 0.12, 0], "size": [0.5, 0.24, 0.24], "style": "solid", "mat": "box" },
+    { "name": "foot L", "type": "box", "at": [-0.2, 0.004, 0], "size": [0.05, 0.012, 0.22], "round": 0.004, "mat": "grip" },
+    { "name": "foot R", "type": "box", "at": [0.2, 0.004, 0], "size": [0.05, 0.012, 0.22], "round": 0.004, "mat": "grip" },
+    { "name": "latch L", "type": "box", "at": [-0.16, 0.2, 0.123], "size": [0.04, 0.045, 0.008], "round": 0.003, "mat": "chrome" },
+    { "name": "latch R", "type": "box", "at": [0.16, 0.2, 0.123], "size": [0.04, 0.045, 0.008], "round": 0.003, "mat": "chrome" },
+    { "name": "handle post L", "type": "tube", "from": [-0.21, 0.235, 0], "to": [-0.21, 0.35, 0], "r": 0.009, "mat": "steel" },
+    { "name": "handle post R", "type": "tube", "from": [0.21, 0.235, 0], "to": [0.21, 0.35, 0], "r": 0.009, "mat": "steel" },
+    { "name": "handle bar", "type": "tube", "from": [-0.21, 0.35, 0], "to": [0.21, 0.35, 0], "r": 0.009, "mat": "steel", "blend": 0.004 },
+    { "name": "handle grip", "type": "tube", "from": [-0.11, 0.35, 0], "to": [0.11, 0.35, 0], "r": 0.017, "cap": "round", "mat": "grip" },
+    { "name": "hammer handle", "type": "tube", "from": [-0.15, 0.04, 0.05], "to": [-0.09, 0.44, 0.05], "r": 0.013, "r2": 0.011, "mat": "oak" },
+    { "name": "hammer head", "type": "box", "at": [-0.088, 0.452, 0.05], "size": [0.13, 0.03, 0.03], "round": 0.006, "mat": "steel" },
+    { "name": "hammer claw", "type": "tube", "from": [-0.15, 0.452, 0.05], "to": [-0.17, 0.43, 0.05], "r": 0.01, "r2": 0.004, "mat": "steel" },
+    { "name": "wrench", "type": "beam", "from": [0.0, 0.06, 0.06], "to": [0.04, 0.4, 0.06], "w": 0.026, "d": 0.007, "round": 0.003, "mat": "chrome" },
+    { "name": "wrench jaw", "type": "torus", "at": [0.042, 0.418, 0.06], "axis": "z", "R": 0.02, "r": 0.007, "mat": "chrome" },
+    { "name": "screwdriver handle", "type": "tube", "from": [0.11, 0.08, -0.05], "to": [0.14, 0.32, -0.05], "r": 0.015, "cap": "round", "mat": "yellow" },
+    { "name": "screwdriver shaft", "type": "tube", "from": [0.14, 0.32, -0.05], "to": [0.155, 0.43, -0.05], "r": 0.004, "mat": "steel" }
+  ]
+}

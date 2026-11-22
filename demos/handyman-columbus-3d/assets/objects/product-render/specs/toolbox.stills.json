@@ -1,0 +1,63 @@
+{
+ "id": "toolbox",
+ "made": "2026-11-22T11:23:49.390Z",
+ "px": 1100,
+ "grounds": [
+  "light"
+ ],
+ "colors": [
+  "page"
+ ],
+ "variants": {
+  "three-quarter": {
+   "view": "three-quarter",
+   "scene": null,
+   "off": false,
+   "grounds": [
+    "light"
+   ],
+   "stills": {
+    "light": {
+     "page": {
+      "file": "stills/toolbox-three-quarter-page.webp",
+      "half": "stills/toolbox-three-quarter-page-half.webp",
+      "w": 1109,
+      "h": 1061
+     }
+    }
+   },
+   "box": [
+    0.0054,
+    0.0066,
+    0.982,
+    0.9896
+   ],
+   "px": 1100
+  },
+  "side": {
+   "view": "side",
+   "scene": null,
+   "off": false,
+   "grounds": [
+    "light"
+   ],
+   "stills": {
+    "light": {
+     "page": {
+      "file": "stills/toolbox-side-page.webp",
+      "half": "stills/toolbox-side-page-half.webp",
+      "w": 1134,
+      "h": 1055
+     }
+    }
+   },
+   "box": [
+    0.0062,
+    0.0057,
+    0.9806,
+    0.9668
+   ],
+   "px": 1100
+  }
+ }
+}

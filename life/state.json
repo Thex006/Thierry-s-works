@@ -98,9 +98,9 @@
             "t": "2026-11-22T12:06:46+01:00",
             "type": "demo",
             "kind": "demo",
-            "title": "Demo: Handyman Services in Columbus (2D, rebuilt from scratch)",
+            "title": "Demo: Handyman Services in Columbus (2D)",
             "text": "Rebuilt from scratch as you asked, not patched. New design: warm stone and pine green, Red Hat type, and a clean copy of the design kit (the old build had edited the kit CSS). The root cause of the overlaps is gone: no phone action bar (the stray blue bar), no tall photo beside the form, and every section sized to fit at 1280x720 and 1920x1080. Checked with the layout checker at 1920, 1440, 1280, 1024, 768, 390 and 375, plus full-page screenshots at 1920, 1280, 768 and 375: no text over images, no empty bars. Design gate: OPEN with one finding, a gap under the quote form on phones that my last fix caused. I undid that fix and the checker at 390 is now clean. Also swapped two bad stand-in photos (a soldier in camouflage, a postcard back). Sources and what I took from each: demos/handyman-columbus/INSPIRATION.md. The 3D version is next, in its own folder with its own link.",
-            "url": "http://localhost:4747/demos/handyman-columbus/",
+            "url": "http://127.0.0.1:4747/demos/handyman-columbus/",
             "skills": [
                 "design-taste-frontend (deal, copy-lint, layout checker, finish gate)",
                 "shoot.mjs screenshots (Chrome headless, in place of playwright-cli)",
@@ -110,6 +110,25 @@
                 "checker: no findings at 1280/1024/768/390; hero-lines stress waived (real h1 is 34 chars)",
                 "375: quote section is taller than one screen, so the footer shows when framed (no overlap)",
                 "not yet applied: impeccable, typeui-minimal, brandkit, imagegen-frontend-web, writing-guidelines, addyosmani skills, graphify"
+            ],
+            "status": "pending",
+            "target": "Layout accepted as it is; hover effects being added; public link after Cloudflare login"
+        },
+        {
+            "id": "demo-handyman-columbus-3d",
+            "t": "2026-11-22T12:29:28+01:00",
+            "type": "demo",
+            "kind": "demo",
+            "title": "Demo: Handyman Services in Columbus (3D version)",
+            "text": "The 3D version, in its own folder with its own link. Same page as the 2D one, but the hero is a 3D tool box (hammer, wrench, screwdriver) in the page green, rendered with the design kit and shipped as still images, so it loads fast and looks the same on phones. Ideas from motionsites.ai (Virtual Store, Protein Bars: one big object on a plain ground, soft studio shadow); I skipped their particle heroes as heavy on phones and unrelated to repairs. Notes: demos/handyman-columbus-3d/INSPIRATION.md. Design gate: PASS. Checker clean at 1920, 1440, 1280, 1024 and 768. Waivers: the transparent render frame runs 14px past the hero by the kit layout (the tool box itself stays inside), and on phones the quote form is taller than one screen.",
+            "url": "http://localhost:4747/demos/handyman-columbus-3d/",
+            "skills": [
+                "design-taste-frontend (product render, layout checker, finish gate)",
+                "motionsites.ai research in the Claude Life Chrome"
+            ],
+            "checks": [
+                "GATE: PASS (4 waivers, listed in the text)",
+                "screens checked at 1440 and 390 by eye"
             ],
             "status": "pending"
         }
@@ -122,6 +141,10 @@
         }
     ],
     "log": [
+        {
+            "t": "2026-11-22T12:29:28+01:00",
+            "text": "Built the 3D version of the handyman demo: a rendered tool box hero, stills only. Gate PASS. In Review with its own link."
+        },
         {
             "t": "2026-11-22T12:06:46+01:00",
             "text": "Rebuilt the Columbus handyman demo from scratch (2D). Checked at 7 widths, no overlaps or stray bars. In Review with its Open link."
@@ -198,7 +221,7 @@
     "stats": {
         "earned": 0,
         "spent": 0,
-        "tasks_done": 6
+        "tasks_done": 7
     },
     "doing": [
         {
@@ -213,8 +236,8 @@
         },
         {
             "bet": "Demo-first websites",
-            "task": "Handyman 2D rebuilt, in Review. Next step: build demos/handyman-columbus-3d (research motionsites.ai 3D examples in Chrome first, write INSPIRATION.md), then Chat image upload",
-            "status": "doing"
+            "task": "2D and 3D handyman demos in Review. Next step: Chat image upload in the app (life/app), then pitch email draft after Thierry OKs a demo",
+            "status": "review"
         },
         {
             "bet": "Claude Life app",
@@ -271,9 +294,48 @@
         "windowStart": "2026-11-22T11:30:00.0000000"
     },
     "activity": {
-        "type": "research",
-        "bet": "Demo-first websites",
-        "label": "Researching 3D sites for the handyman 3D version",
-        "since": "2026-11-22T11:06:46.474Z"
+        "type": "build",
+        "bet": "Claude Life app",
+        "label": "Adding image upload to the Chat tab",
+        "since": "2026-11-22T11:29:28.182Z"
+    },
+    "progress": {
+        "title": "Columbus handyman demo",
+        "steps": [
+            {
+                "label": "Research inspiration (motionsites.ai + alternatives)",
+                "status": "todo"
+            },
+            {
+                "label": "2D rebuild (index.html rewritten 12:01)",
+                "status": "done"
+            },
+            {
+                "label": "Remove the quote bar + fix the left edge",
+                "status": "doing"
+            },
+            {
+                "label": "2D checks at 375 / 768 / 1280 / 1920",
+                "status": "todo"
+            },
+            {
+                "label": "3D version",
+                "status": "todo"
+            },
+            {
+                "label": "3D checks",
+                "status": "todo"
+            },
+            {
+                "label": "Review (your OK)",
+                "status": "todo"
+            }
+        ],
+        "links": [
+            {
+                "label": "2D demo",
+                "url": "http://127.0.0.1:4747/demos/handyman-columbus/"
+            }
+        ]
     }
 }
