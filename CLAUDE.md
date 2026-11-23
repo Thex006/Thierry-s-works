@@ -201,6 +201,8 @@ Keep the list of installed skills in `life/SKILLS.md` and update it when new one
 **HARD RULE: no pitch or outreach email goes to a prospect until Thierry approves that exact email.**
 Exception (Thierry, 2026-11-22): the approved Handyman Columbus pitch goes out right away, not on Monday, once he
 confirms in Chat that both demo sites work for him (see life/OUTREACH.md).
+**First email:** always the full-offer template in life/OUTREACH.md (both demos as named links, a subject naming
+the business or site). Thierry approves each one in Review.
 **Sending:** once Thierry has approved the Review item, send it ONLY with
 `powershell -NoProfile -ExecutionPolicy Bypass -File life\desktop\send-approved.ps1 <review-id>` (Gmail SMTP, exactly the
 approved text, demo lines become named links, once per item, max 5 a day). Never send through browser clicks.

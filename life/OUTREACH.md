@@ -53,8 +53,31 @@ never in bursts, nothing on weekends, every email individually written.
   final site will be noticeably better, so the demo is not the ceiling of what we can do.
 
 ## Two-step email flow (Thierry, 2026-11-22)
-1. **First email:** short. Demo links (2D + 3D), "just a demo, made to your taste", better with their
-   materials, pricing from $50 / $85 per page, opt-out line. The 2D + 3D links may both go in it.
+1. **First email (Thierry's template, 2026-11-23): the full offer.** Subject names the business or site
+   (e.g. "Quick redesign idea for handymanincolumbus.com"). Sent as HTML by `send-approved.ps1`, so the lines
+   "Classic: <url>" and "3D / interactive: <url>" become the named links "Classic demo" / "3D / interactive demo".
+   This replaces "one link max" and "subject 3-6 words" above. Thierry approves each one in Review first.
+
+       Hi there,
+
+       I noticed <site> <one specific, true thing about their site or business>.
+
+       I built you two quick demos of a modern site:
+       Classic: <2D pages.dev link>
+       3D / interactive: <3D pages.dev link>
+
+       They're just demos, made without your real photos, logo or content. Here's how the real one would work:
+       - You send me your photos, logo and service details, and I build the site with them.
+       - I show it to you on a live Zoom call, or send a private preview link like the ones above.
+       - We change it until it's exactly to your taste.
+       - Pricing is $50 per page for the classic version and $85 per page for the 3D one. Once you're happy, there's an optional $20/month maintenance plan for updates and fixes.
+
+       Want me to get started?
+
+       Thierry, Kitebright Studio
+       kitebright.hq@gmail.com
+
+       If this isn't useful, reply 'no' and I won't email again.
 2. **If they reply positively:** use the Review template `template-reply-interested`. They send logo, photos,
    services and wording → we build the real site with their materials → show it on a Zoom call or a preview
    link → revise until it fits their taste → pricing recap → the optional $20/month maintenance (hosting and
