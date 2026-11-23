@@ -1,5 +1,11 @@
 # Log
 
+## 2026-11-23: Worker run, 03:20
+- A&M Landscaping 2D page built (demos/am-landscaping/index.html) from the handyman template with A&M's copy and deal; 10 stand-in photos from Commons (each looked at; 5 rejected for signs, a date stamp, off-subject), credits.html, favicon. copy-lint 0 FAIL 0 WARN.
+- Closed 6 superseded inbox messages. Nothing sent.
+- Next: 2D checks (checker, gate, shots 375 + 1280).
+- Note: Remove-Item denied, so 5 unused photo files sit in assets/img; delete before publish.
+
 ## 2026-11-23: Worker run, 02:34
 - New pace window (02:34). A&M Landscaping 2D started: kit in demos/am-landscaping, gate armed (service), deal: hero split, cobalt-on-sand, Red Hat, word-highlight moment.
 - copy.md written from the client's own site (services, 2006 Columbus story, 5 areas); copy-lint 0 FAIL 0 WARN.

@@ -310,7 +310,7 @@
                   },
                   {
                       "bet":  "Demo-first websites",
-                      "task":  "A&M Landscaping 2D demo (demos/am-landscaping): kit copied, gate armed, deal + copy.md done. Next step: build index.html from starter + hero-split, pick stand-in photos (photos.mjs search: lawn mowing, garden beds, stone patio, retaining wall, snow plow, Columbus streets).",
+                      "task":  "A\u0026M Landscaping 2D demo (demos/am-landscaping): index.html built (hero split, 6 service rows with peek photos, dark hardscapes band, word-highlight story, areas type moment, quote form, dark footer), 10 stand-in photos, credits.html, favicon; copy-lint 0 FAIL 0 WARN. Next step: 2D checks (check.mjs + gate.mjs, shoot.mjs at 375 and 1280, max 2 rounds). 5 rejected photo files in assets/img could not be deleted (Remove-Item denied); delete before publish.",
                       "status":  "active"
                   },
                   {
@@ -368,11 +368,11 @@
                       "Active bets: websites, open-source bounties, templates"
                   ],
     "usage":  {
-                  "percent":  6,
-                  "weekPercent":  30,
-                  "resets":  "2026-11-23T07:30:00.0000000",
+                  "percent":  29,
+                  "weekPercent":  32,
+                  "resets":  "2026-11-23T07:29:00.0000000",
                   "windowHours":  5,
-                  "windowStart":  "2026-11-23T02:30:00.0000000"
+                  "windowStart":  "2026-11-23T02:29:00.0000000"
               },
     "pace":  {
                  "windowStart":  "2026-11-23T02:34:00+01:00",
@@ -380,17 +380,44 @@
                  "pitchDone":  false
              },
     "progress":  {
-                     "title":  "A&M Landscaping demo (Columbus)",
+                     "title":  "A\u0026M Landscaping demo (Columbus)",
                      "steps":  [
-                                   {"label":  "Lead verified (public email, dated site)", "status":  "done"},
-                                   {"label":  "2D: kit, design deal, copy (copy.md)", "status":  "done"},
-                                   {"label":  "2D: build page + stand-in photos", "status":  "todo"},
-                                   {"label":  "2D checks (checker, gate, shots 375 + 1280)", "status":  "todo"},
-                                   {"label":  "2D: skills applied (SKILLS-USED.md)", "status":  "todo"},
-                                   {"label":  "Publish 2D (am-landscaping-kitebright.pages.dev)", "status":  "todo"},
-                                   {"label":  "3D version", "status":  "todo"},
-                                   {"label":  "Publish 3D", "status":  "todo"},
-                                   {"label":  "Pitch draft to Review (your OK)", "status":  "todo"}
+                                   {
+                                       "label":  "Lead verified (public email, dated site)",
+                                       "status":  "done"
+                                   },
+                                   {
+                                       "label":  "2D: kit, design deal, copy (copy.md)",
+                                       "status":  "done"
+                                   },
+                                   {
+                                       "label":  "2D: build page + stand-in photos",
+                                       "status":  "done"
+                                   },
+                                   {
+                                       "label":  "2D checks (checker, gate, shots 375 + 1280)",
+                                       "status":  "doing"
+                                   },
+                                   {
+                                       "label":  "2D: skills applied (SKILLS-USED.md)",
+                                       "status":  "todo"
+                                   },
+                                   {
+                                       "label":  "Publish 2D (am-landscaping-kitebright.pages.dev)",
+                                       "status":  "todo"
+                                   },
+                                   {
+                                       "label":  "3D version",
+                                       "status":  "todo"
+                                   },
+                                   {
+                                       "label":  "Publish 3D",
+                                       "status":  "todo"
+                                   },
+                                   {
+                                       "label":  "Pitch draft to Review (your OK)",
+                                       "status":  "todo"
+                                   }
                                ],
                      "links":  [
                                    {
@@ -411,9 +438,9 @@
                     "model":  "opus"
                 },
     "activity":  {
-                     "type":  "think",
+                     "type":  "build",
                      "bet":  "Demo-first websites",
-                     "label":  "Next lead chosen: A\u0026M Landscaping. Demo build is next (2D). Copy + design deal done, page build next",
-                     "since":  "2026-11-23T02:45:00+01:00"
+                     "label":  "Next lead chosen: A\u0026M Landscaping. 2D page built (10 stand-in photos); checks next",
+                     "since":  "2026-11-23T03:20:00+01:00"
                  }
 }
