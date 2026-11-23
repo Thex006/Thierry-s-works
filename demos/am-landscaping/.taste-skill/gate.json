@@ -1,9 +1,9 @@
 {
  "start": "2026-11-23T01:35:11.753Z",
- "round": 0,
+ "round": 3,
  "idle": 0,
  "errors": 0,
- "status": "active",
+ "status": "open",
  "history": [
   {
    "at": "2026-11-23T01:37:30.406Z",
@@ -20,6 +20,41 @@
    "decision": "allow",
    "reason": "no page was found in C:\\Users\\Thierry\\Documents\\claude-life\\demos\\am-landscaping; told once, stop allowed",
    "stopHookActive": true
+  },
+  {
+   "at": "2026-11-23T01:46:42.918Z",
+   "mode": "hook",
+   "host": "claude",
+   "decision": "allow",
+   "reason": "a build is active here, held by another session; stop allowed",
+   "stopHookActive": false
+  },
+  {
+   "at": "2026-11-23T01:53:44.274Z",
+   "mode": "manual",
+   "status": "fail",
+   "fails": 16,
+   "round": 1,
+   "reused": false,
+   "stopHookActive": false
+  },
+  {
+   "at": "2026-11-23T01:57:31.346Z",
+   "mode": "manual",
+   "status": "fail",
+   "fails": 5,
+   "round": 2,
+   "reused": false,
+   "stopHookActive": false
+  },
+  {
+   "at": "2026-11-23T01:59:58.399Z",
+   "mode": "manual",
+   "status": "open",
+   "fails": 4,
+   "round": 3,
+   "reused": false,
+   "stopHookActive": false
   }
  ],
  "max": 3,
@@ -36,5 +71,406 @@
  },
  "setupTold": true,
  "session": "2c0a1b50-494c-4b20-b06f-11629da0468f",
- "at": "2026-11-23T01:37:30.408Z"
+ "at": "2026-11-23T01:59:58.402Z",
+ "manual": true,
+ "roundKey": "8b4a7d6494b17ff0:6c274409",
+ "roundFree": false,
+ "idleFree": false,
+ "blockKey": null,
+ "fp": "8b4a7d6494b17ff0",
+ "page": "index.html",
+ "found": {
+  "fails": [
+   {
+    "check": "no-visual",
+    "where": "section#areas \"Our service area around Upper Arlington\"",
+    "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+    "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "no-visual"
+    ],
+    "wheres": [
+     "section#areas \"Our service area around Upper Arlington\""
+    ]
+   },
+   {
+    "check": "heading-scale",
+    "where": "h2#areas-h \"Our service area around Upper Arlington\"",
+    "msg": "the text under this h2 reads larger: its letters are 51.0px tall (x-height, 100.8px) against the heading's 24.0px (x-height, 48px)",
+    "fix": "set the heading larger than the text under it, or that text smaller: the heading reads first",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "heading-scale"
+    ],
+    "wheres": [
+     "h2#areas-h \"Our service area around Upper Arlington\""
+    ]
+   },
+   {
+    "check": "section-gaps",
+    "where": "section#areas / section#quote",
+    "msg": "467px between these sections, +151% against the median 186px",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "section-gaps"
+    ],
+    "wheres": [
+     "section#areas / section#quote"
+    ]
+   },
+   {
+    "check": "sparse",
+    "where": "#areas section.section \"Our service area around Upper Ar\"",
+    "msg": "its content fills 48% of its screen; merge it or give it its visual (0.55 is the aim)",
+    "fix": "fill the section or make it a screen shorter",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "layout",
+    "ids": [
+     "sparse"
+    ],
+    "wheres": [
+     "#areas section.section \"Our service area around Upper Ar\""
+    ]
+   },
+   {
+    "check": "hero-lines",
+    "where": "section.hero h1",
+    "msg": "the check fills the h1 to 45 characters (this hero's maxChars in heroes.json), not the page's own: it takes 4 lines at 1440, 3 at most",
+    "fix": "the check fills the h1 to this hero's maxChars, not your own: take the next type pairing the deal printed (start.mjs); when the h1 is final and fits, waive it (target: section.hero h1)",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "hero-lines"
+    ],
+    "wheres": [
+     "section.hero h1"
+    ]
+   },
+   {
+    "check": "neighbour",
+    "where": "#quote section.section \"Request a quote for your lawn or\"",
+    "msg": "framed, 398px of the footer shows",
+    "fix": "keep the next section's heading and picture out of this screen",
+    "widths": [
+     390
+    ],
+    "from": "layout",
+    "ids": [
+     "neighbour"
+    ],
+    "wheres": [
+     "#quote section.section \"Request a quote for your lawn or\""
+    ]
+   }
+  ],
+  "warns": [
+   {
+    "check": "scroll-reveal",
+    "where": "section#story > div.wrap > p.mo-wh__text \"Michael and Adele Thomasson started A & \"",
+    "msg": "starts \"color\" (0.2 s) the moment it is scrolled into view (an IntersectionObserver) on span.mo-w:nth-of-type(1) (inside a dealt moment's section, [data-moment]: an enter moment is expected on every kind; its still is judged under reduced motion)",
+    "fix": "show it at rest: no fade, rise or unmask when it is scrolled into view",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-actions",
+    "where": "header.nav.nav--centre > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary \"Request a quote\"",
+    "msg": "2 labels for one target /index.html#quote: \"Request a quote\", \"Ask about a patio\"",
+    "fix": "few actions, one wording: at most 2 in the hero, the main action word for word in nav, hero and close",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "heading-scale",
+    "where": "section#areas > div.wrap > div.stack-6 > p.type-moment \"Upper Arlington, Grandview, Hilliard, Du\"",
+    "msg": "1 line of plain text set larger than the section headings (100.8px against h2 48px)",
+    "fix": "size headings by level: the h1 largest, one size per level, each level below the one above",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "section-gaps",
+    "where": "section#services / section#hardscapes",
+    "msg": "uneven space at the edge of a band: 72px outside its edge, 114px inside it (the space on either side of a change of ground reads as one gap only when the two match)",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "links",
+    "where": "div.span-2.footer__col:nth-of-type(4) > ul > li:nth-of-type(2) > a \"Contact\"",
+    "msg": "\"Contact\" goes to #contact, the block it already sits in",
+    "fix": "point every link at a real section, page or file",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "photo-credit",
+    "where": "(the page text)",
+    "msg": "1 library source (wikimedia): the page credits wikimedia; confirm each shows the client's own product, place or people",
+    "fix": "confirm the library photograph shows the client's own product, place or people; otherwise replace it",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-labels",
+    "where": "div.wrap.nav__bar > nav.nav__links > div.nav__item:nth-of-type(2) > a.nav__link \"Hardscapes\"",
+    "msg": "\"Hardscapes\" opens a section headed \"Stone work that outlasts the lawn\"",
+    "fix": "name each nav link after the heading of the section it opens",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "label-centre",
+    "where": "header.nav.nav--centre > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary \"Request a quote\"",
+    "msg": "its label sits 18px off-centre (25px of room at the left, 43px at the right) (and 1 more like it: \"Request a quote\")",
+    "fix": "centre the label in its button, or fill the empty side with an icon",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-current",
+    "where": "header.nav.nav--centre",
+    "msg": "the nav stays on screen with 4 links to the page's sections, but never marks the one you are in (no link changes as the page scrolls)",
+    "fix": "mark the link of the section on screen (a colour, a weight or a line under it) as the visitor scrolls",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "empty-area",
+    "where": "section#areas \"Our service area around Upper Arlington\"",
+    "msg": "36% of the section is empty: 256px under its last (p.t-lead), in its 720px of rows (WARN over 35%, FAIL over 50%)",
+    "fix": "fill the section: a picture or a second column beside the words, or more of its own content; the section stays one or two screens tall (T-height)",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "action-repeat",
+    "where": "header.nav.nav--centre > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary \"request a quote\"",
+    "msg": "\"request a quote\" shows 2 times on the first screen at 1440px (nav, hero): the nav's button and the hero's; nothing else on the screen may repeat it",
+    "fix": "show the action once a screen besides the nav's button: the hero's, the close's or the phone bar's, never all at once",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "form-send",
+    "where": "section#quote > div.wrap > div.grid.grid--top:nth-of-type(1) > form.form.span-6 \"mailto:quotes@amlandscaping.example\"",
+    "msg": "the form opens a mail to quotes@amlandscaping.example: a stand-in until the client gives its form address; list it in the report",
+    "fix": "send the form to the client's address (data-endpoint) and show the confirmation only after it answers; list a mailto stand-in in the report",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "section-air",
+    "where": "section#areas \"Our service area around Upper Arlington \"",
+    "msg": "the content fills 48.1% of the section's height (433 of 900px): 55% or more (40% WARN) (SR-3)",
+    "fix": "fill the section to 55%: more content, a picture or a background layer, or merge it into the section above as its last block",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "section-air",
+    "where": "section#hardscapes \"Stone work that outlasts the lawn We bui\"",
+    "msg": "the content fills 54.3% of the section's height (489 of 900px): 55% or more (40% WARN) (SR-3)",
+    "fix": "fill the section to 55%: more content, a picture or a background layer, or merge it into the section above as its last block",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "no-visual",
+    "where": "section#services \"Lawn and garden services. One crew from \"",
+    "msg": "pictures, effects and mocks cover 18% of this section; a feature section needs a visual (about 25% or more)",
+    "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "section-gaps",
+    "where": "section#quote / footer#contact",
+    "msg": "uneven space at the edge of a band: 48px outside its edge, 92px inside it (the space on either side of a change of ground reads as one gap only when the two match)",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "proximity",
+    "where": "section#quote > div.wrap > div.frame.frame--photo \"Request a quote for your lawn or patio T\"",
+    "msg": "stacked at this width, the visual starts 16px under the text and buttons above it (\"Request a quote for your lawn \"): it reads glued to them",
+    "fix": "give the stacked split the section's own gap between text and visual (40px or more on a phone)",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   }
+  ],
+  "crashed": [],
+  "seconds": {
+   "consistency": 117,
+   "layout": 6
+  }
+ },
+ "open": [
+  {
+   "check": "no-visual",
+   "where": "section#areas \"Our service area around Upper Arlington\"",
+   "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+   "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "no-visual"
+   ],
+   "wheres": [
+    "section#areas \"Our service area around Upper Arlington\""
+   ]
+  },
+  {
+   "check": "section-gaps",
+   "where": "section#areas / section#quote",
+   "msg": "467px between these sections, +151% against the median 186px",
+   "fix": "use one gap between sections (all within 25% of each other)",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "section-gaps"
+   ],
+   "wheres": [
+    "section#areas / section#quote"
+   ]
+  },
+  {
+   "check": "sparse",
+   "where": "#areas section.section \"Our service area around Upper Ar\"",
+   "msg": "its content fills 48% of its screen; merge it or give it its visual (0.55 is the aim)",
+   "fix": "fill the section or make it a screen shorter",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "layout",
+   "ids": [
+    "sparse"
+   ],
+   "wheres": [
+    "#areas section.section \"Our service area around Upper Ar\""
+   ]
+  },
+  {
+   "check": "neighbour",
+   "where": "#quote section.section \"Request a quote for your lawn or\"",
+   "msg": "framed, 398px of the footer shows",
+   "fix": "keep the next section's heading and picture out of this screen",
+   "widths": [
+    390
+   ],
+   "from": "layout",
+   "ids": [
+    "neighbour"
+   ],
+   "wheres": [
+    "#quote section.section \"Request a quote for your lawn or\""
+   ]
+  }
+ ],
+ "waived": [
+  {
+   "check": "heading-scale",
+   "where": "h2#areas-h \"Our service area around Upper Arlington\"",
+   "msg": "the text under this h2 reads larger: its letters are 51.0px tall (x-height, 100.8px) against the heading's 24.0px (x-height, 48px)",
+   "fix": "set the heading larger than the text under it, or that text smaller: the heading reads first",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "heading-scale"
+   ],
+   "wheres": [
+    "h2#areas-h \"Our service area around Upper Arlington\""
+   ],
+   "reason": "The neighbourhood names set large under it are the page's dealt display-type moment (sections.md), meant to read bigger than the h2."
+  },
+  {
+   "check": "hero-lines",
+   "where": "section.hero h1",
+   "msg": "the check fills the h1 to 45 characters (this hero's maxChars in heroes.json), not the page's own: it takes 4 lines at 1440, 3 at most",
+   "fix": "the check fills the h1 to this hero's maxChars, not your own: take the next type pairing the deal printed (start.mjs); when the h1 is final and fits, waive it (target: section.hero h1)",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "hero-lines"
+   ],
+   "wheres": [
+    "section.hero h1"
+   ],
+   "reason": "The h1 is final at 35 characters; the check fills it to 45 (heroes.json maxChars), which the page never shows."
+  }
+ ],
+ "warnCount": 17,
+ "openTold": true
 }

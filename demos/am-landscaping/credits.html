@@ -43,11 +43,14 @@
   /* stacked on a phone a photograph keeps its own 3:2 height, so it never runs into the next section */
   @media (max-width: 639px) { #services .fill { flex: none; } #services .frame--fill { height: auto; aspect-ratio: 3 / 2; } }
   #quote .form .field { align-self: start; }
+  /* six service rows fit one 720px screen beside their photograph */
+  #services .rows > li { padding-block: var(--s-3); }
+  /* the hero fits one 812px phone screen: a shorter photo and no rating line there */
+  @media (max-width: 639px) { .hero--split .hero__media { min-height: 200px; } .hero__text > .t-small { display: none; } }
+  /* the two stone photographs stay side by side below 1024px, so the band keeps one screen */
+  @media (max-width: 1023px) { #hardscapes .frame { grid-column: auto / span 6; } }
   /* the type moment: the five neighbourhoods set large (sections.md, display-type moment) */
   .type-moment { font: var(--display-weight) clamp(36px, 5vw, 72px)/1.08 var(--font-display); letter-spacing: -0.03em; margin: 0; }
-  /* no big closing button (Thierry's rule): the footer takes its content's height */
-  footer.closing#contact { height: auto; min-height: 0; }
-  footer.closing#contact > .wrap { justify-content: flex-start; row-gap: var(--s-8); }
   @media (hover: hover) and (prefers-reduced-motion: no-preference) {
     .frame--photo { overflow: hidden; }
     .frame--photo .frame__img { transition: transform .5s cubic-bezier(.2,.7,.2,1); }
@@ -67,7 +70,7 @@
 </head>
 <body>
 <!-- type: service
-     deal: hero split, nav nav-centre, close close-type (close-photo dealt first, re-dealt: every fitting photograph is used above, and the big closing button is off by Thierry's rule), footer footer-dark, rhythm dark-band (#hardscapes), buttons arrow, mark arc, grounds none
+     deal: hero split, nav nav-centre, close close-word (close-photo dealt first: every fitting photograph is used above; close-type needs the big button, off by Thierry's rule), footer footer-dark, rhythm dark-band (#hardscapes), buttons arrow, mark arc, grounds none
      palette cobalt-on-sand (warm sand like turned soil and pavers, a deep navy that reads steady for a family trade), type red-hat
      moments: word-highlight in #story -->
 
@@ -105,17 +108,19 @@
       <li><a href="https://commons.wikimedia.org/wiki/File:Andries.jpg">RobertNiemann</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a></li>
       <li><a href="https://commons.wikimedia.org/wiki/File:Duranta_hedge_shrubs_and_other_flowering_plants_in_Kakching_Garden,_Uyok_Ching_hills,_Kakching_district,_Kangleipak.jpg">Haoreima</a>, <a href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0</a></li>
       <li><a href="https://commons.wikimedia.org/wiki/File:Common_Lawn_Grass_Macro_PLT-GR-3.jpg">Shadowmeld Photography</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a></li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:Pembroke_Lodge_Garden,_flower_bed_by_the_view_point.jpg">AndyScott</a>, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a></li>
     </ul>
   </section>
 </main>
 
 <footer class="footer closing footer--dark ground-inverse" id="contact" aria-labelledby="close-h">
   <div class="wrap">
-    <div class="closing__cta close--type">
+    <div class="closing__cta close--word">
       <div class="section-head">
         <h2 id="close-h">A greener yard by next week</h2>
         <p>Mowing, beds, stone and snow, from one family crew in Upper Arlington.</p>
       </div>
+      <p class="close__word" aria-hidden="true">A &amp; M</p>
     </div>
     <div class="closing__links">
       <div class="grid">

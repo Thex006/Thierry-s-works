@@ -216,6 +216,33 @@
    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
    "page": "https://commons.wikimedia.org/wiki/File:Common_Lawn_Grass_Macro_PLT-GR-3.jpg",
    "source": "Wikimedia Commons"
+  },
+  {
+   "file": "photo-f10088937-500.webp",
+   "files": [
+    "photo-f10088937-500.webp"
+   ],
+   "id": "f10088937",
+   "alt": "Raised Flower Bed at Spier's",
+   "by": "Rosser1954 Roger Griffith",
+   "licence": "Public domain",
+   "licenceUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+   "page": "https://commons.wikimedia.org/wiki/File:Raised_Flower_Bed_at_Spier%27s.JPG",
+   "source": "Wikimedia Commons"
+  },
+  {
+   "file": "photo-f191801993-960.webp",
+   "files": [
+    "photo-f191801993-500.webp",
+    "photo-f191801993-960.webp"
+   ],
+   "id": "f191801993",
+   "alt": "Pembroke Lodge Garden, flower bed by the view point",
+   "by": "AndyScott",
+   "licence": "CC0",
+   "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "page": "https://commons.wikimedia.org/wiki/File:Pembroke_Lodge_Garden,_flower_bed_by_the_view_point.jpg",
+   "source": "Wikimedia Commons"
   }
  ]
 }

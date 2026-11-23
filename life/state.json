@@ -310,7 +310,7 @@
                   },
                   {
                       "bet":  "Demo-first websites",
-                      "task":  "A\u0026M Landscaping 2D demo (demos/am-landscaping): index.html built (hero split, 6 service rows with peek photos, dark hardscapes band, word-highlight story, areas type moment, quote form, dark footer), 10 stand-in photos, credits.html, favicon; copy-lint 0 FAIL 0 WARN. Next step: 2D checks (check.mjs + gate.mjs, shoot.mjs at 375 and 1280, max 2 rounds). 5 rejected photo files in assets/img could not be deleted (Remove-Item denied); delete before publish.",
+                      "task":  "A\u0026M Landscaping 2D demo (demos/am-landscaping): 2D checks done: layout checker clean at 1280 + 375 (1 stress waiver), gate GATE: OPEN 4 after 3 rounds (areas type section has no picture and fills 48%, its gap to #quote, footer peeks 398px under #quote at 390), shots/1280.png + shots/375.png look clean. Next step: write demos/am-landscaping/SKILLS-USED.md (load each required skill with the Skill tool), then delete the 7 unused photo files (f184829231, f57359687, f89548310, f49076850, f24280891, f10088937, f192092512) and publish.",
                       "status":  "active"
                   },
                   {
@@ -368,11 +368,11 @@
                       "Active bets: websites, open-source bounties, templates"
                   ],
     "usage":  {
-                  "percent":  29,
-                  "weekPercent":  32,
-                  "resets":  "2026-11-23T07:29:00.0000000",
+                  "percent":  43,
+                  "weekPercent":  34,
+                  "resets":  "2026-11-23T07:30:00.0000000",
                   "windowHours":  5,
-                  "windowStart":  "2026-11-23T02:29:00.0000000"
+                  "windowStart":  "2026-11-23T02:30:00.0000000"
               },
     "pace":  {
                  "windowStart":  "2026-11-23T02:34:00+01:00",
@@ -396,11 +396,11 @@
                                    },
                                    {
                                        "label":  "2D checks (checker, gate, shots 375 + 1280)",
-                                       "status":  "doing"
+                                       "status":  "done"
                                    },
                                    {
                                        "label":  "2D: skills applied (SKILLS-USED.md)",
-                                       "status":  "todo"
+                                       "status":  "doing"
                                    },
                                    {
                                        "label":  "Publish 2D (am-landscaping-kitebright.pages.dev)",
@@ -440,7 +440,7 @@
     "activity":  {
                      "type":  "build",
                      "bet":  "Demo-first websites",
-                     "label":  "Next lead chosen: A\u0026M Landscaping. 2D page built (10 stand-in photos); checks next",
-                     "since":  "2026-11-23T03:20:00+01:00"
+                     "label":  "Next lead chosen: A\u0026M Landscaping 2D checked (gate OPEN 4, screenshots clean); SKILLS-USED.md next",
+                     "since":  "2026-11-23T04:10:00+01:00"
                  }
 }

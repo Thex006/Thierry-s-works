@@ -1,5 +1,10 @@
 # Log
 
+## 2026-11-23: Worker run, 04:10
+- A&M 2D checks: fixed hero height on phones (h1 now "Lawn and landscape care in Columbus"), services overflow at 720px, sparse hardscapes band, areas split lines, footer width bug (copied override), headings; added a flower-bed stand-in to #quote; close re-dealt to close-word (no big button).
+- Layout checker clean at 1280 + 375 (stress waiver); gate OPEN 4 after 3 rounds (areas has no picture, a gap, footer peek at 390). Shots 1280 + 375 look clean.
+- Next: SKILLS-USED.md, delete 7 unused photos, publish 2D.
+
 ## 2026-11-23: Worker run, 03:20
 - A&M Landscaping 2D page built (demos/am-landscaping/index.html) from the handyman template with A&M's copy and deal; 10 stand-in photos from Commons (each looked at; 5 rejected for signs, a date stamp, off-subject), credits.html, favicon. copy-lint 0 FAIL 0 WARN.
 - Closed 6 superseded inbox messages. Nothing sent.

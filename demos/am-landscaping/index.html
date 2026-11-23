@@ -43,11 +43,18 @@
   /* stacked on a phone a photograph keeps its own 3:2 height, so it never runs into the next section */
   @media (max-width: 639px) { #services .fill { flex: none; } #services .frame--fill { height: auto; aspect-ratio: 3 / 2; } }
   #quote .form .field { align-self: start; }
+  /* six service rows fit one 720px screen beside their photograph */
+  #services .rows > li { padding-block: var(--s-3); }
+  /* the hero fits one 812px phone screen: a shorter photo and no rating line there */
+  @media (max-width: 639px) { .hero--split .hero__media { min-height: 200px; } .hero__text > .t-small { display: none; } }
+  /* the two stone photographs stay side by side below 1024px, so the band keeps one screen */
+  @media (max-width: 1023px) { #hardscapes .frame { grid-column: auto / span 6; } }
   /* the type moment: the five neighbourhoods set large (sections.md, display-type moment) */
-  .type-moment { font: var(--display-weight) clamp(36px, 5vw, 72px)/1.08 var(--font-display); letter-spacing: -0.03em; margin: 0; }
-  /* no big closing button (Thierry's rule): the footer takes its content's height */
-  footer.closing#contact { height: auto; min-height: 0; }
-  footer.closing#contact > .wrap { justify-content: flex-start; row-gap: var(--s-8); }
+  .type-moment { font: var(--display-weight) clamp(40px, 7vw, 104px)/1.04 var(--font-display); letter-spacing: -0.03em; margin: 0; }
+  /* the quote photograph keeps a 3:2 height on a phone, where the section grows with the form */
+  @media (max-width: 639px) { #quote .fill { flex: none; aspect-ratio: 3 / 2; } }
+  /* the display line's tall caps and ampersand need more than the kit's .86 line */
+  #contact .close__word { line-height: 1.15; }
   @media (hover: hover) and (prefers-reduced-motion: no-preference) {
     .frame--photo { overflow: hidden; }
     .frame--photo .frame__img { transition: transform .5s cubic-bezier(.2,.7,.2,1); }
@@ -67,7 +74,7 @@
 </head>
 <body>
 <!-- type: service
-     deal: hero split, nav nav-centre, close close-type (close-photo dealt first, re-dealt: every fitting photograph is used above, and the big closing button is off by Thierry's rule), footer footer-dark, rhythm dark-band (#hardscapes), buttons arrow, mark arc, grounds none
+     deal: hero split, nav nav-centre, close close-word (close-photo dealt first: every fitting photograph is used above; close-type needs the big button, off by Thierry's rule), footer footer-dark, rhythm dark-band (#hardscapes), buttons arrow, mark arc, grounds none
      palette cobalt-on-sand (warm sand like turned soil and pavers, a deep navy that reads steady for a family trade), type red-hat
      moments: word-highlight in #story -->
 
@@ -95,13 +102,13 @@
     <div class="wrap"><div class="hero-text grid hero__grid">
       <div class="hero__text span-5">
         <p class="hero__kicker"><span class="dot" aria-hidden="true"></span>Family-run in Columbus since 2006</p>
-        <h1 id="hero-h">Lawn and landscape care in northwest Columbus</h1>
+        <h1 id="hero-h">Lawn and landscape care in Columbus</h1>
         <p class="hero__lead">Weekly mowing, new beds, patios and retaining walls for homes and businesses in Upper Arlington, Grandview, Hilliard, Dublin and Northwest Columbus.</p>
         <div class="btn-row"><a class="btn btn--primary" href="#quote">Request a quote<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a><a class="btn btn--secondary" href="#services">See our services</a></div>
         <p class="t-small muted">A+ rated on Angie's List and the BBB</p>
       </div>
       <div class="hero__media span-6 start-7">
-        <img src="assets/img/photo-f196605080-1280.webp" srcset="assets/img/photo-f196605080-500.webp 500w, assets/img/photo-f196605080-960.webp 960w, assets/img/photo-f196605080-1280.webp 1280w, assets/img/photo-f196605080.webp 1920w" sizes="(max-width: 1023px) 100vw, 50vw" width="1920" height="1280" alt="A green push mower on a freshly cut lawn, hedges behind" style="--ly-pos: 50% 60%" fetchpriority="high" decoding="async" data-source="stand-in" data-subject="lawn mowing">
+        <img src="assets/img/photo-f196605080-1280.webp" srcset="assets/img/photo-f196605080-500.webp 500w, assets/img/photo-f196605080-960.webp 960w, assets/img/photo-f196605080-1280.webp 1280w, assets/img/photo-f196605080.webp 1920w" sizes="(max-width: 1023px) 100vw, 75vw" width="1920" height="1280" alt="A green push mower on a freshly cut lawn, hedges behind" style="--ly-pos: 50% 60%" fetchpriority="high" decoding="async" data-source="stand-in" data-subject="lawn mowing">
         <div class="ly-float">
           <div class="ly-float__row"><span class="ly-live">Weekly</span><span>Mowing and trimming</span></div>
           <div class="ly-float__title">Homes and businesses</div>
@@ -116,7 +123,7 @@
       <div class="grid grid--top fill" data-peek>
         <ul class="rows span-6">
           <li data-peek-to="mow" tabindex="0"><span class="rows__name">Mowing and trimming</span><p>Weekly mowing and trimming for homes and commercial properties.</p></li>
-          <li data-peek-to="beds" tabindex="0"><span class="rows__name">Landscaping</span><p>Bed design and planting, edging and mulch, seeding and sod, gutters cleared.</p></li>
+          <li data-peek-to="beds" tabindex="0"><span class="rows__name">Landscaping</span><p>Bed design and planting, edging, mulch, seeding and sod.</p></li>
           <li data-peek-to="feed" tabindex="0"><span class="rows__name">Fertilization</span><p>A fertilizer and weed control program, with grub control.</p></li>
           <li data-peek-to="stone" tabindex="0"><span class="rows__name">Hardscapes</span><p>Retaining walls, patios, sidewalks, driveways and natural stone walks.</p></li>
           <li data-peek-to="snow" tabindex="0"><span class="rows__name">Snow removal</span><p>Driveways and sidewalks plowed and cleared after every snowfall.</p></li>
@@ -142,10 +149,10 @@
           <p class="t-lead">We build the hard parts of a yard too: retaining walls, patios, driveways, sidewalks, and walks and walls in natural stone.</p>
           <div class="btn-row"><a class="btn btn--primary" href="#quote">Ask about a patio<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a></div>
         </div>
-        <div class="frame frame--photo span-3 start-7" style="--ratio: 125%">
+        <div class="frame frame--photo span-3 start-7" style="--ratio: 160%">
           <img class="frame__img" src="assets/img/photo-f2557870-500.webp" alt="A new paver patio laid in a lawn, in warm sandstone tones" loading="lazy" data-source="stand-in" data-subject="paver patio">
         </div>
-        <div class="frame frame--photo span-3 start-10" style="--ratio: 125%">
+        <div class="frame frame--photo span-3 start-10" style="--ratio: 160%">
           <img class="frame__img" src="assets/img/photo-f124256855-500.webp" alt="Close view of stacked retaining wall blocks" loading="lazy" data-source="stand-in" data-subject="retaining wall blocks">
         </div>
       </div>
@@ -161,15 +168,10 @@
 
   <section class="section" id="areas" aria-labelledby="areas-h">
     <div class="wrap">
-      <div class="grid grid--middle">
-        <div class="span-7 stack-6">
-          <h2 id="areas-h">Neighbourhoods we work in</h2>
-          <p class="type-moment">Upper Arlington, Grandview, Hilliard, Dublin and Northwest Columbus</p>
-          <p class="t-lead">A local family business, working the streets around our own home in Upper Arlington.</p>
-        </div>
-        <div class="frame frame--photo span-4 start-9" style="--ratio: 120%">
-          <img class="frame__img" src="assets/img/photo-f192092512-960.webp" alt="A man mowing a backyard lawn between garden beds and a tall cypress" loading="lazy" data-source="stand-in" data-subject="a backyard lawn">
-        </div>
+      <div class="stack-6">
+        <h2 id="areas-h">Our service area around Upper Arlington</h2>
+        <p class="type-moment">Upper Arlington, Grandview, Hilliard, Dublin and Northwest Columbus</p>
+        <p class="t-lead">A local family business, working the streets around our own home in Upper Arlington.</p>
       </div>
     </div>
   </section>
@@ -178,7 +180,7 @@
     <div class="wrap">
       <div class="grid grid--top">
         <div class="span-5 stack-6">
-          <h2 id="quote-h">Request a quote for your yard</h2>
+          <h2 id="quote-h">Request a quote for your lawn or patio</h2>
           <p class="t-lead">Tell us where the yard is and what it needs. Mowing, a new bed, a patio or snow cover for the winter.</p>
           <ul class="visit__rows">
             <li><span>Homes</span><span>Weekly or monthly care</span></li>
@@ -203,17 +205,21 @@
           <p class="form__status" role="status" data-form-status></p>
         </form>
       </div>
+      <div class="frame frame--photo fill">
+        <img class="frame__img" src="assets/img/photo-f191801993-960.webp" srcset="assets/img/photo-f191801993-500.webp 500w, assets/img/photo-f191801993-960.webp 960w" sizes="100vw" alt="A round bed of tulips and spring flowers set in a mown lawn" style="object-position: 50% 70%" loading="lazy" data-source="stand-in" data-subject="planted flower bed">
+      </div>
     </div>
   </section>
 </main>
 
 <footer class="footer closing footer--dark ground-inverse" id="contact" aria-labelledby="close-h">
   <div class="wrap">
-    <div class="closing__cta close--type">
+    <div class="closing__cta close--word">
       <div class="section-head">
         <h2 id="close-h">A greener yard by next week</h2>
         <p>Mowing, beds, stone and snow, from one family crew in Upper Arlington.</p>
       </div>
+      <p class="close__word" aria-hidden="true">A &amp; M</p>
     </div>
     <div class="closing__links">
       <div class="grid">
