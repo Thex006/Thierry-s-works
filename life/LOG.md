@@ -1,5 +1,10 @@
 # Log
 
+## 2026-11-23: Worker run, 04:20
+- Acted on Thierry's message: A&M stays 2D only (live, in Review); no 3D and no pitch draft until he decides. Closed both A&M inbox messages.
+- A&M moved to blocked; Digital templates now active (home-service template from the 2D demos). Bounties still need the Chrome profile.
+- Next: templates plan (where to sell, terms, generic copy of the A&M page). Nothing sent.
+
 ## 2026-11-23: Worker run, 03:08
 - Loaded every required skill and wrote demos/am-landscaping/SKILLS-USED.md. Changes from them: no hyphens in copy, base-curve hovers, story split into short sentences, curly apostrophes. copy-lint 0 FAIL 0 WARN.
 - Published 2D: https://am-landscaping-kitebright.pages.dev (loads, demo note there). Review card added. Nothing sent.

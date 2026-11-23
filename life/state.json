@@ -106,8 +106,8 @@
                        "t":  "2026-11-23T03:08:00+01:00",
                        "type":  "demo",
                        "kind":  "demo",
-                       "title":  "Demo: A & M Landscaping and Lawncare, Columbus (2D)",
-                       "text":  "Next lead after Handyman: A & M Landscaping (family firm in Upper Arlington since 2006, A+ BBB, 2017 site, public email). 2D demo built from their own facts: services, hardscapes, the founders' story, service areas, quote form. Navy on warm sand, Red Hat type, stand-in photos from Wikimedia Commons (credits page linked in the footer). Checks: layout checker clean at 1280 and 375, design gate OPEN 4 (the areas section has no picture). Every required skill loaded and logged in demos/am-landscaping/SKILLS-USED.md. The 3D version is next; no pitch is drafted or sent yet.",
+                       "title":  "Demo: A \u0026 M Landscaping and Lawncare, Columbus (2D)",
+                       "text":  "Next lead after Handyman: A \u0026 M Landscaping (family firm in Upper Arlington since 2006, A+ BBB, 2017 site, public email). 2D demo built from their own facts: services, hardscapes, the founders\u0027 story, service areas, quote form. Navy on warm sand, Red Hat type, stand-in photos from Wikimedia Commons (credits page linked in the footer). Checks: layout checker clean at 1280 and 375, design gate OPEN 4 (the areas section has no picture). Every required skill loaded and logged in demos/am-landscaping/SKILLS-USED.md. The 3D version is next; no pitch is drafted or sent yet.",
                        "url":  "https://am-landscaping-kitebright.pages.dev",
                        "skills":  [
                                       "design-taste-frontend",
@@ -170,19 +170,19 @@
                    {
                        "id":  "email-handyman-columbus-1",
                        "kind":  "email",
-                       "title":  "Pitch email: Handyman Services in Columbus LLC (2D + 3D)",
+                       "title":  "Pitch email: Handyman Services in Columbus LLC (full offer)",
                        "url":  "https://handyman-columbus-kitebright.pages.dev",
-                       "email":  "To: help@handymanincolumbus.com\nSubject: two site demos for you\n\nHi there,\n\nI noticed handymanincolumbus.com still runs on a 2011-era layout that\u0027s hard to use on a phone, even though you offer 24-hour emergency and commercial repairs across central Ohio.\n\nI built you two quick demos of a modern site:\nClassic: https://handyman-columbus-kitebright.pages.dev\n3D / interactive: https://handyman-columbus-3d-kitebright.pages.dev\n\nThey\u0027re just demos, made without your real photos, logo or content. With yours, I\u0027d build the real site and we\u0027d adjust it until it fits exactly what you want. Pricing starts at $50 per page for the classic version and $85 per page for the 3D one.\n\nHappy to send details if it\u0027s of interest.\n\nThierry, Kitebright Studio\nkitebright.hq@gmail.com\n\nIf this isn\u0027t useful, reply \u0027no\u0027 and I won\u0027t email again.",
-                       "status":  "approved",
-                       "t":  "2026-11-22T21:33:20.1482031+01:00",
+                       "email":  "To: help@handymanincolumbus.com\nSubject: Quick redesign idea for handymanincolumbus.com\n\nHi there,\n\nI noticed handymanincolumbus.com still runs on a 2011-era layout that\u0027s hard to use on a phone, even though you offer 24-hour emergency and commercial repairs across central Ohio.\n\nI built you two quick demos of a modern site:\nClassic: https://handyman-columbus-kitebright.pages.dev\n3D / interactive: https://handyman-columbus-3d-kitebright.pages.dev\n\nThey\u0027re just demos, made without your real photos, logo or content. Here\u0027s how the real one would work:\n- You send me your photos, logo and service details, and I build the site with them.\n- I show it to you on a live Zoom call, or send a private preview link like the ones above.\n- We change it until it\u0027s exactly to your taste.\n- Pricing is $50 per page for the classic version and $85 per page for the 3D one. Once you\u0027re happy, there\u0027s an optional $20/month maintenance plan for updates and fixes.\n\nWant me to get started?\n\nThierry, Kitebright Studio\nkitebright.hq@gmail.com\n\nIf this isn\u0027t useful, reply \u0027no\u0027 and I won\u0027t email again.",
+                       "status":  "pending",
+                       "t":  "2026-11-23T03:10:26.6434460+01:00",
                        "checks":  {
                                       "words":  "~116",
                                       "links":  "2 (demos)",
                                       "optout":  "yes"
                                   },
-                       "target":  "help@handymanincolumbus.com (public, from handymanincolumbus.com). Two links because you asked for both demos (OUTREACH.md normally allows one). The 3D link goes live after its checks; nothing is sent before both links load.",
                        "note":  "",
-                       "decidedAt":  "2026-11-22T20:39:00.138Z"
+                       "decidedAt":  "2026-11-22T20:39:00.138Z",
+                       "target":  "Final text Thierry chose (full offer, new subject). Approve here, then it is sent with send-approved.ps1: the demo lines become named links (\"Classic demo\", \"3D / interactive demo\")."
                    },
                    {
                        "id":  "template-reply-interested",
@@ -333,7 +333,12 @@
                   },
                   {
                       "bet":  "Demo-first websites",
-                      "task":  "A\u0026M Landscaping: 2D done, SKILLS-USED.md written, published at https://am-landscaping-kitebright.pages.dev, Review card added. Next step: 3D version in demos/am-landscaping-3d (start from the 2D page; full skills; SKILLS-USED.md), then publish 3D and draft the pitch to Review. 7 unused photos stay in assets/img (the worker can't delete files).",
+                      "task":  "A\u0026M Landscaping: 2D done, SKILLS-USED.md written, published at https://am-landscaping-kitebright.pages.dev, Review card added. BLOCKED: no 3D by us and no pitch draft until Thierry decides who builds the 3D (his message 2026-11-23). 7 unused photos stay in assets/img (the worker can\u0027t delete files).",
+                      "status":  "blocked"
+                  },
+                  {
+                      "bet":  "Digital templates",
+                      "task":  "Home-service site template from the 2D demos. Next step: read life/STRATEGY.md templates section, pick where to sell (Gumroad or similar; terms must allow AI-made products; disclose AI use), and plan a generic copy of demos/am-landscaping as templates/home-service (placeholder business, no client facts, only photos whose licence allows resale).",
                       "status":  "active"
                   },
                   {
@@ -391,8 +396,8 @@
                       "Active bets: websites, open-source bounties, templates"
                   ],
     "usage":  {
-                  "percent":  55,
-                  "weekPercent":  35,
+                  "percent":  80,
+                  "weekPercent":  37,
                   "resets":  "2026-11-23T07:30:00.0000000",
                   "windowHours":  5,
                   "windowStart":  "2026-11-23T02:30:00.0000000"
@@ -430,15 +435,11 @@
                                        "status":  "done"
                                    },
                                    {
-                                       "label":  "3D version",
-                                       "status":  "doing"
-                                   },
-                                   {
-                                       "label":  "Publish 3D",
+                                       "label":  "3D version (waiting on your answer)",
                                        "status":  "todo"
                                    },
                                    {
-                                       "label":  "Pitch draft to Review (your OK)",
+                                       "label":  "Pitch draft to Review (after the 3D decision)",
                                        "status":  "todo"
                                    }
                                ],
@@ -450,12 +451,12 @@
                                ]
                  },
     "nextRun":  {
-                    "model":  "opus"
+                    "model":  "sonnet"
                 },
     "activity":  {
-                     "type":  "build",
-                     "bet":  "Demo-first websites",
-                     "label":  "Next lead chosen: A\u0026M Landscaping 2D published and in Review; 3D version next",
-                     "since":  "2026-11-23T03:08:00+01:00"
+                     "type":  "research",
+                     "bet":  "Digital templates",
+                     "label":  "Next lead chosen: A\u0026M Landscaping 2D live and in Review (3D and pitch wait on Thierry). Next: home-service template to sell",
+                     "since":  "2026-11-23T04:20:00+01:00"
                  }
 }

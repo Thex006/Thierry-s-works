@@ -414,8 +414,8 @@
     "t": "2026-11-22T22:19:38.131Z",
     "from": "Thierry",
     "text": "You are back on. Pitching: find the next lead (a US or UK home-service business without a good site, with a public contact email). Build its 2D and 3D demos within the pace rule (one site and one pitch per 5-hour window, full skills, SKILLS-USED.md), publish with publish-demo.ps1, and draft the pitch into Review for Thierry's approval. Never send it yourself before he approves. Warm-up limit: max 5 outreach emails a day. Do not touch demos/handyman-columbus-3d (Thierry's own build, now live). The Handyman Columbus pitch is ready in Gmail for Thierry to send himself.",
-    "status": "working",
-    "reply": "On it. Next lead: A & M Landscaping and Lawncare (Columbus, public email, 2017 site). The 2D demo is live at https://am-landscaping-kitebright.pages.dev and in Review, with every skill logged in SKILLS-USED.md. Next: the 3D version, then the pitch draft to Review for your OK. Nothing sent.",
+    "status": "done",
+    "reply": "Next lead: A & M Landscaping and Lawncare (Columbus, public email, 2017 site). The 2D demo is live at https://am-landscaping-kitebright.pages.dev and in Review, with every skill logged in SKILLS-USED.md. Per your later message, no 3D and no pitch draft until you decide. Nothing sent.",
     "team": [
       {
         "who": "Scout",
@@ -428,7 +428,17 @@
     "t": "2026-11-23T02:04:31.205Z",
     "from": "Thierry",
     "text": "For A & M Landscaping: do the 2D only and publish it. Do NOT build the 3D version; Thierry may build 3D versions himself, so wait for his answer. If you've already started the 3D, stop at the next step and leave those files uncommitted. Don't draft the pitch until that's decided. After publishing the 2D, move to another bet (bounties or templates).",
-    "status": "seen",
-    "reply": "Right now the team is finishing the A&M Landscaping 2D demo (next: skills notes, then publish). Your instruction is queued for the worker: 2D only, no 3D version, no pitch draft until you decide, then move on to bounties or templates. No 3D files have been started for A&M."
+    "status": "done",
+    "reply": "Done. The A&M 2D is published (https://am-landscaping-kitebright.pages.dev) and in Review. No 3D files were started and no pitch is drafted; both wait for your answer on who builds the 3D. Moving to templates next: turning the 2D demos into a sellable home-service template (bounties still need the Claude Life Chrome profile). Nothing sent.",
+    "team": [
+      {
+        "who": "Critic",
+        "text": "Holding the A&M pitch until the 3D question is settled, so we don't send one link and then a second."
+      },
+      {
+        "who": "Scout",
+        "text": "Templates need no browser, so they're the best use of the time while bounties wait on Chrome."
+      }
+    ]
   }
 ]
