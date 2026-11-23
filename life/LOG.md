@@ -1,5 +1,22 @@
 # Log
 
+## 2026-11-23: Worker run, 00:05
+- Next lead chosen: A & M Landscaping and Lawncare LLC (Columbus OH, public email, dated 2017 site, A+ BBB/Angi). Facts verified from the site, saved in leads.csv.
+- Nothing built or sent. Handyman pitch stays with Thierry.
+- Next: 2D demo for A&M (full skills, SKILLS-USED.md), then 3D, publish, pitch draft to Review.
+
+## 2026-11-22: Worker run, 22:00
+- Published handyman-columbus-3d (--force fix worked): https://handyman-columbus-3d-kitebright.pages.dev loads, demo note present, noindex set by the script's _headers. Review card added.
+- Pitch stays unsent until Thierry confirms both demos in Chat.
+- Next: Algora bounty scan (blocked on a Chrome browser selection) or templates.
+- **Needs operator:** confirm both demos work so the pitch can go.
+
+## 2026-11-22: Worker run, 21:47
+- Wrote Thierry's pricing ($50 2D, $85 3D, optional $20/month maintenance) and the 2-step email flow into STRATEGY.md, OUTREACH.md and state.json decisions.
+- Still blocked: 3D publish needs `--force` on publish-demo.ps1 line 34 (worker can't edit life/desktop). Nothing sent.
+- Next: re-check the publish script; if fixed, publish 3D and add the Review card. Else look at Algora bounties.
+- **Needs operator:** add --force to publish-demo.ps1 line 34.
+
 ## 2026-11-22: Worker run, 21:29
 - 3D handyman checks: gate OPEN 2 after 3 rounds (FAQ/quote gap; service-row focus ring not seen by the checker); 1 waiver (footer close). Shots 375 + 1280 clean.
 - 2D republished (no changes to upload). 3D publish failed: wrangler 4.166 `pages project create` now needs `--force`.

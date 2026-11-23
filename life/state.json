@@ -1,419 +1,462 @@
 {
-  "name": "Claude",
-  "day": 0,
-  "balance": 0,
-  "lives": 1,
-  "energy": 100,
-  "bets": [
-    {
-      "name": "Demo-first websites",
-      "status": "active",
-      "note": "Personalised demo sites and redesign pitches for small businesses.",
-      "metrics": [
-        {
-          "label": "leads",
-          "value": 8
-        },
-        {
-          "label": "demos",
-          "value": 1
-        },
-        {
-          "label": "emails",
-          "value": 0
-        },
-        {
-          "label": "replies",
-          "value": 0
-        },
-        {
-          "label": "sales",
-          "value": 0
-        }
-      ],
-      "earned": 0
-    },
-    {
-      "name": "Open-source bounties",
-      "status": "active",
-      "note": "Paid GitHub issues. Fills the time while websites wait for replies.",
-      "metrics": [
-        {
-          "label": "found",
-          "value": 0
-        },
-        {
-          "label": "PRs",
-          "value": 0
-        },
-        {
-          "label": "merged",
-          "value": 0
-        }
-      ],
-      "earned": 0
-    },
-    {
-      "name": "Digital templates",
-      "status": "active",
-      "note": "Every demo becomes a template for sale on Gumroad. Passive income.",
-      "metrics": [
-        {
-          "label": "listed",
-          "value": 0
-        },
-        {
-          "label": "sales",
-          "value": 0
-        }
-      ],
-      "earned": 0
-    },
-    {
-      "name": "Translation & localisation",
-      "status": "queued",
-      "note": "Translate sites and docs for small businesses.",
-      "metrics": [],
-      "earned": 0
-    },
-    {
-      "name": "Micro-tools",
-      "status": "queued",
-      "note": "Tiny paid tools or browser extensions.",
-      "metrics": [],
-      "earned": 0
-    },
-    {
-      "name": "Small trading",
-      "status": "locked",
-      "note": "Unlocks with spare profit. Max 10% of balance.",
-      "metrics": [],
-      "earned": 0
-    }
-  ],
-  "needs": [
-    {
-      "id": "publish-wrangler-force",
-      "t": "2026-11-22T21:48:00+01:00",
-      "text": "The approved pitch can't go out yet: the 3D link isn't live. publish-demo.ps1 fails because wrangler 4.166 now sends 'pages project create' to Workers. Please add --force at the end of line 34 of life/desktop/publish-demo.ps1 ('npx wrangler pages project create $project --production-branch main --force'). The worker can't edit life/desktop. The 2D republish still works because its project already exists."
-    }
-  ],
-  "review": [
-    {
-      "id": "demo-handyman-columbus-2d",
-      "t": "2026-11-22T12:06:46+01:00",
-      "type": "demo",
-      "kind": "demo",
-      "title": "Demo: Handyman Services in Columbus (2D)",
-      "text": "Rebuilt from scratch as you asked, not patched. New design: warm stone and pine green, Red Hat type, and a clean copy of the design kit (the old build had edited the kit CSS). The root cause of the overlaps is gone: no phone action bar (the stray blue bar), no tall photo beside the form, and every section sized to fit at 1280x720 and 1920x1080. Checked with the layout checker at 1920, 1440, 1280, 1024, 768, 390 and 375, plus full-page screenshots at 1920, 1280, 768 and 375: no text over images, no empty bars. Design gate: OPEN with one finding, a gap under the quote form on phones that my last fix caused. I undid that fix and the checker at 390 is now clean. Also swapped two bad stand-in photos (a soldier in camouflage, a postcard back). Sources and what I took from each: demos/handyman-columbus/INSPIRATION.md. The 3D version is next, in its own folder with its own link.",
-      "url": "https://handyman-columbus-kitebright.pages.dev",
-      "skills": [
-        "design-taste-frontend (deal, copy-lint, layout checker, finish gate)",
-        "shoot.mjs screenshots (Chrome headless, in place of playwright-cli)",
-        "web research (ServiceTitan, Webcitz)"
-      ],
-      "checks": [
-        "checker: no findings at 1280/1024/768/390; hero-lines stress waived (real h1 is 34 chars)",
-        "375: quote section is taller than one screen, so the footer shows when framed (no overlap)",
-        "not yet applied: impeccable, typeui-minimal, brandkit, imagegen-frontend-web, writing-guidelines, addyosmani skills, graphify"
-      ],
-      "status": "approved",
-      "target": "Live at handyman-columbus-kitebright.pages.dev (noindex, demo note); layout accepted as it is, hover effects being added",
-      "note": "",
-      "decidedAt": "2026-11-22T20:39:35.439Z"
-    },
-    {
-      "id": "email-handyman-columbus-1",
-      "kind": "email",
-      "title": "Pitch email: Handyman Services in Columbus LLC (2D + 3D)",
-      "url": "https://handyman-columbus-kitebright.pages.dev",
-      "email": "To: help@handymanincolumbus.com\nSubject: two site demos for you\n\nHi there,\n\nI noticed handymanincolumbus.com still runs on a 2011-era layout that's hard to use on a phone, even though you offer 24-hour emergency and commercial repairs across central Ohio.\n\nI built you two quick demos of a modern site:\nClassic: https://handyman-columbus-kitebright.pages.dev\n3D / interactive: https://handyman-columbus-3d-kitebright.pages.dev\n\nThey're just demos, made without your real photos, logo or content. With yours, I'd build the real site and we'd adjust it until it fits exactly what you want. Pricing starts at $50 per page for the classic version and $85 per page for the 3D one.\n\nHappy to send details if it's of interest.\n\nThierry, Kitebright Studio\nkitebright.hq@gmail.com\n\nIf this isn't useful, reply 'no' and I won't email again.",
-      "status": "approved",
-      "t": "2026-11-22T21:33:20.1482031+01:00",
-      "checks": {
-        "words": "~116",
-        "links": "2 (demos)",
-        "optout": "yes"
-      },
-      "target": "help@handymanincolumbus.com (public, from handymanincolumbus.com). Two links because you asked for both demos (OUTREACH.md normally allows one). The 3D link goes live after its checks; nothing is sent before both links load.",
-      "note": "",
-      "decidedAt": "2026-11-22T20:39:00.138Z"
-    },
-    {
-      "id": "template-reply-interested",
-      "kind": "email-template",
-      "title": "Reply template: if they're interested",
-      "target": "Not sent. Used only when a prospect replies positively, and still needs your OK at that time.",
-      "email": "Subject: Re: two site demos for you\n\nHi,\n\nThanks for getting back to me. Here's how it would work:\n\n1. You send what you have: your logo, photos of your work and team, your list of services and areas, and any wording you like.\n2. I build the real site with your materials.\n3. We look at it together on a short Zoom call, or I send you a preview link like the demo.\n4. We change anything you want until it fits your taste.\n\nPricing: $50 per page for the classic version, $85 per page for the 3D one.\n\nOnce you're happy, there's an optional maintenance plan at $20 a month: hosting and uptime checks, security updates, and small edits like new photos, hours or prices.\n\nWhen would suit you for a quick call?\n\nThierry, Kitebright Studio\nkitebright.hq@gmail.com",
-      "status": "approved",
-      "t": "2026-11-22T21:33:20.1557339+01:00",
-      "note": "",
-      "decidedAt": "2026-11-22T20:39:27.659Z"
-    }
-  ],
-  "transactions": [
-    {
-      "date": "2026-11-21",
-      "description": "Born",
-      "amount": 0
-    }
-  ],
-  "log": [
-    {
-      "t": "2026-11-22T21:48:00+01:00",
-      "text": "3D handyman checks: gate OPEN with 2 small findings, clean at 375 and 1280. 2D republished. 3D publish blocked by a wrangler update, so the approved pitch waits; fix requested."
-    },
-    {
-      "t": "2026-11-22T20:39:35.439Z",
-      "text": "Operator approved \"Demo: Handyman Services in Columbus (2D)\""
-    },
-    {
-      "t": "2026-11-22T20:39:27.659Z",
-      "text": "Operator approved \"Reply template: if they're interested\""
-    },
-    {
-      "t": "2026-11-22T20:39:00.138Z",
-      "text": "Operator approved \"Pitch email: Handyman Services in Columbus LLC (2D + 3D)\""
-    },
-    {
-      "t": "2026-11-22T21:40:00+01:00",
-      "text": "3D handyman demo: applied 8 more skills (landing-page, typeui, impeccable, redesign, imagegen, brandkit, writing, code review). Fixes: matching favicon, FAQ alignment, keyboard focus, HUD spelled out. SKILLS-USED.md written."
-    },
-    {
-      "t": "2026-11-22T12:29:28+01:00",
-      "text": "Built the 3D version of the handyman demo: a rendered tool box hero, stills only. Gate PASS. In Review with its own link."
-    },
-    {
-      "t": "2026-11-22T12:06:46+01:00",
-      "text": "Rebuilt the Columbus handyman demo from scratch (2D). Checked at 7 widths, no overlaps or stray bars. In Review with its Open link."
-    },
-    {
-      "t": "2026-11-22T10:35:21.578Z",
-      "text": "Operator cleared: \"I staged the design checker's temp Chrome profile by mistake and the worker can't unstage it. Please run in the repo: gi\""
-    },
-    {
-      "t": "2026-11-22T10:35:14.288Z",
-      "text": "Operator rejected \"Demo: Handyman Services in Columbus\""
-    },
-    {
-      "t": "2026-11-22T11:45:00+01:00",
-      "text": "Fixed the handyman demo's broken footer: sections were fixed at one screen on wide displays, so the quote form spilled over the footer. Checked at 375, 768, 1280 and 1920. Back in Review with a working Open link."
-    },
-    {
-      "t": "2026-11-22T10:15:19.419Z",
-      "text": "Operator asked for changes on \"Demo: Handyman Services in Columbus\""
-    },
-    {
-      "t": "2026-11-22T11:40:00+01:00",
-      "text": "Built the first demo: Handyman Services in Columbus (real facts, stand-in photos). Design gate OPEN with 6 layout warnings. Sent to Review for Thierry's OK."
-    },
-    {
-      "t": "2026-11-22T10:47:44+01:00",
-      "text": "Review items fixed and cleared: node/Skill permissions are in .claude/settings.json; install-worker-task.ps1 is gitignored; only one Chrome browser is connected now and it is the Claude Life profile (kitebright.hq@gmail.com), so the worker can browse; with those fixed, runs no longer burn usage on blockers."
-    },
-    {
-      "t": "2026-11-22T09:12:00Z",
-      "text": "Checked blockers again: node scripts and the Skill tool still denied; 2 Chrome browsers connected, none selected. Run ends waiting on Thierry."
-    },
-    {
-      "t": "2026-11-22T02:40:00Z",
-      "text": "Demo still blocked (node scripts not allowed). Checked 5 leads for emails: 2 hidden by Cloudflare (need Chrome), 2 form/phone only, 1 site down."
-    },
-    {
-      "t": "2026-11-22T02:30:00Z",
-      "text": "Resumed after cut-off. Wrote the handyman demo copy from the client's real site. Page build blocked: worker can't run node."
-    },
-    {
-      "t": "2026-11-21T23:11:39Z",
-      "text": "Checked 32 Columbus OH home-service sites. 8 leads: 2011-era, no-mobile, dead or http-only sites. Niche: handymen."
-    },
-    {
-      "t": "2026-11-21T23:06:42Z",
-      "text": "Operator: outreach Gmail is kitebright.hq@gmail.com; Chrome profile and signature confirmed. Starting real work."
-    },
-    {
-      "t": "2026-11-21T22:48:46Z",
-      "text": "Claude in Chrome connected (one Windows browser, in use). Setup complete."
-    },
-    {
-      "t": "2026-11-21T22:47:25Z",
-      "text": "Setup on the PC: Ponytail plugin enabled, Graphify installed and a local code-only graph built, 60+ skills listed in SKILLS.md (none missing)."
-    },
-    {
-      "t": "2026-11-21T22:00:00Z",
-      "text": "Operator decided: Kitebright Studio, US home services, $750 + $49/mo, 3 bets."
-    },
-    {
-      "t": "2026-11-21T22:00:00Z",
-      "text": "Widened the plan: 3 active bets (websites, open-source bounties, templates), 2 queued."
-    },
-    {
-      "t": "2026-11-21T21:00:00Z",
-      "text": "Built the Claude Life game dashboard."
-    },
-    {
-      "t": "2026-11-21T20:50:00Z",
-      "text": "Day 0: set up rules, ledger and strategy. Chose demo-first websites as the first bet."
-    }
-  ],
-  "stats": {
-    "earned": 0,
-    "spent": 0,
-    "tasks_done": 7
-  },
-  "doing": [
-    {
-      "bet": "Open-source bounties",
-      "task": "Shortlist bounties. GitHub label scan done (none worth it, see life/bounties.md). Next step: browse Algora org pages in Chrome once a browser is selected",
-      "status": "blocked"
-    },
-    {
-      "bet": "Demo-first websites",
-      "task": "Research first leads",
-      "status": "done"
-    },
-    {
-      "bet": "Demo-first websites",
-      "task": "3D handyman demo: checks done (GATE: OPEN 2, shots 375 + 1280 clean), 2D republished. Next step: once publish-demo.ps1 has --force (need publish-wrangler-force), publish handyman-columbus-3d, confirm 200 + noindex + demo note, add Review card 'Demo: Handyman Services in Columbus (3D)', then send the approved pitch (Sunday, so Gmail Schedule send for Monday 9:30 AM Eastern).",
-      "status": "blocked"
-    },
-    {
-      "bet": "Claude Life app",
-      "task": "Worker status badge + team sleeps when no worker + waiting lines only with real asks",
-      "status": "done"
-    }
-  ],
-  "agents": [
-    {
-      "name": "Scout",
-      "role": "Finds leads, bounties and opportunities",
-      "color": "#4f7fc9",
-      "hair": "#1f1a17",
-      "skin": "#c68e6a",
-      "status": "resting"
-    },
-    {
-      "name": "Critic",
-      "role": "Pokes holes before money or outreach goes out",
-      "color": "#9b5fc0",
-      "hair": "#d9b25f",
-      "skin": "#f2c29b",
-      "status": "resting"
-    },
-    {
-      "name": "Closer",
-      "role": "Writes pitches and handles replies",
-      "color": "#5aa36b",
-      "hair": "#6b2f1f",
-      "skin": "#8d5a3c",
-      "status": "resting"
-    }
-  ],
-  "studio": {
-    "name": "Kitebright Studio",
-    "email": "kitebright.hq@gmail.com",
-    "signature": "Thierry, Kitebright Studio"
-  },
-  "decisions": [
-    "Studio name: Kitebright Studio (kitebright.hq@gmail.com)",
-    "Emails signed \"Thierry, Kitebright Studio\"",
-    "First market: US home-service businesses",
-    "Pricing: from $50 per page for now, more for bigger businesses; pitch says it's a demo made to their taste (replaces $750 + $49/mo)",
-    "Every pitch says the demo was built without their real materials; their photos, logo and content will make it noticeably better",
-    "HARD RULE: no pitch email goes out until Thierry approves that exact email in Review (kind email); send his edited version if he edits",
-    "After the Columbus job: target more US and UK companies",
-    "Active bets: websites, open-source bounties, templates"
-  ],
-  "usage": {
-    "percent": 45,
-    "weekPercent": 17,
-    "resets": "2026-11-22T21:30:00.0000000",
-    "windowHours": 5,
-    "windowStart": "2026-11-22T16:30:00.0000000"
-  },
-  "pace": {
-    "windowStart": "2026-11-22T21:29:00+01:00",
-    "siteDone": false,
-    "pitchDone": false
-  },
-  "progress": {
-    "title": "Columbus handyman demo",
-    "steps": [
-      {
-        "label": "Research inspiration (motionsites.ai + alternatives)",
-        "status": "done"
-      },
-      {
-        "label": "2D rebuild",
-        "status": "done"
-      },
-      {
-        "label": "Remove the quote bar + fix the left edge",
-        "status": "done"
-      },
-      {
-        "label": "2D checks at 375 / 768 / 1280 / 1920",
-        "status": "done"
-      },
-      {
-        "label": "2D hover effects + close the gap",
-        "status": "done"
-      },
-      {
-        "label": "2D accepted by Thierry",
-        "status": "done"
-      },
-      {
-        "label": "Publish 2D (Cloudflare, handyman-columbus-kitebright.pages.dev)",
-        "status": "done"
-      },
-      {
-        "label": "3D version (tool box hero)",
-        "status": "done"
-      },
-      {
-        "label": "3D: quote bar removed",
-        "status": "done"
-      },
-      {
-        "label": "3D: skills applied (SKILLS-USED.md)",
-        "status": "done"
-      },
-      {
-        "label": "3D checks (finish gate, playwright 375 + 1280, graphify)",
-        "status": "done"
-      },
-      {
-        "label": "Publish 3D (waiting on the publish script fix)",
-        "status": "todo"
-      },
-      {
-        "label": "Review (your OK)",
-        "status": "todo"
-      }
-    ],
-    "links": [
-      {
-        "label": "2D demo (public)",
-        "url": "https://handyman-columbus-kitebright.pages.dev"
-      },
-      {
-        "label": "3D demo (preview)",
-        "url": "http://127.0.0.1:4747/demos/handyman-columbus-3d/"
-      },
-      {
-        "label": "3D inspiration note",
-        "url": "http://127.0.0.1:4747/demos/handyman-columbus-3d/INSPIRATION.md"
-      }
-    ]
-  },
-  "activity": {
-    "type": "build",
-    "bet": "Demo-first websites",
-    "label": "3D handyman demo: checks done; publish waits on a script fix",
-    "since": "2026-11-22T21:40:00+01:00"
-  },
-  "nextRun": {
-    "model": "sonnet"
-  }
+    "name":  "Claude",
+    "day":  0,
+    "balance":  0,
+    "lives":  1,
+    "energy":  100,
+    "bets":  [
+                 {
+                     "name":  "Demo-first websites",
+                     "status":  "active",
+                     "note":  "Personalised demo sites and redesign pitches for small businesses.",
+                     "metrics":  [
+                                     {
+                                         "label":  "leads",
+                                         "value":  8
+                                     },
+                                     {
+                                         "label":  "demos",
+                                         "value":  1
+                                     },
+                                     {
+                                         "label":  "emails",
+                                         "value":  0
+                                     },
+                                     {
+                                         "label":  "replies",
+                                         "value":  0
+                                     },
+                                     {
+                                         "label":  "sales",
+                                         "value":  0
+                                     }
+                                 ],
+                     "earned":  0
+                 },
+                 {
+                     "name":  "Open-source bounties",
+                     "status":  "active",
+                     "note":  "Paid GitHub issues. Fills the time while websites wait for replies.",
+                     "metrics":  [
+                                     {
+                                         "label":  "found",
+                                         "value":  0
+                                     },
+                                     {
+                                         "label":  "PRs",
+                                         "value":  0
+                                     },
+                                     {
+                                         "label":  "merged",
+                                         "value":  0
+                                     }
+                                 ],
+                     "earned":  0
+                 },
+                 {
+                     "name":  "Digital templates",
+                     "status":  "active",
+                     "note":  "Every demo becomes a template for sale on Gumroad. Passive income.",
+                     "metrics":  [
+                                     {
+                                         "label":  "listed",
+                                         "value":  0
+                                     },
+                                     {
+                                         "label":  "sales",
+                                         "value":  0
+                                     }
+                                 ],
+                     "earned":  0
+                 },
+                 {
+                     "name":  "Translation \u0026 localisation",
+                     "status":  "queued",
+                     "note":  "Translate sites and docs for small businesses.",
+                     "metrics":  [
+
+                                 ],
+                     "earned":  0
+                 },
+                 {
+                     "name":  "Micro-tools",
+                     "status":  "queued",
+                     "note":  "Tiny paid tools or browser extensions.",
+                     "metrics":  [
+
+                                 ],
+                     "earned":  0
+                 },
+                 {
+                     "name":  "Small trading",
+                     "status":  "locked",
+                     "note":  "Unlocks with spare profit. Max 10% of balance.",
+                     "metrics":  [
+
+                                 ],
+                     "earned":  0
+                 }
+             ],
+    "needs":  [
+
+              ],
+    "review":  [
+                   {
+                       "id":  "demo-handyman-columbus-2d",
+                       "t":  "2026-11-22T12:06:46+01:00",
+                       "type":  "demo",
+                       "kind":  "demo",
+                       "title":  "Demo: Handyman Services in Columbus (2D)",
+                       "text":  "Rebuilt from scratch as you asked, not patched. New design: warm stone and pine green, Red Hat type, and a clean copy of the design kit (the old build had edited the kit CSS). The root cause of the overlaps is gone: no phone action bar (the stray blue bar), no tall photo beside the form, and every section sized to fit at 1280x720 and 1920x1080. Checked with the layout checker at 1920, 1440, 1280, 1024, 768, 390 and 375, plus full-page screenshots at 1920, 1280, 768 and 375: no text over images, no empty bars. Design gate: OPEN with one finding, a gap under the quote form on phones that my last fix caused. I undid that fix and the checker at 390 is now clean. Also swapped two bad stand-in photos (a soldier in camouflage, a postcard back). Sources and what I took from each: demos/handyman-columbus/INSPIRATION.md. The 3D version is next, in its own folder with its own link.",
+                       "url":  "https://handyman-columbus-kitebright.pages.dev",
+                       "skills":  [
+                                      "design-taste-frontend (deal, copy-lint, layout checker, finish gate)",
+                                      "shoot.mjs screenshots (Chrome headless, in place of playwright-cli)",
+                                      "web research (ServiceTitan, Webcitz)"
+                                  ],
+                       "checks":  [
+                                      "checker: no findings at 1280/1024/768/390; hero-lines stress waived (real h1 is 34 chars)",
+                                      "375: quote section is taller than one screen, so the footer shows when framed (no overlap)",
+                                      "not yet applied: impeccable, typeui-minimal, brandkit, imagegen-frontend-web, writing-guidelines, addyosmani skills, graphify"
+                                  ],
+                       "status":  "approved",
+                       "target":  "Live at handyman-columbus-kitebright.pages.dev (noindex, demo note); layout accepted as it is, hover effects being added",
+                       "note":  "",
+                       "decidedAt":  "2026-11-22T20:39:35.439Z"
+                   },
+                   {
+                       "id":  "demo-handyman-columbus-3d",
+                       "t":  "2026-11-22T22:05:00+01:00",
+                       "type":  "demo",
+                       "kind":  "demo",
+                       "title":  "Demo: Handyman Services in Columbus (3D)",
+                       "text":  "The 3D version is live. Design gate OPEN 2 (FAQ/quote gap; focus ring on service rows not seen by the checker), 1 waiver (footer close). Shots at 375 and 1280 are clean. Skills applied are listed in demos/handyman-columbus-3d/SKILLS-USED.md. Once you confirm both demos work for you, the approved pitch goes out right away.",
+                       "url":  "https://handyman-columbus-3d-kitebright.pages.dev",
+                       "skills":  [
+                                      "design-taste-frontend",
+                                      "impeccable",
+                                      "typeui-minimal",
+                                      "playwright-cli",
+                                      "writing-guidelines"
+                                  ],
+                       "status":  "rejected",
+                       "target":  "Live at handyman-columbus-3d-kitebright.pages.dev (noindex header, demo note)",
+                       "note":  "",
+                       "decidedAt":  "2026-11-22T23:16:16.887Z"
+                   },
+                   {
+                       "id":  "email-handyman-columbus-1",
+                       "kind":  "email",
+                       "title":  "Pitch email: Handyman Services in Columbus LLC (2D + 3D)",
+                       "url":  "https://handyman-columbus-kitebright.pages.dev",
+                       "email":  "To: help@handymanincolumbus.com\nSubject: two site demos for you\n\nHi there,\n\nI noticed handymanincolumbus.com still runs on a 2011-era layout that\u0027s hard to use on a phone, even though you offer 24-hour emergency and commercial repairs across central Ohio.\n\nI built you two quick demos of a modern site:\nClassic: https://handyman-columbus-kitebright.pages.dev\n3D / interactive: https://handyman-columbus-3d-kitebright.pages.dev\n\nThey\u0027re just demos, made without your real photos, logo or content. With yours, I\u0027d build the real site and we\u0027d adjust it until it fits exactly what you want. Pricing starts at $50 per page for the classic version and $85 per page for the 3D one.\n\nHappy to send details if it\u0027s of interest.\n\nThierry, Kitebright Studio\nkitebright.hq@gmail.com\n\nIf this isn\u0027t useful, reply \u0027no\u0027 and I won\u0027t email again.",
+                       "status":  "approved",
+                       "t":  "2026-11-22T21:33:20.1482031+01:00",
+                       "checks":  {
+                                      "words":  "~116",
+                                      "links":  "2 (demos)",
+                                      "optout":  "yes"
+                                  },
+                       "target":  "help@handymanincolumbus.com (public, from handymanincolumbus.com). Two links because you asked for both demos (OUTREACH.md normally allows one). The 3D link goes live after its checks; nothing is sent before both links load.",
+                       "note":  "",
+                       "decidedAt":  "2026-11-22T20:39:00.138Z"
+                   },
+                   {
+                       "id":  "template-reply-interested",
+                       "kind":  "email-template",
+                       "title":  "Reply template: if they\u0027re interested",
+                       "target":  "Not sent. Used only when a prospect replies positively, and still needs your OK at that time.",
+                       "email":  "Subject: Re: two site demos for you\n\nHi,\n\nThanks for getting back to me. Here\u0027s how it would work:\n\n1. You send what you have: your logo, photos of your work and team, your list of services and areas, and any wording you like.\n2. I build the real site with your materials.\n3. We look at it together on a short Zoom call, or I send you a preview link like the demo.\n4. We change anything you want until it fits your taste.\n\nPricing: $50 per page for the classic version, $85 per page for the 3D one.\n\nOnce you\u0027re happy, there\u0027s an optional maintenance plan at $20 a month: hosting and uptime checks, security updates, and small edits like new photos, hours or prices.\n\nWhen would suit you for a quick call?\n\nThierry, Kitebright Studio\nkitebright.hq@gmail.com",
+                       "status":  "approved",
+                       "t":  "2026-11-22T21:33:20.1557339+01:00",
+                       "note":  "",
+                       "decidedAt":  "2026-11-22T20:39:27.659Z"
+                   },
+                   {
+                       "id":  "demo-handyman-columbus-3d",
+                       "kind":  "demo",
+                       "title":  "Demo: Handyman Services in Columbus (3D)",
+                       "target":  "Live: 200, noindex, demo note, no quote bar (checked by manager)",
+                       "url":  "https://handyman-columbus-3d-kitebright.pages.dev",
+                       "status":  "rejected",
+                       "t":  "2026-11-22T22:06:33.1716430+01:00",
+                       "note":  "",
+                       "decidedAt":  "2026-11-22T21:21:42.941Z"
+                   }
+               ],
+    "transactions":  [
+                         {
+                             "date":  "2026-11-21",
+                             "description":  "Born",
+                             "amount":  0
+                         }
+                     ],
+    "log":  [
+                {
+                    "t":  "2026-11-22T23:16:16.887Z",
+                    "text":  "Operator rejected \"Demo: Handyman Services in Columbus (3D)\""
+                },
+                {
+                    "t":  "2026-11-22T21:21:42.941Z",
+                    "text":  "Operator rejected \"Demo: Handyman Services in Columbus (3D)\""
+                },
+                {
+                    "t":  "2026-11-22T21:48:00+01:00",
+                    "text":  "3D handyman checks: gate OPEN with 2 small findings, clean at 375 and 1280. 2D republished. 3D publish blocked by a wrangler update, so the approved pitch waits; fix requested."
+                },
+                {
+                    "t":  "2026-11-22T20:39:35.439Z",
+                    "text":  "Operator approved \"Demo: Handyman Services in Columbus (2D)\""
+                },
+                {
+                    "t":  "2026-11-22T20:39:27.659Z",
+                    "text":  "Operator approved \"Reply template: if they\u0027re interested\""
+                },
+                {
+                    "t":  "2026-11-22T20:39:00.138Z",
+                    "text":  "Operator approved \"Pitch email: Handyman Services in Columbus LLC (2D + 3D)\""
+                },
+                {
+                    "t":  "2026-11-22T21:40:00+01:00",
+                    "text":  "3D handyman demo: applied 8 more skills (landing-page, typeui, impeccable, redesign, imagegen, brandkit, writing, code review). Fixes: matching favicon, FAQ alignment, keyboard focus, HUD spelled out. SKILLS-USED.md written."
+                },
+                {
+                    "t":  "2026-11-22T12:29:28+01:00",
+                    "text":  "Built the 3D version of the handyman demo: a rendered tool box hero, stills only. Gate PASS. In Review with its own link."
+                },
+                {
+                    "t":  "2026-11-22T12:06:46+01:00",
+                    "text":  "Rebuilt the Columbus handyman demo from scratch (2D). Checked at 7 widths, no overlaps or stray bars. In Review with its Open link."
+                },
+                {
+                    "t":  "2026-11-22T10:35:21.578Z",
+                    "text":  "Operator cleared: \"I staged the design checker\u0027s temp Chrome profile by mistake and the worker can\u0027t unstage it. Please run in the repo: gi\""
+                },
+                {
+                    "t":  "2026-11-22T10:35:14.288Z",
+                    "text":  "Operator rejected \"Demo: Handyman Services in Columbus\""
+                },
+                {
+                    "t":  "2026-11-22T11:45:00+01:00",
+                    "text":  "Fixed the handyman demo\u0027s broken footer: sections were fixed at one screen on wide displays, so the quote form spilled over the footer. Checked at 375, 768, 1280 and 1920. Back in Review with a working Open link."
+                },
+                {
+                    "t":  "2026-11-22T10:15:19.419Z",
+                    "text":  "Operator asked for changes on \"Demo: Handyman Services in Columbus\""
+                },
+                {
+                    "t":  "2026-11-22T11:40:00+01:00",
+                    "text":  "Built the first demo: Handyman Services in Columbus (real facts, stand-in photos). Design gate OPEN with 6 layout warnings. Sent to Review for Thierry\u0027s OK."
+                },
+                {
+                    "t":  "2026-11-22T10:47:44+01:00",
+                    "text":  "Review items fixed and cleared: node/Skill permissions are in .claude/settings.json; install-worker-task.ps1 is gitignored; only one Chrome browser is connected now and it is the Claude Life profile (kitebright.hq@gmail.com), so the worker can browse; with those fixed, runs no longer burn usage on blockers."
+                },
+                {
+                    "t":  "2026-11-22T09:12:00Z",
+                    "text":  "Checked blockers again: node scripts and the Skill tool still denied; 2 Chrome browsers connected, none selected. Run ends waiting on Thierry."
+                },
+                {
+                    "t":  "2026-11-22T02:40:00Z",
+                    "text":  "Demo still blocked (node scripts not allowed). Checked 5 leads for emails: 2 hidden by Cloudflare (need Chrome), 2 form/phone only, 1 site down."
+                },
+                {
+                    "t":  "2026-11-22T02:30:00Z",
+                    "text":  "Resumed after cut-off. Wrote the handyman demo copy from the client\u0027s real site. Page build blocked: worker can\u0027t run node."
+                },
+                {
+                    "t":  "2026-11-21T23:11:39Z",
+                    "text":  "Checked 32 Columbus OH home-service sites. 8 leads: 2011-era, no-mobile, dead or http-only sites. Niche: handymen."
+                },
+                {
+                    "t":  "2026-11-21T23:06:42Z",
+                    "text":  "Operator: outreach Gmail is kitebright.hq@gmail.com; Chrome profile and signature confirmed. Starting real work."
+                },
+                {
+                    "t":  "2026-11-21T22:48:46Z",
+                    "text":  "Claude in Chrome connected (one Windows browser, in use). Setup complete."
+                },
+                {
+                    "t":  "2026-11-21T22:47:25Z",
+                    "text":  "Setup on the PC: Ponytail plugin enabled, Graphify installed and a local code-only graph built, 60+ skills listed in SKILLS.md (none missing)."
+                },
+                {
+                    "t":  "2026-11-21T22:00:00Z",
+                    "text":  "Operator decided: Kitebright Studio, US home services, $750 + $49/mo, 3 bets."
+                },
+                {
+                    "t":  "2026-11-21T22:00:00Z",
+                    "text":  "Widened the plan: 3 active bets (websites, open-source bounties, templates), 2 queued."
+                },
+                {
+                    "t":  "2026-11-21T21:00:00Z",
+                    "text":  "Built the Claude Life game dashboard."
+                },
+                {
+                    "t":  "2026-11-21T20:50:00Z",
+                    "text":  "Day 0: set up rules, ledger and strategy. Chose demo-first websites as the first bet."
+                }
+            ],
+    "stats":  {
+                  "earned":  0,
+                  "spent":  0,
+                  "tasks_done":  7
+              },
+    "doing":  [
+                  {
+                      "bet":  "Open-source bounties",
+                      "task":  "Shortlist bounties. GitHub label scan done (none worth it, see life/bounties.md). Next step: browse Algora org pages in Chrome once a browser is selected",
+                      "status":  "blocked"
+                  },
+                  {
+                      "bet":  "Demo-first websites",
+                      "task":  "Research first leads",
+                      "status":  "done"
+                  },
+                  {
+                      "bet":  "Demo-first websites",
+                      "task":  "3D handyman demo: checks done (GATE: OPEN 2, shots 375 + 1280 clean), 2D republished. 3D published (21:58) and Review card added; waiting on Thierry to confirm both demos, then send the pitch. Old note:\u0027Demo: Handyman Services in Columbus (3D)\u0027, then send the approved pitch (Sunday, so Gmail Schedule send for Monday 9:30 AM Eastern).",
+                      "status":  "blocked"
+                  },
+                  {
+                      "bet":  "Claude Life app",
+                      "task":  "Worker status badge + team sleeps when no worker + waiting lines only with real asks",
+                      "status":  "done"
+                  }
+              ],
+    "agents":  [
+                   {
+                       "name":  "Scout",
+                       "role":  "Finds leads, bounties and opportunities",
+                       "color":  "#4f7fc9",
+                       "hair":  "#1f1a17",
+                       "skin":  "#c68e6a",
+                       "status":  "resting"
+                   },
+                   {
+                       "name":  "Critic",
+                       "role":  "Pokes holes before money or outreach goes out",
+                       "color":  "#9b5fc0",
+                       "hair":  "#d9b25f",
+                       "skin":  "#f2c29b",
+                       "status":  "resting"
+                   },
+                   {
+                       "name":  "Closer",
+                       "role":  "Writes pitches and handles replies",
+                       "color":  "#5aa36b",
+                       "hair":  "#6b2f1f",
+                       "skin":  "#8d5a3c",
+                       "status":  "resting"
+                   }
+               ],
+    "studio":  {
+                   "name":  "Kitebright Studio",
+                   "email":  "kitebright.hq@gmail.com",
+                   "signature":  "Thierry, Kitebright Studio"
+               },
+    "decisions":  [
+                      "Studio name: Kitebright Studio (kitebright.hq@gmail.com)",
+                      "Emails signed \"Thierry, Kitebright Studio\"",
+                      "First market: US home-service businesses",
+                      "Optional $20/month maintenance once the client is happy: hosting and uptime checks, security updates, small edits",
+                      "2-step email flow: short first email with 2D + 3D links; positive reply uses Review template template-reply-interested; every reply needs Thierry OK; show him the final text with both links before any send",
+                      "Pricing: $50 per page classic (2D), $85 per page 3D, more for bigger businesses; pitch says it\u0027s a demo made to their taste (replaces $750 + $49/mo)",
+                      "Every pitch says the demo was built without their real materials; their photos, logo and content will make it noticeably better",
+                      "HARD RULE: no pitch email goes out until Thierry approves that exact email in Review (kind email); send his edited version if he edits",
+                      "After the Columbus job: target more US and UK companies",
+                      "Active bets: websites, open-source bounties, templates"
+                  ],
+    "usage":  {
+                  "percent":  3,
+                  "weekPercent":  29,
+                  "resets":  "2026-11-23T07:29:00.0000000",
+                  "windowHours":  5,
+                  "windowStart":  "2026-11-23T02:29:00.0000000"
+              },
+    "pace":  {
+                 "windowStart":  "2026-11-22T21:29:00+01:00",
+                 "siteDone":  false,
+                 "pitchDone":  false
+             },
+    "progress":  {
+                     "title":  "Columbus handyman demo",
+                     "steps":  [
+                                   {
+                                       "label":  "Research inspiration (motionsites.ai + alternatives)",
+                                       "status":  "done"
+                                   },
+                                   {
+                                       "label":  "2D rebuild",
+                                       "status":  "done"
+                                   },
+                                   {
+                                       "label":  "Remove the quote bar + fix the left edge",
+                                       "status":  "done"
+                                   },
+                                   {
+                                       "label":  "2D checks at 375 / 768 / 1280 / 1920",
+                                       "status":  "done"
+                                   },
+                                   {
+                                       "label":  "2D hover effects + close the gap",
+                                       "status":  "done"
+                                   },
+                                   {
+                                       "label":  "2D accepted by Thierry",
+                                       "status":  "done"
+                                   },
+                                   {
+                                       "label":  "Publish 2D (Cloudflare, handyman-columbus-kitebright.pages.dev)",
+                                       "status":  "done"
+                                   },
+                                   {
+                                       "label":  "3D version (tool box hero)",
+                                       "status":  "done"
+                                   },
+                                   {
+                                       "label":  "3D: quote bar removed",
+                                       "status":  "done"
+                                   },
+                                   {
+                                       "label":  "3D: skills applied (SKILLS-USED.md)",
+                                       "status":  "done"
+                                   },
+                                   {
+                                       "label":  "3D checks (finish gate, playwright 375 + 1280, graphify)",
+                                       "status":  "done"
+                                   },
+                                   {
+                                       "label":  "Publish 3D (waiting on the publish script fix)",
+                                       "status":  "todo"
+                                   },
+                                   {
+                                       "label":  "Review (your OK)",
+                                       "status":  "todo"
+                                   }
+                               ],
+                     "links":  [
+                                   {
+                                       "label":  "2D demo (public)",
+                                       "url":  "https://handyman-columbus-kitebright.pages.dev"
+                                   },
+                                   {
+                                       "label":  "3D demo (public)",
+                                       "url":  "https://handyman-columbus-3d-kitebright.pages.dev"
+                                   },
+                                   {
+                                       "label":  "3D inspiration note (on the PC only)",
+                                       "url":  "http://127.0.0.1:4747/demos/handyman-columbus-3d/INSPIRATION.md"
+                                   }
+                               ]
+                 },
+    "nextRun":  {
+                    "model":  "opus"
+                },
+    "activity":  {
+                     "type":  "think",
+                     "bet":  "Demo-first websites",
+                     "label":  "Next lead chosen: A&M Landscaping. Demo build is next (2D)",
+                     "since":  "2026-11-23T00:05:00+01:00"
+                 }
 }
