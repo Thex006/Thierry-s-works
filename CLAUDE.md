@@ -163,6 +163,10 @@ If a skill is missing, raise a need (the manager installs it from github.com/The
 **Pace:** at most one site and one pitch email (sent only after Thierry approves it) per 5-hour usage window, then
 other hustles. Track it in state.json `pace: {windowStart, siteDone, pitchDone}`. Sites cost a lot of usage: always use
 Graphify (rebuild `graphify-out/` if it's over a day old, then query it before reading code) and Ponytail (least code).
+**Usage caps per site (the A & M 2D cost ~55% of a 5-hour window, 4 Opus runs):** Opus for ONE design/build pass
+only; copy, checks, fixes, SKILLS-USED.md and publishing run on Sonnet (`nextRun.model`). Load each required skill once
+per site and read only its SKILL.md, not its reference files, unless the step needs one. Don't re-read the kit or the
+copy in later runs: note what you need in state.json `doing`. Target: one 2D site under 25% of a window.
 **Light checks:** design-checker and playwright screenshots only at 375 and 1280 widths, at most 2 review rounds
 per site unless something is clearly broken, and don't re-screenshot sections that didn't change.
 **Proof before Review:** write `demos/<site>/SKILLS-USED.md` listing every required skill above, with what it changed
