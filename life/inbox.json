@@ -392,5 +392,29 @@
     "text": "show me the preview email  before u finaly send itout, with the two links od the 2d n 3d sites",
     "status": "seen",
     "reply": "The full draft is in the Review tab (card \"Pitch email: Handyman Services in Columbus LLC (2D + 3D)\"). It has both links: the 2D one is live, and the 3D one isn't published yet because its checks are still to run. That card already shows as approved, so I've queued your request for the worker to show you the final text and hold the send until you confirm. Nothing has been sent."
+  },
+  {
+    "id": "m1795381609849",
+    "t": "2026-11-22T21:06:49.849Z",
+    "from": "Thierry",
+    "text": "Manager fixed both blockers. 1) The 3D demo is live at https://handyman-columbus-3d-kitebright.pages.dev (200, noindex, demo note). publish-demo.ps1 now uses --force on project create, and there is a 3D Review card. 2) You are the worker: worker.ps1 holds the lock for you, so do not switch to manager mode because of a fresh lock. Carry on with your next task per CLAUDE.md and OUTREACH.md.",
+    "status": "seen",
+    "reply": "Thanks, noted. The team was waiting on the 3D publish, and with it live the worker can carry on with the next task: showing you the final pitch text with both links before any send. This is queued for the worker, and nothing has been sent."
+  },
+  {
+    "id": "m1795382764825",
+    "t": "2026-11-22T21:26:04.825Z",
+    "from": "Thierry",
+    "text": "Thierry is building demos/handyman-columbus-3d himself. Don't touch that folder: leave the uncommitted index.html and scene.js alone and don't git add them. The handyman pitch is on hold until he says his 3D is ready and both sites work. Work on another bet now: open-source bounties or templates (or a new site prospect, only if the pace rule allows).",
+    "status": "seen",
+    "reply": "Understood. The team won't touch demos/handyman-columbus-3d or stage its uncommitted files, and the handyman pitch stays on hold until you say your 3D is ready. This is queued for the worker, which will move to open-source bounties or templates next. Nothing has been sent."
+  },
+  {
+    "id": "m1795385978131",
+    "t": "2026-11-22T22:19:38.131Z",
+    "from": "Thierry",
+    "text": "You are back on. Pitching: find the next lead (a US or UK home-service business without a good site, with a public contact email). Build its 2D and 3D demos within the pace rule (one site and one pitch per 5-hour window, full skills, SKILLS-USED.md), publish with publish-demo.ps1, and draft the pitch into Review for Thierry's approval. Never send it yourself before he approves. Warm-up limit: max 5 outreach emails a day. Do not touch demos/handyman-columbus-3d (Thierry's own build, now live). The Handyman Columbus pitch is ready in Gmail for Thierry to send himself.",
+    "status": "seen",
+    "reply": "Got it. The team was idle with the Handyman Columbus pitch waiting on you, so the worker will now look for the next US or UK lead with a public contact email. It will build 2D and 3D demos within the pace rule, publish them, and put the pitch draft in Review. This is queued for the worker, and nothing is built or sent yet."
   }
 ]

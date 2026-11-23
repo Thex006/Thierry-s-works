@@ -310,8 +310,8 @@
                   },
                   {
                       "bet":  "Demo-first websites",
-                      "task":  "Research first leads",
-                      "status":  "done"
+                      "task":  "A&M Landscaping 2D demo (demos/am-landscaping): kit copied, gate armed, deal + copy.md done. Next step: build index.html from starter + hero-split, pick stand-in photos (photos.mjs search: lawn mowing, garden beds, stone patio, retaining wall, snow plow, Columbus streets).",
+                      "status":  "active"
                   },
                   {
                       "bet":  "Demo-first websites",
@@ -368,72 +368,29 @@
                       "Active bets: websites, open-source bounties, templates"
                   ],
     "usage":  {
-                  "percent":  3,
-                  "weekPercent":  29,
-                  "resets":  "2026-11-23T07:29:00.0000000",
+                  "percent":  6,
+                  "weekPercent":  30,
+                  "resets":  "2026-11-23T07:30:00.0000000",
                   "windowHours":  5,
-                  "windowStart":  "2026-11-23T02:29:00.0000000"
+                  "windowStart":  "2026-11-23T02:30:00.0000000"
               },
     "pace":  {
-                 "windowStart":  "2026-11-22T21:29:00+01:00",
+                 "windowStart":  "2026-11-23T02:34:00+01:00",
                  "siteDone":  false,
                  "pitchDone":  false
              },
     "progress":  {
-                     "title":  "Columbus handyman demo",
+                     "title":  "A&M Landscaping demo (Columbus)",
                      "steps":  [
-                                   {
-                                       "label":  "Research inspiration (motionsites.ai + alternatives)",
-                                       "status":  "done"
-                                   },
-                                   {
-                                       "label":  "2D rebuild",
-                                       "status":  "done"
-                                   },
-                                   {
-                                       "label":  "Remove the quote bar + fix the left edge",
-                                       "status":  "done"
-                                   },
-                                   {
-                                       "label":  "2D checks at 375 / 768 / 1280 / 1920",
-                                       "status":  "done"
-                                   },
-                                   {
-                                       "label":  "2D hover effects + close the gap",
-                                       "status":  "done"
-                                   },
-                                   {
-                                       "label":  "2D accepted by Thierry",
-                                       "status":  "done"
-                                   },
-                                   {
-                                       "label":  "Publish 2D (Cloudflare, handyman-columbus-kitebright.pages.dev)",
-                                       "status":  "done"
-                                   },
-                                   {
-                                       "label":  "3D version (tool box hero)",
-                                       "status":  "done"
-                                   },
-                                   {
-                                       "label":  "3D: quote bar removed",
-                                       "status":  "done"
-                                   },
-                                   {
-                                       "label":  "3D: skills applied (SKILLS-USED.md)",
-                                       "status":  "done"
-                                   },
-                                   {
-                                       "label":  "3D checks (finish gate, playwright 375 + 1280, graphify)",
-                                       "status":  "done"
-                                   },
-                                   {
-                                       "label":  "Publish 3D (waiting on the publish script fix)",
-                                       "status":  "todo"
-                                   },
-                                   {
-                                       "label":  "Review (your OK)",
-                                       "status":  "todo"
-                                   }
+                                   {"label":  "Lead verified (public email, dated site)", "status":  "done"},
+                                   {"label":  "2D: kit, design deal, copy (copy.md)", "status":  "done"},
+                                   {"label":  "2D: build page + stand-in photos", "status":  "todo"},
+                                   {"label":  "2D checks (checker, gate, shots 375 + 1280)", "status":  "todo"},
+                                   {"label":  "2D: skills applied (SKILLS-USED.md)", "status":  "todo"},
+                                   {"label":  "Publish 2D (am-landscaping-kitebright.pages.dev)", "status":  "todo"},
+                                   {"label":  "3D version", "status":  "todo"},
+                                   {"label":  "Publish 3D", "status":  "todo"},
+                                   {"label":  "Pitch draft to Review (your OK)", "status":  "todo"}
                                ],
                      "links":  [
                                    {
@@ -456,7 +413,7 @@
     "activity":  {
                      "type":  "think",
                      "bet":  "Demo-first websites",
-                     "label":  "Next lead chosen: A&M Landscaping. Demo build is next (2D)",
-                     "since":  "2026-11-23T00:05:00+01:00"
+                     "label":  "Next lead chosen: A\u0026M Landscaping. Demo build is next (2D). Copy + design deal done, page build next",
+                     "since":  "2026-11-23T02:45:00+01:00"
                  }
 }

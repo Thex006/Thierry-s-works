@@ -42,8 +42,10 @@ Review every bet each session against its kill rule. Kill fast, double down on w
     | Solo / micro business | $50 | $50 | $250 |
     | Small established business | $50–100 | $50–100 | $250–500 |
     | Larger / multi-location / high ticket | $100–200 | $100–200 | $500–1,000 |
-  - **Add-ons** (also scaled): online booking, extra language (our edge), 2D motion/3D hero, SEO basics,
-    care plan $19–79/month.
+  - **3D version: $85 per page** (classic 2D: $50 per page). Same scaling for bigger businesses.
+  - **Optional maintenance, $20/month**, offered once they're happy: hosting and uptime checks, security
+    updates, small edits (photos, hours, prices). (Thierry, 2026-11-22: replaces the $19–79 care plan.)
+  - **Add-ons** (also scaled): online booking, extra language (our edge), SEO basics.
   - **Local currency:** quote and invoice in the client's currency where Stripe supports it
     (USD, GBP, EUR, CAD, AUD, NGN, …). Ledger converts with that day's exchange rate, rounds to a
     clean local number (£395, not £391.37) and sanity-checks it against local going rates.

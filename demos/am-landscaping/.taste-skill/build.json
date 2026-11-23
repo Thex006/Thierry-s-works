@@ -1,0 +1,11 @@
+{
+ "page": "index.html",
+ "url": null,
+ "root": null,
+ "kind": "service",
+ "category": "lawn care and landscaping",
+ "primary": "Request a quote",
+ "rounds": 3,
+ "start": "2026-11-23T01:35:11.753Z",
+ "by": "gate.mjs --start"
+}

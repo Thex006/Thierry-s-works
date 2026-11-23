@@ -6,4 +6,7 @@
 - algora.io/bounties returns 404 to WebFetch; needs Chrome to browse.
 - Shortlist: none worth a PR yet.
 
+## 2026-11-22 22:15 web search
+- Search can't list individual Algora bounties (page needs a browser; about 23 TypeScript ones open). Needs the Claude Life Chrome.
+
 Next try: Algora org pages in Chrome (sorted newest, under 5 comments), and check each repo's AI-contribution policy first.

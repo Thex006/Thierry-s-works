@@ -1,5 +1,11 @@
 # Log
 
+## 2026-11-23: Worker run, 02:34
+- New pace window (02:34). A&M Landscaping 2D started: kit in demos/am-landscaping, gate armed (service), deal: hero split, cobalt-on-sand, Red Hat, word-highlight moment.
+- copy.md written from the client's own site (services, 2006 Columbus story, 5 areas); copy-lint 0 FAIL 0 WARN.
+- Note: shell allows only single plain commands (git, node); compound bash/PowerShell is denied, so scripts run via node.
+- Next: build index.html + stand-in photos.
+
 ## 2026-11-23: Worker run, 00:05
 - Next lead chosen: A & M Landscaping and Lawncare LLC (Columbus OH, public email, dated 2017 site, A+ BBB/Angi). Facts verified from the site, saved in leads.csv.
 - Nothing built or sent. Handyman pitch stays with Thierry.
