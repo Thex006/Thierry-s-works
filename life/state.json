@@ -102,6 +102,29 @@
               ],
     "review":  [
                    {
+                       "id":  "demo-am-landscaping-2d",
+                       "t":  "2026-11-23T03:08:00+01:00",
+                       "type":  "demo",
+                       "kind":  "demo",
+                       "title":  "Demo: A & M Landscaping and Lawncare, Columbus (2D)",
+                       "text":  "Next lead after Handyman: A & M Landscaping (family firm in Upper Arlington since 2006, A+ BBB, 2017 site, public email). 2D demo built from their own facts: services, hardscapes, the founders' story, service areas, quote form. Navy on warm sand, Red Hat type, stand-in photos from Wikimedia Commons (credits page linked in the footer). Checks: layout checker clean at 1280 and 375, design gate OPEN 4 (the areas section has no picture). Every required skill loaded and logged in demos/am-landscaping/SKILLS-USED.md. The 3D version is next; no pitch is drafted or sent yet.",
+                       "url":  "https://am-landscaping-kitebright.pages.dev",
+                       "skills":  [
+                                      "design-taste-frontend",
+                                      "landing-page-design",
+                                      "impeccable",
+                                      "typeui-minimal",
+                                      "redesign-existing-projects",
+                                      "imagegen-frontend-web",
+                                      "brandkit",
+                                      "playwright-cli (via kit headless scripts)",
+                                      "writing-guidelines",
+                                      "frontend-ui-engineering",
+                                      "graphify"
+                                  ],
+                       "status":  "pending"
+                   },
+                   {
                        "id":  "demo-handyman-columbus-2d",
                        "t":  "2026-11-22T12:06:46+01:00",
                        "type":  "demo",
@@ -310,7 +333,7 @@
                   },
                   {
                       "bet":  "Demo-first websites",
-                      "task":  "A\u0026M Landscaping 2D demo (demos/am-landscaping): 2D checks done: layout checker clean at 1280 + 375 (1 stress waiver), gate GATE: OPEN 4 after 3 rounds (areas type section has no picture and fills 48%, its gap to #quote, footer peeks 398px under #quote at 390), shots/1280.png + shots/375.png look clean. Next step: write demos/am-landscaping/SKILLS-USED.md (load each required skill with the Skill tool), then delete the 7 unused photo files (f184829231, f57359687, f89548310, f49076850, f24280891, f10088937, f192092512) and publish.",
+                      "task":  "A\u0026M Landscaping: 2D done, SKILLS-USED.md written, published at https://am-landscaping-kitebright.pages.dev, Review card added. Next step: 3D version in demos/am-landscaping-3d (start from the 2D page; full skills; SKILLS-USED.md), then publish 3D and draft the pitch to Review. 7 unused photos stay in assets/img (the worker can't delete files).",
                       "status":  "active"
                   },
                   {
@@ -368,8 +391,8 @@
                       "Active bets: websites, open-source bounties, templates"
                   ],
     "usage":  {
-                  "percent":  43,
-                  "weekPercent":  34,
+                  "percent":  55,
+                  "weekPercent":  35,
                   "resets":  "2026-11-23T07:30:00.0000000",
                   "windowHours":  5,
                   "windowStart":  "2026-11-23T02:30:00.0000000"
@@ -400,15 +423,15 @@
                                    },
                                    {
                                        "label":  "2D: skills applied (SKILLS-USED.md)",
-                                       "status":  "doing"
+                                       "status":  "done"
                                    },
                                    {
                                        "label":  "Publish 2D (am-landscaping-kitebright.pages.dev)",
-                                       "status":  "todo"
+                                       "status":  "done"
                                    },
                                    {
                                        "label":  "3D version",
-                                       "status":  "todo"
+                                       "status":  "doing"
                                    },
                                    {
                                        "label":  "Publish 3D",
@@ -422,15 +445,7 @@
                      "links":  [
                                    {
                                        "label":  "2D demo (public)",
-                                       "url":  "https://handyman-columbus-kitebright.pages.dev"
-                                   },
-                                   {
-                                       "label":  "3D demo (public)",
-                                       "url":  "https://handyman-columbus-3d-kitebright.pages.dev"
-                                   },
-                                   {
-                                       "label":  "3D inspiration note (on the PC only)",
-                                       "url":  "http://127.0.0.1:4747/demos/handyman-columbus-3d/INSPIRATION.md"
+                                       "url":  "https://am-landscaping-kitebright.pages.dev"
                                    }
                                ]
                  },
@@ -440,7 +455,7 @@
     "activity":  {
                      "type":  "build",
                      "bet":  "Demo-first websites",
-                     "label":  "Next lead chosen: A\u0026M Landscaping 2D checked (gate OPEN 4, screenshots clean); SKILLS-USED.md next",
-                     "since":  "2026-11-23T04:10:00+01:00"
+                     "label":  "Next lead chosen: A\u0026M Landscaping 2D published and in Review; 3D version next",
+                     "since":  "2026-11-23T03:08:00+01:00"
                  }
 }

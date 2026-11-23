@@ -1,5 +1,11 @@
 # Log
 
+## 2026-11-23: Worker run, 03:08
+- Loaded every required skill and wrote demos/am-landscaping/SKILLS-USED.md. Changes from them: no hyphens in copy, base-curve hovers, story split into short sentences, curly apostrophes. copy-lint 0 FAIL 0 WARN.
+- Published 2D: https://am-landscaping-kitebright.pages.dev (loads, demo note there). Review card added. Nothing sent.
+- 7 unused photos stay: file delete (and git rm) is denied to the worker.
+- Next: A&M 3D version (demos/am-landscaping-3d).
+
 ## 2026-11-23: Worker run, 04:10
 - A&M 2D checks: fixed hero height on phones (h1 now "Lawn and landscape care in Columbus"), services overflow at 720px, sparse hardscapes band, areas split lines, footer width bug (copied override), headings; added a flower-bed stand-in to #quote; close re-dealt to close-word (no big button).
 - Layout checker clean at 1280 + 375 (stress waiver); gate OPEN 4 after 3 rounds (areas has no picture, a gap, footer peek at 390). Shots 1280 + 375 look clean.
