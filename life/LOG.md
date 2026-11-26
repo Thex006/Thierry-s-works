@@ -1,5 +1,11 @@
 # Log
 
+## 2026-11-26: Thread run, 22:45
+- Thierry removed life/STOP. Wrote life/TEMPLATES.md (Gumroad first, spreadsheets before site templates).
+- Built products/job-tracker/Job-Tracker.xlsx (build.py); formulas checked with the formulas lib (LibreOffice missing). Review card added.
+- Thierry asked to email A&M: full-offer draft (2D link only) in Review as email-am-landscaping-1. Nothing sent.
+- Next: send A&M on his yes; price calculator spreadsheet. Needs operator: approve both Review items.
+
 ## 2026-11-23: Worker run, 04:20
 - Acted on Thierry's message: A&M stays 2D only (live, in Review); no 3D and no pitch draft until he decides. Closed both A&M inbox messages.
 - A&M moved to blocked; Digital templates now active (home-service template from the 2D demos). Bounties still need the Chrome profile.
